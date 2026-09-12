@@ -118,19 +118,39 @@ no silent filtering. Bounded to Season 4.
 
 ## Architecture
 
-Static site, daily scheduled build. No server, no database, no logins.
+**Next.js (App Router) + MUI**, deployed on Vercel's free tier. Data is produced
+by a daily GitHub Action and committed to the repo; the push triggers a Vercel
+redeploy, and Next.js API routes serve the committed JSON.
+
+No database and no runtime writes. The Action — not Vercel Cron — owns the
+refresh, because committing each run preserves **git snapshot history**, which
+is what makes a rolling-form board possible later at no cost. Vercel's Hobby
+tier caps cron at once per day regardless, so moving the schedule there would
+buy nothing.
 
 ```
-roster.json                  # source of truth: community members
-scripts/build.mjs            # resolve → fetch → extract → compute → write
-scripts/parse-intros.mjs     # one-off: Discord #introductions → roster.json
-.github/workflows/daily.yml  # cron, runs build, commits output
-data/season4.json            # generated board data (committed each run)
-data/unresolved.json         # members whose stats can't be read
-index.html                   # the board
-assets/                      # css + js
-tests/                       # unit tests + fixtures
+roster.json                     # source of truth: community members
+scripts/build.mjs               # resolve → fetch → extract → compute → write
+scripts/parse-intros.mjs        # one-off: Discord #introductions → roster.json
+lib/gametools.mjs               # API client: resolve, bulk fetch, retry
+lib/extract.mjs                 # catFields → GraniteGauntlet0 × Season slices
+lib/metrics.mjs                 # rate-stat math, denominator guards, jet %
+.github/workflows/daily.yml     # cron: runs build, commits output
+data/season1..4.json            # generated board data (committed each run)
+data/unresolved.json            # members whose stats can't be read
+data/meta.json                  # current season id, build timestamp
+app/page.tsx                    # the board
+app/not-listed/page.tsx         # "Why am I not listed?"
+app/api/leaderboard/route.ts    # ?season=4
+app/api/unresolved/route.ts
+app/api/meta/route.ts
+components/                     # MUI board, filters, badges
+tests/                          # unit tests + fixtures
 ```
+
+`lib/` is deliberately shared: the same extraction and metric code runs in the
+build script and is importable by API routes and tests. It must stay free of
+both Next.js and filesystem imports so it can be unit-tested in isolation.
 
 ### Daily build
 
@@ -149,21 +169,52 @@ tests/                       # unit tests + fixtures
    single raw payload contains every season, so archived boards cost nothing
    extra and are rebuilt each run. Also write `data/unresolved.json` and a
    `data/meta.json` recording the current season id and the build timestamp.
-7. Commit. Committing each run yields free snapshot history, which later
-   enables a rolling-form board with no redesign.
+7. Commit the changed files. The push triggers a Vercel redeploy. Committing
+   each run yields free snapshot history, which later enables a rolling-form
+   board with no redesign.
+
+The Action needs only `contents: write` permission — no secrets, no API keys,
+since gametools is unauthenticated. It must exit non-zero only on a genuine
+pipeline failure, never because individual members were unresolved.
+
+### API routes
+
+Thin readers over the committed JSON — no gametools calls at request time, so a
+page load can never hit the upstream API.
+
+| Route | Returns |
+|---|---|
+| `GET /api/leaderboard?season=<n>` | ranked rows for that season; defaults to current |
+| `GET /api/unresolved` | members whose stats can't be read |
+| `GET /api/meta` | current season id, build timestamp, season list |
+
+An unknown or unavailable `season` returns 404 with a JSON error body, not an
+empty board.
 
 ### Front end
 
-Static HTML/CSS/JS, no build step, no framework. Fetches the generated JSON and
-renders:
+Next.js App Router with MUI. MUI requires the Emotion cache provider setup for
+App Router SSR — configure this first, as retrofitting it causes hydration
+mismatches.
 
-- Season tabs (current season plus archived finished seasons)
-- Sortable columns, default Win % descending
-- Filters for region, platform, and main mode (from roster fields)
-- Provisional section for under-floor players
-- A "Why am I not listed?" page driven by `data/unresolved.json`
+- **Board** — MUI `DataGrid` for the ranked table. Chosen over a hand-rolled
+  table because it handles 300 rows, column sorting, and responsive behaviour
+  natively. Default sort Win % descending.
+- **Season tabs** — MUI `Tabs`, current season plus archived finished seasons,
+  driven by `/api/meta`.
+- **Filters** — MUI `Chip` filters for region, platform, and main mode, sourced
+  from roster fields.
+- **Jet badge** — a ✈ `Chip` on rows with jet % ≥ 10, percentage in a `Tooltip`.
+- **Provisional section** — a second `DataGrid` below the main board for
+  under-floor players, visually de-emphasised but not hidden.
+- **"Why am I not listed?"** — its own page driven by `/api/unresolved`.
 
-Must be readable on a phone — people will open this from Discord on mobile.
+Pages use static generation with revalidation; the data only changes once a day,
+so nothing needs to render per-request.
+
+**Mobile is a first-class target** — people will open this from Discord on a
+phone. The board must stay usable at ~400px: hide secondary columns at narrow
+widths rather than forcing a horizontal scroll of the whole page.
 
 ## Roster
 
@@ -235,8 +286,16 @@ propagate. This pre-empts the most common support question.
   matches.
 - **Roster parser** — tested against the real intro text, including the known
   malformed variants.
+- **API routes** — asserting shape, the `season` default, and that an unknown
+  season 404s rather than returning an empty board.
+- **Components** — React Testing Library on the board: default sort is Win %,
+  the jet badge appears only at ≥10%, and under-floor players render in the
+  Provisional section rather than the main board.
 - **`--dry-run`** on the build script so a full run can be verified without
   committing.
+
+Runner is **Vitest** for both `lib/` units and components. `lib/` carries no
+Next.js or filesystem imports, so it tests without any framework harness.
 
 ## Out of Scope
 
