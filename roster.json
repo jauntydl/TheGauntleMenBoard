@@ -1,0 +1,38 @@
+[
+  {
+    "eaId": "pkidarkpki",
+    "displayName": "Dark",
+    "platform": "pc",
+    "region": "US East",
+    "mainMode": "both",
+    "personaId": "849687045",
+    "nucleusId": "2250375376"
+  },
+  {
+    "eaId": "CHASEXRYAN",
+    "displayName": "Noxious",
+    "platform": "pc",
+    "region": "NA West",
+    "mainMode": "both",
+    "personaId": "1804120209",
+    "nucleusId": "1003924093498"
+  },
+  {
+    "eaId": "kathemkh9",
+    "displayName": "Kathem",
+    "platform": "ps",
+    "region": "NA West",
+    "mainMode": "both",
+    "personaId": "1847634115",
+    "nucleusId": "1004751459612"
+  },
+  {
+    "eaId": "IHerkyI",
+    "displayName": "herky",
+    "platform": "pc",
+    "region": "Central",
+    "mainMode": "gauntlet",
+    "personaId": "392998272",
+    "nucleusId": "2312058996"
+  }
+]
