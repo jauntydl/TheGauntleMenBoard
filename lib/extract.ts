@@ -46,3 +46,18 @@ export function extractSlices(raw: RawResponse): Map<string, StatSlice> {
 export function readPlayerIds(raw: RawResponse): RawPlayerIds | null {
   return raw.playerStats?.[0]?.player ?? null;
 }
+
+/**
+ * True when the raw payload carries any stat data at all — at least one
+ * category with a non-empty `catFields` array, for ANY GameMode, not just
+ * Gauntlet. A member who has gone private returns a `player` block (so
+ * `readPlayerIds` still succeeds) but a `categories` array whose entries
+ * have no `catFields` key at all. That's the only shape this returns false
+ * for; a member who plays only e.g. Conquest has real catFields and must
+ * still count as "responded" here — they simply have no Gauntlet slice,
+ * which is a separate, already-handled case (buildBoard just omits them).
+ */
+export function hasStatData(raw: RawResponse): boolean {
+  const categories = raw.playerStats?.[0]?.categories ?? [];
+  return categories.some((c) => (c.catFields?.length ?? 0) > 0);
+}

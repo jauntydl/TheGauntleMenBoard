@@ -91,7 +91,32 @@ describe('buildBoard', () => {
     expect(board.unresolved).toEqual([{ eaId: 'other', displayName: 'Other', reason: 'no_data' }]);
   });
 
-  it('omits members who resolved, got a response, but never played Gauntlet', () => {
+  it('marks a resolved member as no_data when their response has a player block but no catFields anywhere (gone private)', () => {
+    // The real shape a private member's response takes: a valid `player`
+    // block (so readPlayerIds succeeds and the naive "did a player block
+    // come back" check would wrongly call this "responded"), but every
+    // category has no `catFields` key at all — no stat data whatsoever.
+    const wentPrivate: RawResponse = {
+      playerStats: [
+        {
+          player: { nucleusId: dark.nucleusId!, personaId: dark.personaId!, platformId: 1 },
+          // Real payloads omit catFields entirely here; RawCategory's type
+          // says it's always present, but the live API disagrees — cast to
+          // model the actual wire shape rather than widen the type.
+          categories: [{ catName: 'glacier_mp' }] as RawResponse['playerStats'][0]['categories'],
+        },
+      ],
+    };
+    const board = buildBoard([dark], [wentPrivate], 'Season4');
+    expect(board.seasons.Season4 ?? []).toEqual([]);
+    expect(board.unresolved).toEqual([{ eaId: dark.eaId, displayName: dark.displayName, reason: 'no_data' }]);
+  });
+
+  it('omits members who resolved, got a response, but never played Gauntlet (catFields for another GameMode only)', () => {
+    // Companion to the previous test: real catFields, just none of them
+    // Gauntlet. This member absolutely must NOT be no_data — hasStatData
+    // must check any category, not just Gauntlet, or every non-Gauntlet
+    // player on the roster would be wrongly flagged as unreadable.
     const noGauntlet: RawResponse = {
       playerStats: [
         {

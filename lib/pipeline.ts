@@ -1,5 +1,5 @@
 import type { BoardFile, BoardRow, RawResponse, RosterEntry, UnresolvedEntry } from './types';
-import { extractSlices, readPlayerIds } from './extract';
+import { extractSlices, readPlayerIds, hasStatData } from './extract';
 import { computeMetrics } from './metrics';
 import { rankPlayers } from './ranking';
 import type { BulkPlayer } from './gametools';
@@ -64,12 +64,21 @@ export function buildBoard(
   // member with cached ids but no entry here has gone unreadable since they
   // last resolved (privacy turned back off) — see the unresolved computation
   // below.
+  //
+  // "Came back for" requires actual stat data (hasStatData), not merely a
+  // `player` block: a member who has gone private still returns a valid
+  // `player` id with `categories` present but every entry's `catFields`
+  // empty. readPlayerIds alone would succeed on that shape and wrongly count
+  // them as responded. hasStatData checks ANY category, not just Gauntlet,
+  // so a member who only plays e.g. Conquest still counts as responded —
+  // they just have no Gauntlet slice, a separate case buildBoard already
+  // handles by simply producing no row for them.
   const respondedPersonas = new Set<string>();
 
   for (const single of singles) {
     const ids = readPlayerIds(single);
     if (!ids) continue;
-    respondedPersonas.add(ids.personaId);
+    if (hasStatData(single)) respondedPersonas.add(ids.personaId);
 
     const member = byPersona.get(ids.personaId);
     if (!member) continue;
