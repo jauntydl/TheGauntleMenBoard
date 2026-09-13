@@ -159,8 +159,40 @@ export default defineConfig({
 
 - [ ] **Step 5: Create `vitest.setup.ts`**
 
+The polyfills below are **required**, not optional. MUI X DataGrid virtualises
+its rows: in jsdom it sees a zero-width, zero-height container, renders no rows
+at all, and every table test in Tasks 10 and 12 fails with "unable to find
+element". jsdom also has no `ResizeObserver`, which DataGrid constructs on
+mount. Do not remove these.
+
 ```ts
 import '@testing-library/jest-dom/vitest';
+
+// jsdom ships no ResizeObserver; MUI X DataGrid constructs one on mount.
+class ResizeObserverStub {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+globalThis.ResizeObserver ??= ResizeObserverStub as unknown as typeof ResizeObserver;
+
+// jsdom reports every element as 0x0, so DataGrid virtualises all rows away.
+// Give layout a non-zero viewport so rows actually render.
+Object.defineProperty(HTMLElement.prototype, 'offsetWidth', {
+  configurable: true,
+  value: 1024,
+});
+Object.defineProperty(HTMLElement.prototype, 'offsetHeight', {
+  configurable: true,
+  value: 768,
+});
+Object.defineProperty(HTMLElement.prototype, 'getBoundingClientRect', {
+  configurable: true,
+  value: () => ({
+    width: 1024, height: 768, top: 0, left: 0, bottom: 768, right: 1024,
+    x: 0, y: 0, toJSON: () => {},
+  }),
+});
 ```
 
 - [ ] **Step 6: Write the sanity test**
@@ -2538,19 +2570,19 @@ export function NotListed({ entries }: { entries: UnresolvedEntry[] }) {
         Why am I not listed?
       </Typography>
 
-      <Typography paragraph>
+      <Typography sx={{ mb: 2 }}>
         Battlefield 6 only shares your stats if you allow it. If your in-game privacy
         is not set to <strong>Everyone</strong>, nothing can read your Gauntlet stats —
         not this board, not any tracker.
       </Typography>
 
-      <Typography paragraph>
+      <Typography sx={{ mb: 2 }}>
         To fix it: open Battlefield 6 → Settings → Privacy, set your stats visibility
         to <strong>Everyone</strong>, then play a match. DICE can take a while to
         publish the change, so give it a day or two before worrying.
       </Typography>
 
-      <Typography paragraph>
+      <Typography sx={{ mb: 2 }}>
         Also double-check the EA ID you posted in <code>#introductions</code> matches
         your account exactly — it is case-sensitive, and capital <code>I</code> and
         lowercase <code>l</code> are easy to mix up.
