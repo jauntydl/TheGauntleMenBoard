@@ -90,6 +90,12 @@ describe('resolvePlayer', () => {
     const fetchImpl = vi.fn().mockResolvedValue(json({}, 500));
     await expect(resolvePlayer('down', { fetchImpl, retries: 2, sleep: noSleep })).rejects.toThrow(/500/);
   });
+
+  it('does not retry a 422', async () => {
+    const fetchImpl = vi.fn().mockResolvedValue(json({}, 422));
+    await expect(resolvePlayer('bad', { fetchImpl, sleep: noSleep })).rejects.toThrow(/422/);
+    expect(fetchImpl).toHaveBeenCalledTimes(1);
+  });
 });
 
 describe('fetchBulk', () => {

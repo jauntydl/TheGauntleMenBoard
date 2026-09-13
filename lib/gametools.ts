@@ -6,6 +6,10 @@ export const API_BASE = 'https://api.gametools.network';
 /** The API documents a hard maximum of 128 players per bulk call. */
 export const BATCH_SIZE = 128;
 
+/**
+ * `player_id` is the persona ID; `user_id` is the nucleus ID. They are different
+ * numbers and swapping them silently returns wrong or empty data.
+ */
 export type BulkPlayer = { player_id: string; user_id: string; platform: string };
 
 export type Deps = {
@@ -36,7 +40,14 @@ async function request(url: string, init: RequestInit, deps: Deps): Promise<Resp
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
       const res = await doFetch(url, init);
-      if (res.status === 404 || res.ok) return res;
+      if (res.ok) return res;
+      if (res.status === 404) return res;
+      // Non-retryable 4xx errors (400, 401, 403, 422, 429, …) fail immediately
+      if (res.status >= 400 && res.status < 500) {
+        lastError = new Error(`${init.method ?? 'GET'} ${url} failed: HTTP ${res.status}`);
+        break; // Exit loop without retrying
+      }
+      // 5xx errors are retryable
       lastError = new Error(`${init.method ?? 'GET'} ${url} failed: HTTP ${res.status}`);
     } catch (err) {
       lastError = err;
