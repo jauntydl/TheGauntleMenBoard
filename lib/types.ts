@@ -31,21 +31,11 @@ export type Metrics = {
   assists: number;
   revives: number;
   timeSec: number;
-  /**
-   * Objective plays: armed + defended + destroyed + disarmed. The API exposes
-   * no "objective score" — only total score, which does not attribute points
-   * to their source — so this counts the actions themselves.
-   */
-  objActions: number;
-  /** Intel pickups, a Gauntlet-specific objective. */
-  intelPickups: number;
   /** null when the denominator is zero; the UI renders these as an em dash. */
   winPct: number | null;
   kd: number | null;
   kpm: number | null;
   dpm: number | null;
-  objPerMatch: number | null;
-  intelPerMatch: number | null;
   jetPct: number;
 };
 

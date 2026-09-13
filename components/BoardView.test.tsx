@@ -7,8 +7,8 @@ import type { BoardFile, BoardRow } from '@/lib/types';
 const row = (over: Partial<BoardRow>): BoardRow => ({
   eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA West', mainMode: 'gauntlet',
   matches: 20, wins: 10, losses: 10, kills: 100, deaths: 50, damage: 1000,
-  assists: 0, revives: 0, timeSec: 3600, objActions: 4, intelPickups: 2,
-  winPct: 50, kd: 2, kpm: 1, dpm: 10, objPerMatch: 0.2, intelPerMatch: 0.1, jetPct: 0, rank: 1,
+  assists: 0, revives: 0, timeSec: 3600,
+  winPct: 50, kd: 2, kpm: 1, dpm: 10, jetPct: 0, rank: 1,
   ...over,
 });
 
