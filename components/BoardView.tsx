@@ -8,21 +8,14 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import { LeaderboardTable } from './LeaderboardTable';
-import { FilterChips, filterRows, EMPTY_FILTERS, type ActiveFilters } from './FilterChips';
 import { MIN_MATCHES } from '@/lib/ranking';
 import type { BoardFile } from '@/lib/types';
 
 export function BoardView({ board }: { board: BoardFile }) {
   const [season, setSeason] = React.useState(board.meta.currentSeason);
-  const [filters, setFilters] = React.useState<ActiveFilters>(EMPTY_FILTERS);
 
   const ranked = board.seasons[season] ?? [];
   const provisional = board.provisional[season] ?? [];
-
-  const visibleRanked = filterRows(ranked, filters);
-  const visibleProvisional = filterRows(provisional, filters);
-
-  const allRows = React.useMemo(() => ranked.concat(provisional), [ranked, provisional]);
 
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
@@ -36,14 +29,7 @@ export function BoardView({ board }: { board: BoardFile }) {
 
       <Tabs
         value={season}
-        onChange={(_e, v: string) => {
-          setSeason(v);
-          // Chip options are derived per season (FilterChips' distinct()), so a
-          // filter value absent from the new season would render no active chip
-          // while still filtering — an invisible filter that silently empties
-          // the board. Reset rather than carry it over.
-          setFilters(EMPTY_FILTERS);
-        }}
+        onChange={(_e, v: string) => setSeason(v)}
         variant="scrollable"
         scrollButtons="auto"
         sx={{ mb: 2 }}
@@ -57,11 +43,9 @@ export function BoardView({ board }: { board: BoardFile }) {
         ))}
       </Tabs>
 
-      <FilterChips rows={allRows} value={filters} onChange={setFilters} />
+      <LeaderboardTable rows={ranked} />
 
-      <LeaderboardTable rows={visibleRanked} />
-
-      {visibleProvisional.length > 0 && (
+      {provisional.length > 0 && (
         <Box sx={{ mt: 4 }}>
           <Typography variant="h6" component="h2">
             Provisional
@@ -69,7 +53,7 @@ export function BoardView({ board }: { board: BoardFile }) {
           <Typography variant="body2" sx={{ opacity: 0.7, mb: 1 }}>
             Fewer than {MIN_MATCHES} matches this season — not yet ranked.
           </Typography>
-          <LeaderboardTable rows={visibleProvisional} provisional />
+          <LeaderboardTable rows={provisional} provisional />
         </Box>
       )}
 

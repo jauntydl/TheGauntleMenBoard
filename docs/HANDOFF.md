@@ -2,7 +2,7 @@
 
 **Last updated:** 2026-09-13
 **Branch:** `feat/gauntlet-leaderboard` — 28 commits, **not merged**, no git remote configured
-**State:** 127 tests passing · `tsc --noEmit` clean · `npm run build` succeeds · final whole-branch review clean
+**State:** 118 tests passing · `tsc --noEmit` clean · `npm run build` succeeds · final whole-branch review clean
 
 Read this first, then `docs/superpowers/specs/2026-09-12-gauntlet-leaderboard-design.md` for the
 binding design. The spec carries the API facts; this file carries the *state* and
@@ -116,7 +116,7 @@ unofficial. Daily cadence only. Consider
 | Rank on **Win %**, not score | Rate stats over volume, so newer members can compete |
 | **10-match floor**, Provisional shown not hidden | Stops a 3-match fluke topping the board; hiding people hurts morale |
 | ✈ badge instead of excluding jet players | The two Gauntlet variants can't be separated; be honest rather than fabricate a split |
-| **Reset filters on season switch** | Chip options are per-season, so a stale filter renders no active chip yet still filters — an invisible filter silently emptying the board. Rejected the prune-stale-fields alternative: needs cross-component coupling or `onChange`-from-effect (render-loop footgun) |
+| **No filters at all** (2026-09-13) | Region / platform / main-mode chips were removed at the user's request — the board is Gauntlet-only, so slicing by community metadata added confusion rather than signal (three chip rows made it easy to accidentally hide most of the board). `region`, `platform` and `mainMode` are still parsed into `roster.json` and carried on each row, so re-adding a filter later is cheap. This retired an earlier decision about resetting filters on season switch |
 | `getRowId` = `eaId`, not a composite | `eaId` is the roster key; a duplicate should throw loudly, not be papered over |
 | GitHub Actions, not Vercel Cron | Committing each run gives free **git snapshot history**, which is what makes a rolling-form board possible later with no redesign. Vercel Hobby caps cron at daily anyway |
 | Retry only 5xx + transport errors | 422 is what this API returns for a malformed bulk body — masking it behind retries turns an instant diagnosable failure into a slow confusing one |
@@ -129,7 +129,7 @@ unofficial. Daily cadence only. Consider
 | Command | What it does |
 |---|---|
 | `npm run dev` | Run locally |
-| `npm test` | 127 tests |
+| `npm test` | 118 tests |
 | `npm run build` | Production build |
 | `npm run data` | Refresh `data/` from the API — **makes live network calls** |
 | `npm run data:dry` | Same, writes nothing |
