@@ -1,0 +1,64 @@
+// components/LeaderboardTable.test.tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { LeaderboardTable, fmtPct, fmtNum, fmtHours } from './LeaderboardTable';
+import type { BoardRow } from '@/lib/types';
+
+const row = (over: Partial<BoardRow>): BoardRow => ({
+  eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
+  matches: 20, wins: 10, losses: 10, kills: 100, deaths: 50, damage: 1000,
+  assists: 0, revives: 0, timeSec: 3600,
+  winPct: 50, kd: 2, kpm: 1, dpm: 10, jetPct: 0, rank: 1,
+  ...over,
+});
+
+describe('formatters', () => {
+  it('formats percentages to one decimal', () => {
+    expect(fmtPct(77.7777)).toBe('77.8%');
+  });
+  it('renders an em dash for null', () => {
+    expect(fmtPct(null)).toBe('—');
+    expect(fmtNum(null, 2)).toBe('—');
+  });
+  it('formats hours', () => {
+    expect(fmtHours(3600)).toBe('1.0h');
+  });
+});
+
+describe('LeaderboardTable', () => {
+  it('renders a row per player', () => {
+    render(<LeaderboardTable rows={[row({ displayName: 'Dark' }), row({ displayName: 'Noxious', rank: 2 })]} />);
+    expect(screen.getByText('Dark')).toBeInTheDocument();
+    expect(screen.getByText('Noxious')).toBeInTheDocument();
+  });
+
+  it('shows the jet badge at or above the threshold', () => {
+    render(<LeaderboardTable rows={[row({ displayName: 'Jetty', jetPct: 14.8 })]} />);
+    expect(screen.getByLabelText(/jet/i)).toBeInTheDocument();
+  });
+
+  it('hides the jet badge below the threshold', () => {
+    render(<LeaderboardTable rows={[row({ displayName: 'Grunt', jetPct: 9.9 })]} />);
+    expect(screen.queryByLabelText(/jet/i)).not.toBeInTheDocument();
+  });
+
+  it('renders an em dash for null rate stats', () => {
+    render(<LeaderboardTable rows={[row({ displayName: 'Empty', kd: null, kpm: null })]} />);
+    expect(screen.getAllByText('—').length).toBeGreaterThan(0);
+  });
+
+  it('shows a rank in ranked mode', () => {
+    render(<LeaderboardTable rows={[row({ rank: 3 })]} />);
+    expect(screen.getByText('3')).toBeInTheDocument();
+  });
+
+  it('shows an em dash for rank in provisional mode', () => {
+    render(<LeaderboardTable rows={[row({ rank: null })]} provisional />);
+    expect(screen.getAllByText('—').length).toBeGreaterThan(0);
+  });
+
+  it('renders an empty-state message with no rows', () => {
+    render(<LeaderboardTable rows={[]} />);
+    expect(screen.getByText(/no players/i)).toBeInTheDocument();
+  });
+});
