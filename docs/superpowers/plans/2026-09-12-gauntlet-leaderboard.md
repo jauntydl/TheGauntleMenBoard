@@ -1179,6 +1179,30 @@ describe('parseIntros', () => {
     ]);
   });
 
+  // herky's answer is "Gauntlet, low xp but decent at BR" — a stated main of
+  // Gauntlet with an aside about BR. Recording that as 'both' would misreport
+  // what they actually said, so a bare mention of the other mode must not
+  // upgrade to 'both'; only an explicit "both" or a joined pair does.
+  it('treats a joined Gauntlet/REDSEC pair as both', () => {
+    const r = parseIntros('EA ID: a\nMain mode: Gauntlet / REDSEC');
+    expect(r.entries[0].mainMode).toBe('both');
+  });
+
+  it('does not upgrade to both when the other mode is only an aside', () => {
+    const r = parseIntros('EA ID: a\nMain mode: Gauntlet, low xp but decent at BR');
+    expect(r.entries[0].mainMode).toBe('gauntlet');
+  });
+
+  it('matches br on a word boundary, not inside another word', () => {
+    const r = parseIntros('EA ID: a\nMain mode: Gauntlet, I am a brawler');
+    expect(r.entries[0].mainMode).toBe('gauntlet');
+  });
+
+  it('records redsec-only answers', () => {
+    const r = parseIntros('EA ID: a\nMain mode: REDSEC');
+    expect(r.entries[0].mainMode).toBe('redsec');
+  });
+
   it('preserves region text', () => {
     expect(parseIntros(sample).entries[1].region).toBe('US East');
   });
@@ -1229,13 +1253,28 @@ const field = (labelPattern: string, block: string): string | null => {
   return value ? value : null;
 };
 
+/**
+ * Normalise a free-text main-mode answer.
+ *
+ * An explicit "both", or a Gauntlet+REDSEC pair joined by / & or +, means both.
+ * Otherwise the named mode wins — so an aside like "Gauntlet, low xp but decent
+ * at BR" records Gauntlet, which is what the member actually said. `br` and
+ * `redsec` are matched on word boundaries so words like "brawler" do not
+ * false-positive.
+ */
 const normaliseMode = (raw: string | null): MainMode => {
   if (!raw) return 'unknown';
   const t = raw.toLowerCase();
+
+  if (/\bboth\b/.test(t)) return 'both';
+
   const hasGauntlet = t.includes('gauntlet');
-  const hasRedsec = t.includes('redsec') || t.includes('br');
-  if (t.includes('both')) return 'both';
-  if (hasGauntlet && hasRedsec) return 'both';
+  const hasRedsec = /\bredsec\b|\bbr\b/.test(t);
+
+  const joinedPair =
+    /gauntlet\s*[/&+]\s*redsec|redsec\s*[/&+]\s*gauntlet/.test(t);
+  if (hasGauntlet && hasRedsec && joinedPair) return 'both';
+
   if (hasGauntlet) return 'gauntlet';
   if (hasRedsec) return 'redsec';
   return 'unknown';
