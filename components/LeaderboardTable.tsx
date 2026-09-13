@@ -160,6 +160,22 @@ export function LeaderboardTable({
         renderCell: (p) => fmtNum(p.row.dpm, 0),
         getSortComparator: nullsLastComparator,
       },
+      {
+        field: 'objPerMatch',
+        headerName: 'Obj',
+        width: 80,
+        description: 'Objective plays per match: armed, defended, destroyed, disarmed',
+        renderCell: (p) => fmtNum(p.row.objPerMatch),
+        getSortComparator: nullsLastComparator,
+      },
+      {
+        field: 'intelPerMatch',
+        headerName: 'Intel',
+        width: 80,
+        description: 'Intel pickups per match',
+        renderCell: (p) => fmtNum(p.row.intelPerMatch),
+        getSortComparator: nullsLastComparator,
+      },
       { field: 'revives', headerName: 'Revives', width: 90 },
       { field: 'timeSec', headerName: 'Time', width: 90, renderCell: (p) => fmtHours(p.row.timeSec) },
     ],
@@ -171,7 +187,14 @@ export function LeaderboardTable({
   // sizes its virtual scroller from the columns array, so CSS-only hiding
   // leaves the column's track (and horizontal scroll space) behind.
   const columnVisibility = React.useMemo(
-    () => ({ kpm: !isNarrow, dpm: !isNarrow, revives: !isNarrow, timeSec: !isNarrow }),
+    () => ({
+      kpm: !isNarrow,
+      dpm: !isNarrow,
+      objPerMatch: !isNarrow,
+      intelPerMatch: !isNarrow,
+      revives: !isNarrow,
+      timeSec: !isNarrow,
+    }),
     [isNarrow],
   );
 

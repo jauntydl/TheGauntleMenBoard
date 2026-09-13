@@ -14,6 +14,11 @@ const darkSlice: StatSlice = {
   Assist_Total: 278,
   Revives_Teammates_Total: 140,
   tp_veh_air_jets: 8132,
+  obj_armed_gm_gntgauntlet: 14,
+  obj_defended_gm_gntgauntlet: 33,
+  obj_destroyed_gm_gntgauntlet: 8,
+  obj_disarmed_gm_gntgauntlet: 0,
+  intel_pickup_gm_gntgauntlet: 19,
 };
 
 // Real Season 4 Gauntlet data for EA ID "CHASEXRYAN" (no jet time)
@@ -102,6 +107,24 @@ describe('computeMetrics', () => {
       tp_veh_air_fa18f: 900,
     });
     expect(m.jetPct).toBeCloseTo(10, 6);
+  });
+
+  it('counts objective plays and rates them per match', () => {
+    const m = computeMetrics(darkSlice);
+    // 14 armed + 33 defended + 8 destroyed + 0 disarmed
+    expect(m.objActions).toBe(55);
+    expect(m.intelPickups).toBe(19);
+    expect(m.objPerMatch).toBeCloseTo(55 / 50, 6);
+    expect(m.intelPerMatch).toBeCloseTo(19 / 50, 6);
+  });
+
+  it('returns null objective rates when there are no matches', () => {
+    // The API exposes no objective score, only these actions; with no match
+    // count there is nothing to rate them against.
+    const m = computeMetrics({ obj_armed_gm_gntgauntlet: 5 });
+    expect(m.objActions).toBe(5);
+    expect(m.objPerMatch).toBeNull();
+    expect(m.intelPerMatch).toBeNull();
   });
 
   it('exposes the badge threshold', () => {

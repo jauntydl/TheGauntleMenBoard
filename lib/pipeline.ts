@@ -97,6 +97,8 @@ export function buildBoard(
         kd: roundRate(metrics.kd),
         kpm: roundRate(metrics.kpm),
         dpm: roundRate(metrics.dpm),
+        objPerMatch: roundRate(metrics.objPerMatch),
+        intelPerMatch: roundRate(metrics.intelPerMatch),
         jetPct: roundRate(metrics.jetPct) ?? 0,
         eaId: member.eaId,
         displayName: member.displayName,

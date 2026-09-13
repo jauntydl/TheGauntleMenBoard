@@ -25,6 +25,16 @@ export function computeMetrics(slice: StatSlice): Metrics {
   const revives = num(slice, 'Revives_Teammates_Total');
   const timeSec = num(slice, 'tp_gm_gntgauntlet');
 
+  // Objective plays. Counted per match rather than per minute: an objective is
+  // a discrete act with a fixed opportunity cost, and matches are the unit a
+  // Gauntlet squad is actually scored in.
+  const objActions =
+    num(slice, 'obj_armed_gm_gntgauntlet') +
+    num(slice, 'obj_defended_gm_gntgauntlet') +
+    num(slice, 'obj_destroyed_gm_gntgauntlet') +
+    num(slice, 'obj_disarmed_gm_gntgauntlet');
+  const intelPickups = num(slice, 'intel_pickup_gm_gntgauntlet');
+
   // Parent category only — it already contains fa18f / f14tomcat / su57.
   const jetSec = num(slice, 'tp_veh_air_jets');
 
@@ -51,10 +61,14 @@ export function computeMetrics(slice: StatSlice): Metrics {
     assists,
     revives,
     timeSec,
+    objActions,
+    intelPickups,
     winPct: matches > 0 ? (wins / matches) * 100 : null,
     kd,
     kpm: minutes > 0 ? kills / minutes : null,
     dpm: minutes > 0 ? damage / minutes : null,
+    objPerMatch: matches > 0 ? objActions / matches : null,
+    intelPerMatch: matches > 0 ? intelPickups / matches : null,
     jetPct: timeSec > 0 ? (jetSec / timeSec) * 100 : 0,
   };
 }
