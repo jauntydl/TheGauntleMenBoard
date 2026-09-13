@@ -1,7 +1,9 @@
 # The GauntleMen Board — Handoff
 
 **Last updated:** 2026-09-13
-**Branch:** `feat/gauntlet-leaderboard` — 28 commits, **not merged**, no git remote configured
+**Branch:** `main` — 35 commits, pushed to `github.com/jauntydl/TheGauntleMenBoard` (public)
+**Remote:** `origin` = `git@github.com-P:jauntydl/TheGauntleMenBoard.git` — uses the **personal**
+SSH identity (`~/.ssh/id_personal`) via the `github.com-P` host alias, not the default work key
 **State:** 118 tests passing · `tsc --noEmit` clean · `npm run build` succeeds · final whole-branch review clean
 
 Read this first, then `docs/superpowers/specs/2026-09-12-gauntlet-leaderboard-design.md` for the
@@ -38,10 +40,19 @@ It currently renders real members:
 
 ## Pick up here — next steps in priority order
 
-### 1. Decide how the branch lands
-Nothing is merged or pushed. Options: merge to `main` locally, or add a remote
-and open a PR. **Deployment was deliberately not done** — pushing and importing
-to Vercel are outward-facing and were left as your call.
+### 1. Deploy to Vercel
+The code is on GitHub; nothing is deployed yet. Import the repo at
+[vercel.com/new](https://vercel.com/new) and accept the detected Next.js
+defaults — no env vars, no secrets, nothing to configure.
+
+**Check this first:** GitHub → Settings → Actions → General → Workflow
+permissions must be **Read and write**. The daily job commits refreshed data
+back to the repo; if the token is read-only (the default on some accounts) the
+job runs, fetches, and fails at the commit step every day.
+
+The daily workflow is now live on a 09:00 UTC cron, so it will start hitting
+the API and committing on its own. `workflow_dispatch` lets you trigger one
+manually from the Actions tab to confirm the loop works end to end.
 
 ### 2. Seed the real roster
 `roster.json` holds **4 members** — a dev roster, not the community. The parser
