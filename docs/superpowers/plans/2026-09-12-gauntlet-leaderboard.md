@@ -1245,9 +1245,16 @@ Expected: FAIL — cannot resolve `./parse-intros`.
 ```ts
 import type { MainMode, RosterEntry } from './types';
 
-/** Match "Label ...anything...: value", tolerating the parenthesised variants. */
+/**
+ * Match "Label ...anything...: value", tolerating the parenthesised variants.
+ *
+ * The whitespace after the colon must be `[ \t]*`, NOT `\s*`: `\s` matches a
+ * newline, so on a field whose value is empty the capture would run on and
+ * swallow the whole next line. With the real channel text that made herky's
+ * "Main mode (...):" capture the following "Microphone (Yes / No): duhhh".
+ */
 const field = (labelPattern: string, block: string): string | null => {
-  const re = new RegExp(`^\\s*${labelPattern}[^:\\n]*:\\s*(.*)$`, 'im');
+  const re = new RegExp(`^\\s*${labelPattern}[^:\\n]*:[ \\t]*(.*)$`, 'im');
   const m = block.match(re);
   const value = m?.[1]?.trim();
   return value ? value : null;
