@@ -1261,6 +1261,14 @@ const field = (labelPattern: string, block: string): string | null => {
 };
 
 /**
+ * The template's own unanswered option list, e.g. "(Gauntlet / REDSEC / Both)".
+ * This is the question, not an answer — reading it would record every member
+ * who left the field blank as "both".
+ */
+const isTemplateOptions = (t: string): boolean =>
+  /gauntlet\s*\/\s*redsec\s*\/\s*both/i.test(t);
+
+/**
  * Normalise a free-text main-mode answer.
  *
  * An explicit "both", or a Gauntlet+REDSEC pair joined by / & or +, means both.
@@ -1309,13 +1317,25 @@ export function parseIntros(text: string): { entries: RosterEntry[]; failures: s
     // "Main Mode:" and "Main mode (Gauntlet / REDSEC / Both):" both appear.
     const modeRaw = field('Main\\s*Mode', block);
 
+    // With no answer after the colon, the label's own parenthetical may BE the
+    // answer ("(Gauntlet, low xp but decent at BR)") — or may just be the
+    // unanswered template option list, which must NOT be read as "both".
+    let mainMode: MainMode = 'unknown';
+    if (modeRaw) {
+      mainMode = normaliseMode(modeRaw);
+    } else {
+      const labelLine = block.match(/^\s*Main\s*Mode[^\n]*/im)?.[0] ?? null;
+      if (labelLine && !isTemplateOptions(labelLine)) {
+        mainMode = normaliseMode(labelLine);
+      }
+    }
+
     entries.push({
       eaId,
       displayName: field('Preferred\\s*name', block) ?? eaId,
       platform: (field('Platform', block) ?? '').toLowerCase() || 'unknown',
       region: field('Region', block) ?? 'unknown',
-      // The label itself can carry the answer, e.g. "(Gauntlet, low xp...)".
-      mainMode: normaliseMode(modeRaw ?? block.match(/^\s*Main\s*Mode[^\n]*/im)?.[0] ?? null),
+      mainMode,
     });
   }
 
