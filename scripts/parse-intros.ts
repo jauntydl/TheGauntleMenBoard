@@ -16,12 +16,12 @@ if (!input) {
   process.exit(1);
 }
 
-const { entries, failures } = parseIntros(readFileSync(input, 'utf8'));
-
 if (existsSync('roster.json')) {
   console.error('roster.json already exists — refusing to overwrite it.');
   process.exit(1);
 }
+
+const { entries, failures } = parseIntros(readFileSync(input, 'utf8'));
 
 writeFileSync('roster.json', JSON.stringify(entries, null, 2) + '\n');
 console.log(`Wrote roster.json with ${entries.length} members.`);

@@ -110,4 +110,16 @@ describe('parseIntros', () => {
   it('handles empty input', () => {
     expect(parseIntros('')).toEqual({ entries: [], failures: [] });
   });
+
+  it('treats blank template-option line as unknown, not both', () => {
+    const r = parseIntros('EA ID: blankuser\nMain mode (Gauntlet / REDSEC / Both):');
+    expect(r.entries[0].mainMode).toBe('unknown');
+    expect(r.failures).toHaveLength(0);
+  });
+
+  it('treats bare blank main mode field as unknown', () => {
+    const r = parseIntros('EA ID: another\nMain mode:');
+    expect(r.entries[0].mainMode).toBe('unknown');
+    expect(r.failures).toHaveLength(0);
+  });
 });
