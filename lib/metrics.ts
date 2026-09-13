@@ -14,15 +14,25 @@ const num = (slice: StatSlice, key: string): number => {
  * Every rate stat returns null rather than NaN/Infinity when its denominator
  * is zero, so the UI can render an em dash instead of nonsense.
  */
+/**
+ * Read the mode-suffixed counters, never the unsuffixed `*_Total` ones.
+ *
+ * Both appear inside a Gauntlet slice and they agree in recent seasons, which
+ * makes the unsuffixed names look safe. They are not: in Season 2 the same
+ * slice carries kills_gm_gntgauntlet = 71 alongside Kills_Total = 10550, and
+ * dmg_gm_gntgauntlet = 19921 alongside Dmg_Dealt_Total = 2648747. Using the
+ * unsuffixed fields put a K/D of 319 on the board for a player with 3 matches.
+ * Only the suffixed field names the mode, so only the suffixed field is safe.
+ */
 export function computeMetrics(slice: StatSlice): Metrics {
   const matches = num(slice, 'matches_gm_gntgauntlet');
   const wins = num(slice, 'wins_gm_gntgauntlet');
   const losses = num(slice, 'losses_gm_gntgauntlet');
-  const kills = num(slice, 'Kills_Total');
+  const kills = num(slice, 'kills_gm_gntgauntlet');
   const deaths = num(slice, 'deaths_gm_gntgauntlet');
-  const damage = num(slice, 'Dmg_Dealt_Total');
-  const assists = num(slice, 'Assist_Total');
-  const revives = num(slice, 'Revives_Teammates_Total');
+  const damage = num(slice, 'dmg_gm_gntgauntlet');
+  const assists = num(slice, 'assists_gm_gntgauntlet');
+  const revives = num(slice, 'revives_gm_gntgauntlet');
   const timeSec = num(slice, 'tp_gm_gntgauntlet');
 
   // Parent category only — it already contains fa18f / f14tomcat / su57.

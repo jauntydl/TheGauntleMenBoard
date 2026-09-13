@@ -9,10 +9,10 @@ const darkSlice: StatSlice = {
   losses_gm_gntgauntlet: 21,
   deaths_gm_gntgauntlet: 406,
   tp_gm_gntgauntlet: 54973,
-  Kills_Total: 1162,
-  Dmg_Dealt_Total: 385901,
-  Assist_Total: 278,
-  Revives_Teammates_Total: 140,
+  kills_gm_gntgauntlet: 1162,
+  dmg_gm_gntgauntlet: 385901,
+  assists_gm_gntgauntlet: 278,
+  revives_gm_gntgauntlet: 140,
   tp_veh_air_jets: 8132,
 };
 
@@ -23,10 +23,10 @@ const chaseSlice: StatSlice = {
   losses_gm_gntgauntlet: 10,
   deaths_gm_gntgauntlet: 375,
   tp_gm_gntgauntlet: 64573,
-  Kills_Total: 839,
-  Dmg_Dealt_Total: 155538,
-  Assist_Total: 449,
-  Revives_Teammates_Total: 115,
+  kills_gm_gntgauntlet: 839,
+  dmg_gm_gntgauntlet: 155538,
+  assists_gm_gntgauntlet: 449,
+  revives_gm_gntgauntlet: 115,
 };
 
 describe('computeMetrics', () => {
@@ -61,11 +61,11 @@ describe('computeMetrics', () => {
   });
 
   it('returns null winPct when there are no matches', () => {
-    expect(computeMetrics({ Kills_Total: 5 }).winPct).toBeNull();
+    expect(computeMetrics({ kills_gm_gntgauntlet: 5 }).winPct).toBeNull();
   });
 
   it('uses kills as K/D when deaths is zero', () => {
-    const m = computeMetrics({ Kills_Total: 7, deaths_gm_gntgauntlet: 0, matches_gm_gntgauntlet: 3 });
+    const m = computeMetrics({ kills_gm_gntgauntlet: 7, deaths_gm_gntgauntlet: 0, matches_gm_gntgauntlet: 3 });
     expect(m.kd).toBe(7);
   });
 
@@ -80,11 +80,11 @@ describe('computeMetrics', () => {
     // or time at all. Treating that kill count as a K/D would render an
     // absurd rate (e.g. "8299.00") instead of recognizing there's no
     // measurable play to attribute it to.
-    expect(computeMetrics({ Kills_Total: 8299 }).kd).toBeNull();
+    expect(computeMetrics({ kills_gm_gntgauntlet: 8299 }).kd).toBeNull();
   });
 
   it('returns null rate stats when time played is zero', () => {
-    const m = computeMetrics({ Kills_Total: 10, Dmg_Dealt_Total: 100, tp_gm_gntgauntlet: 0 });
+    const m = computeMetrics({ kills_gm_gntgauntlet: 10, dmg_gm_gntgauntlet: 100, tp_gm_gntgauntlet: 0 });
     expect(m.kpm).toBeNull();
     expect(m.dpm).toBeNull();
   });
@@ -102,6 +102,26 @@ describe('computeMetrics', () => {
       tp_veh_air_fa18f: 900,
     });
     expect(m.jetPct).toBeCloseTo(10, 6);
+  });
+
+  // Real Season 2 data for EA ID "Excited_Pianist": the slice carries BOTH
+  // the mode counter and a far larger unsuffixed rollup. Reading the rollup
+  // produced a K/D of 202.88 from 4 matches on the live board.
+  it('ignores the unsuffixed rollup when a mode counter is present', () => {
+    const m = computeMetrics({
+      matches_gm_gntgauntlet: 4,
+      wins_gm_gntgauntlet: 4,
+      deaths_gm_gntgauntlet: 52,
+      tp_gm_gntgauntlet: 6158,
+      kills_gm_gntgauntlet: 71,
+      dmg_gm_gntgauntlet: 19921,
+      Kills_Total: 10550,
+      Dmg_Dealt_Total: 2648747,
+    });
+    expect(m.kills).toBe(71);
+    expect(m.damage).toBe(19921);
+    expect(m.kd).toBeCloseTo(71 / 52, 6);
+    expect(m.kd).toBeLessThan(2);
   });
 
   it('exposes the badge threshold', () => {

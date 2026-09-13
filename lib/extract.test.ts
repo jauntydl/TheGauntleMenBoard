@@ -43,6 +43,23 @@ describe('extractSlices', () => {
     expect(s4.broken_field).toBeUndefined();
   });
 
+  it('drops the PLACEHOLDER sentinel, which is not a season', () => {
+    const raw = {
+      playerStats: [{
+        player: { nucleusId: '1', personaId: '2', platformId: 1 },
+        categories: [{ catName: 'glacier_mp', catFields: [
+          { name: 'kills_gm_gntgauntlet', value: 16, fields: [
+            { name: 'GameMode', value: 'GraniteGauntlet0' },
+            { name: 'Season', value: 'PLACEHOLDER' }] },
+          { name: 'kills_gm_gntgauntlet', value: 99, fields: [
+            { name: 'GameMode', value: 'GraniteGauntlet0' },
+            { name: 'Season', value: 'Season4' }] },
+        ]}],
+      }],
+    };
+    expect([...extractSlices(raw).keys()]).toEqual(['Season4']);
+  });
+
   it('returns an empty map for an empty payload', () => {
     expect(extractSlices({ playerStats: [] }).size).toBe(0);
   });

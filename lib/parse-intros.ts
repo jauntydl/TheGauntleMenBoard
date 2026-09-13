@@ -15,6 +15,46 @@ const isTemplateOptions = (t: string): boolean =>
   /gauntlet\s*\/\s*redsec\s*\/\s*both/i.test(t);
 
 /**
+ * Split a dump into one block per entry.
+ *
+ * A Discord export carries no blank line between posts — each post runs
+ * straight into the next person's header — so splitting on blank lines finds
+ * only the first entry. Every entry does begin with a "Preferred name" line,
+ * so split there, and fall back to blank lines for hand-formatted input.
+ */
+const splitBlocks = (text: string): string[] => {
+  const byLabel = text.split(/\n(?=[^\n]*Preferred\s*name)/i);
+  const blocks = byLabel.length > 1 ? byLabel : text.split(/\n\s*\n/);
+  return blocks
+    .map((b) => b.trim())
+    .filter(Boolean)
+    // Leading chrome (the channel header above the first post) carries neither
+    // marker. That is not a failed entry, so drop it rather than report it.
+    .filter((b) => /Preferred\s*name/i.test(b) || /EA\s*ID/i.test(b));
+};
+
+/**
+ * Take the EA ID out of a field people treat as free text.
+ *
+ * Real posts include "JonPM1     (steam 51974628, add me)". EA IDs carry no
+ * spaces, so the id is the first token before any bracket. Callers compare
+ * against the raw value to report anything that was trimmed, so nothing is
+ * silently mangled.
+ */
+export const cleanEaId = (raw: string): string =>
+  (raw.split(/[([]/)[0] ?? '').trim().split(/\s+/)[0] ?? '';
+
+/**
+ * Take the name people actually go by out of a free-text answer.
+ *
+ * Real posts offer alternatives and asides — "Excited Pianist, or Excited, or
+ * Pianist", "kricked (krikt)", "TwitchGirl / Kate". The board has one name
+ * column, so keep the first form offered and drop the rest.
+ */
+export const cleanDisplayName = (raw: string): string =>
+  (raw.split(/[,(/]/)[0] ?? '').trim();
+
+/**
  * Normalise a free-text main-mode answer.
  *
  * An explicit "both", or a Gauntlet+REDSEC pair joined by / & or +, means both.
@@ -51,10 +91,11 @@ export function parseIntros(text: string): { entries: RosterEntry[]; failures: s
   const entries: RosterEntry[] = [];
   const failures: string[] = [];
 
-  const blocks = text.split(/\n\s*\n/).map((b) => b.trim()).filter(Boolean);
+  const blocks = splitBlocks(text);
 
   for (const block of blocks) {
-    const eaId = field('EA\\s*ID', block);
+    const rawEaId = field('EA\\s*ID', block);
+    const eaId = rawEaId ? cleanEaId(rawEaId) : null;
     if (!eaId) {
       failures.push(block.replace(/\s+/g, ' ').slice(0, 120));
       continue;
@@ -77,7 +118,7 @@ export function parseIntros(text: string): { entries: RosterEntry[]; failures: s
 
     entries.push({
       eaId,
-      displayName: field('Preferred\\s*name', block) ?? eaId,
+      displayName: cleanDisplayName(field('Preferred\\s*name', block) ?? '') || eaId,
       platform: (field('Platform', block) ?? '').toLowerCase() || 'unknown',
       region: field('Region', block) ?? 'unknown',
       mainMode,

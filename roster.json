@@ -1,21 +1,116 @@
 [
   {
-    "eaId": "pkidarkpki",
-    "displayName": "Dark",
-    "platform": "pc",
-    "region": "US East",
-    "mainMode": "both",
-    "personaId": "849687045",
-    "nucleusId": "2250375376"
+    "eaId": "SPETZNAZ_HALO",
+    "displayName": "Conqueror",
+    "platform": "steam",
+    "region": "USA",
+    "mainMode": "gauntlet",
+    "personaId": "1005168992921",
+    "nucleusId": "1010503392921"
   },
   {
-    "eaId": "CHASEXRYAN",
-    "displayName": "Noxious",
-    "platform": "pc",
-    "region": "NA West",
+    "eaId": "esangol",
+    "displayName": "iTz Wartech",
+    "platform": "steam",
+    "region": "USA",
     "mainMode": "both",
-    "personaId": "1804120209",
-    "nucleusId": "1003924093498"
+    "personaId": "849359174",
+    "nucleusId": "2798144562"
+  },
+  {
+    "eaId": "Vanzz_GG",
+    "displayName": "vye",
+    "platform": "steam",
+    "region": "AMERICAAAAA",
+    "mainMode": "unknown"
+  },
+  {
+    "eaId": "Excited_Pianist",
+    "displayName": "Excited Pianist",
+    "platform": "xbox series x",
+    "region": "USA (West Coast)",
+    "mainMode": "gauntlet",
+    "personaId": "1649413940",
+    "nucleusId": "2281781231"
+  },
+  {
+    "eaId": "ZD4NIM4L",
+    "displayName": "D4NIM4L",
+    "platform": "steam pc",
+    "region": "East FL",
+    "mainMode": "gauntlet",
+    "personaId": "1822424886",
+    "nucleusId": "2372421924"
+  },
+  {
+    "eaId": "Heelix",
+    "displayName": "Heelix",
+    "platform": "steam / xbox",
+    "region": "America",
+    "mainMode": "gauntlet"
+  },
+  {
+    "eaId": "TheTwitchGirl",
+    "displayName": "TwitchGirl",
+    "platform": "steam",
+    "region": "USA",
+    "mainMode": "unknown",
+    "personaId": "1008053108594",
+    "nucleusId": "1016784308594"
+  },
+  {
+    "eaId": "Bourn3A",
+    "displayName": "Bourne",
+    "platform": "steam / pc",
+    "region": "NA East",
+    "mainMode": "gauntlet",
+    "personaId": "1031199418",
+    "nucleusId": "1000441939968"
+  },
+  {
+    "eaId": "kricked",
+    "displayName": "kricked",
+    "platform": "ps5: kricked_-",
+    "region": "west",
+    "mainMode": "gauntlet",
+    "personaId": "948226941",
+    "nucleusId": "2266847011"
+  },
+  {
+    "eaId": "Nickybzbz",
+    "displayName": "Nickybzbz",
+    "platform": "xbox",
+    "region": "Canada East",
+    "mainMode": "gauntlet",
+    "personaId": "1108512995",
+    "nucleusId": "1000663560266"
+  },
+  {
+    "eaId": "JonPM1",
+    "displayName": "Jon",
+    "platform": "pc",
+    "region": "NA-East",
+    "mainMode": "both",
+    "personaId": "303184906",
+    "nucleusId": "2302564474"
+  },
+  {
+    "eaId": "SidewalkEnf0rcer",
+    "displayName": "SidewalkEnf0rcer",
+    "platform": "pc",
+    "region": "NA East",
+    "mainMode": "gauntlet",
+    "personaId": "847584811",
+    "nucleusId": "2832289777"
+  },
+  {
+    "eaId": "Chance-luck",
+    "displayName": "Chance-wins",
+    "platform": "ps",
+    "region": "NA Weat",
+    "mainMode": "both",
+    "personaId": "1010362797225",
+    "nucleusId": "1022316597225"
   },
   {
     "eaId": "kathemkh9",
@@ -27,6 +122,15 @@
     "nucleusId": "1004751459612"
   },
   {
+    "eaId": "pkidarkpki",
+    "displayName": "Dark",
+    "platform": "pc",
+    "region": "US East",
+    "mainMode": "both",
+    "personaId": "849687045",
+    "nucleusId": "2250375376"
+  },
+  {
     "eaId": "IHerkyI",
     "displayName": "herky",
     "platform": "pc",
@@ -34,5 +138,14 @@
     "mainMode": "gauntlet",
     "personaId": "392998272",
     "nucleusId": "2312058996"
+  },
+  {
+    "eaId": "CHASEXRYAN",
+    "displayName": "Noxious",
+    "platform": "pc",
+    "region": "NA West",
+    "mainMode": "both",
+    "personaId": "1804120209",
+    "nucleusId": "1003924093498"
   }
 ]

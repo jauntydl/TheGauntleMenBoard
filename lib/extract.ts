@@ -29,7 +29,9 @@ export function extractSlices(raw: RawResponse): Map<string, StatSlice> {
         else if (d.name === 'Season') season = d.value;
       }
 
-      if (gameMode !== GAUNTLET_MODE || !season) continue;
+      // PLACEHOLDER is an API sentinel, not a season anyone played — it
+      // would otherwise surface as a season tab on the board.
+      if (gameMode !== GAUNTLET_MODE || !season || season === 'PLACEHOLDER') continue;
 
       let slice = out.get(season);
       if (!slice) {

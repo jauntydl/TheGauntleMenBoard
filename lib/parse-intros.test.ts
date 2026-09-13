@@ -107,6 +107,62 @@ describe('parseIntros', () => {
     expect(entry.nucleusId).toBeUndefined();
   });
 
+  // A real Discord export: no blank line between posts, each running straight
+  // into the next person's header line. Splitting on blank lines found only
+  // the first entry.
+  it('parses a Discord export with no blank lines between posts', () => {
+    const dump = `Conqueror [GNTS],  — 26. 8. 23. 오전 2:38
+Preferred name: Conqueror
+EA ID: SPETZNAZ_HALO
+Platform: STEAM
+Region: USA
+Main mode (Gauntlet / REDSEC / Both): Gauntlet
+Microphone (Yes / No): YES
+Wartech [RRTV],  — 26. 8. 25. 오전 10:57
+Preferred name: iTz Wartech
+EA ID: esangol
+Platform: STEAM
+Region: USA
+Main mode (Gauntlet / REDSEC / Both): Both
+Microphone (Yes / No): Yes`;
+    const r = parseIntros(dump);
+    expect(r.entries.map((e) => e.eaId)).toEqual(['SPETZNAZ_HALO', 'esangol']);
+    expect(r.entries.map((e) => e.displayName)).toEqual(['Conqueror', 'iTz Wartech']);
+    // The channel header above the first post is chrome, not a failed entry.
+    expect(r.failures).toEqual([]);
+  });
+
+  it('takes the EA ID out of a field people treat as free text', () => {
+    const r = parseIntros('Preferred name: Jon\nEA ID: JonPM1     (steam 51974628, add me)');
+    expect(r.entries[0].eaId).toBe('JonPM1');
+  });
+
+  it('keeps the first token when an EA ID has a stray space', () => {
+    const r = parseIntros('Preferred name: Heelix\nEA ID: Heelix 5');
+    expect(r.entries[0].eaId).toBe('Heelix');
+  });
+
+  it('still reports a post that has a name but no EA ID', () => {
+    const r = parseIntros('Preferred name: Ghost\nPlatform: PC');
+    expect(r.entries).toHaveLength(0);
+    expect(r.failures).toHaveLength(1);
+  });
+
+  it('takes the first name offered when a post lists alternatives', () => {
+    const r = parseIntros('Preferred name: Excited Pianist, or Excited, or Pianist\nEA ID: ep');
+    expect(r.entries[0].displayName).toBe('Excited Pianist');
+  });
+
+  it('drops a parenthetical pronunciation aside', () => {
+    const r = parseIntros('Preferred name: kricked (krikt)\nEA ID: kricked');
+    expect(r.entries[0].displayName).toBe('kricked');
+  });
+
+  it('takes the first of two slash-separated names', () => {
+    const r = parseIntros('Preferred name: TwitchGirl / Kate\nEA ID: TheTwitchGirl');
+    expect(r.entries[0].displayName).toBe('TwitchGirl');
+  });
+
   it('handles empty input', () => {
     expect(parseIntros('')).toEqual({ entries: [], failures: [] });
   });

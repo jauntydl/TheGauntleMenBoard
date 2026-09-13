@@ -1,0 +1,28 @@
+{
+  "season": "PLACEHOLDER",
+  "rows": [],
+  "provisional": [
+    {
+      "matches": 1,
+      "wins": 1,
+      "losses": 0,
+      "kills": 16,
+      "deaths": 13,
+      "damage": 2657,
+      "assists": 7,
+      "revives": 2,
+      "timeSec": 1469,
+      "winPct": 100,
+      "kd": 1.23,
+      "kpm": 0.65,
+      "dpm": 108.52,
+      "jetPct": 0,
+      "eaId": "kricked",
+      "displayName": "kricked",
+      "platform": "ps5: kricked_-",
+      "region": "west",
+      "mainMode": "gauntlet",
+      "rank": null
+    }
+  ]
+}

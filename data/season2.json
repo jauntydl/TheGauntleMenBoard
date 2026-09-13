@@ -1,0 +1,50 @@
+{
+  "season": "Season2",
+  "rows": [],
+  "provisional": [
+    {
+      "matches": 4,
+      "wins": 4,
+      "losses": 0,
+      "kills": 71,
+      "deaths": 52,
+      "damage": 19921,
+      "assists": 34,
+      "revives": 14,
+      "timeSec": 6158,
+      "winPct": 100,
+      "kd": 1.37,
+      "kpm": 0.69,
+      "dpm": 194.1,
+      "jetPct": 0,
+      "eaId": "Excited_Pianist",
+      "displayName": "Excited Pianist",
+      "platform": "xbox series x",
+      "region": "USA (West Coast)",
+      "mainMode": "gauntlet",
+      "rank": null
+    },
+    {
+      "matches": 3,
+      "wins": 3,
+      "losses": 0,
+      "kills": 74,
+      "deaths": 29,
+      "damage": 14262,
+      "assists": 35,
+      "revives": 7,
+      "timeSec": 4529,
+      "winPct": 100,
+      "kd": 2.55,
+      "kpm": 0.98,
+      "dpm": 188.94,
+      "jetPct": 0,
+      "eaId": "kricked",
+      "displayName": "kricked",
+      "platform": "ps5: kricked_-",
+      "region": "west",
+      "mainMode": "gauntlet",
+      "rank": null
+    }
+  ]
+}
