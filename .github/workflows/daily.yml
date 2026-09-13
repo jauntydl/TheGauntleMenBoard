@@ -1,0 +1,40 @@
+name: Daily stats refresh
+
+on:
+  schedule:
+    # 09:00 UTC daily. gametools caches upstream for 10 minutes, so exact
+    # timing does not matter — only that we call it once a day.
+    - cron: '0 9 * * *'
+  workflow_dispatch:
+
+permissions:
+  # Only needs to push the regenerated data. No API keys: gametools is
+  # unauthenticated, so this workflow has no secrets.
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Fetch Gauntlet stats
+        run: npm run data
+
+      - name: Commit if anything changed
+        run: |
+          git config user.name "gauntlet-tracker-bot"
+          git config user.email "actions@github.com"
+          git add data/ roster.json
+          if git diff --staged --quiet; then
+            echo "No changes today."
+            exit 0
+          fi
+          git commit -m "chore: daily stats refresh $(date -u +%Y-%m-%d)"
+          git push
