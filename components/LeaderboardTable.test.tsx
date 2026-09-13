@@ -48,7 +48,9 @@ describe('LeaderboardTable', () => {
 
   it('renders an em dash for null rate stats', () => {
     render(<LeaderboardTable rows={[row({ displayName: 'Empty', kd: null, kpm: null })]} />);
-    expect(screen.getAllByText('—').length).toBeGreaterThan(0);
+    // Exactly kd and kpm are null in this fixture — pin the count so a
+    // partial regression (only one of the two rendering a dash) is caught.
+    expect(screen.getAllByText('—')).toHaveLength(2);
   });
 
   it('shows a rank in ranked mode', () => {
@@ -58,7 +60,8 @@ describe('LeaderboardTable', () => {
 
   it('shows an em dash for rank in provisional mode', () => {
     render(<LeaderboardTable rows={[row({ rank: null })]} provisional />);
-    expect(screen.getAllByText('—').length).toBeGreaterThan(0);
+    // Only rank is null in this fixture — pin the count to exactly 1.
+    expect(screen.getAllByText('—')).toHaveLength(1);
   });
 
   it('renders an empty-state message with no rows', () => {
