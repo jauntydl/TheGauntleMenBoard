@@ -51,7 +51,12 @@ export type BoardRow = Metrics & {
 export type UnresolvedEntry = {
   eaId: string;
   displayName: string;
-  reason: 'not_found';
+  /**
+   * 'not_found' — never resolved (no cached ids; privacy off, or a bad EA ID).
+   * 'no_data' — was resolved before, but no response came back this run for
+   * that persona (most often privacy was turned back off after resolving).
+   */
+  reason: 'not_found' | 'no_data';
 };
 
 export type BoardFile = {

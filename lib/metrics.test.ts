@@ -65,12 +65,22 @@ describe('computeMetrics', () => {
   });
 
   it('uses kills as K/D when deaths is zero', () => {
-    const m = computeMetrics({ Kills_Total: 7, deaths_gm_gntgauntlet: 0 });
+    const m = computeMetrics({ Kills_Total: 7, deaths_gm_gntgauntlet: 0, matches_gm_gntgauntlet: 3 });
     expect(m.kd).toBe(7);
   });
 
   it('returns null K/D when there are no kills and no deaths', () => {
     expect(computeMetrics({ matches_gm_gntgauntlet: 3 }).kd).toBeNull();
+  });
+
+  it('returns null K/D for a slice with kills but no match data at all', () => {
+    // Real shape of a pre-per-mode-counter season slice (see buildBoard):
+    // DICE added the _gm_gntgauntlet counters after Season 1, so an old
+    // season carries a lifetime-scoped Kills_Total with no matches, deaths,
+    // or time at all. Treating that kill count as a K/D would render an
+    // absurd rate (e.g. "8299.00") instead of recognizing there's no
+    // measurable play to attribute it to.
+    expect(computeMetrics({ Kills_Total: 8299 }).kd).toBeNull();
   });
 
   it('returns null rate stats when time played is zero', () => {

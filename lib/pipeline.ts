@@ -18,6 +18,25 @@ export function toBulkPlayer(entry: RosterEntry): BulkPlayer | null {
   return { player_id: entry.personaId, user_id: entry.nucleusId, platform: entry.platform };
 }
 
+/** Rate stats are rounded to this many decimal places when the board is built. */
+const RATE_PRECISION = 2;
+
+/** Round a nullable rate stat for the committed board; nulls pass through untouched. */
+const roundRate = (v: number | null): number | null =>
+  v === null ? null : Math.round(v * 10 ** RATE_PRECISION) / 10 ** RATE_PRECISION;
+
+/**
+ * Sort season keys the way a human expects: numerically by the trailing
+ * number (Season2 before Season10), falling back to a plain string compare
+ * for anything that doesn't end in digits.
+ */
+function compareSeasonKeys(a: string, b: string): number {
+  const an = /^(.*?)(\d+)$/.exec(a);
+  const bn = /^(.*?)(\d+)$/.exec(b);
+  if (an && bn && an[1] === bn[1]) return Number(an[2]) - Number(bn[2]);
+  return a.localeCompare(b);
+}
+
 /**
  * Assemble the board from a roster and the raw responses fetched for it.
  *
@@ -40,14 +59,36 @@ export function buildBoard(
     for (const ps of res.playerStats ?? []) singles.push({ playerStats: [ps] });
   }
 
+  // Tracks every persona a response actually came back for, regardless of
+  // whether it matched a roster member or had any Gauntlet slice. A roster
+  // member with cached ids but no entry here has gone unreadable since they
+  // last resolved (privacy turned back off) — see the unresolved computation
+  // below.
+  const respondedPersonas = new Set<string>();
+
   for (const single of singles) {
     const ids = readPlayerIds(single);
-    const member = ids ? byPersona.get(ids.personaId) : undefined;
+    if (!ids) continue;
+    respondedPersonas.add(ids.personaId);
+
+    const member = byPersona.get(ids.personaId);
     if (!member) continue;
 
     for (const [season, slice] of extractSlices(single)) {
+      const metrics = computeMetrics(slice);
+
+      // Seasons before DICE added the per-mode counters carry kills but no
+      // matches/deaths/time, so no rate stat is computable. A member with no
+      // measurable play in a season simply doesn't appear for it.
+      if (metrics.matches === 0 && metrics.timeSec === 0) continue;
+
       const row: BoardRow = {
-        ...computeMetrics(slice),
+        ...metrics,
+        winPct: roundRate(metrics.winPct),
+        kd: roundRate(metrics.kd),
+        kpm: roundRate(metrics.kpm),
+        dpm: roundRate(metrics.dpm),
+        jetPct: roundRate(metrics.jetPct) ?? 0,
         eaId: member.eaId,
         displayName: member.displayName,
         platform: member.platform,
@@ -61,9 +102,19 @@ export function buildBoard(
     }
   }
 
+  // Build season keys in one natural-sorted order up front — the current
+  // season must always be present, even with no data, so the board renders
+  // an empty state rather than 404ing on the day a new season starts. Object
+  // key insertion order then follows this sort, not Map iteration order
+  // (bulk-API response order, which is documented-unstable), so JSON.stringify
+  // output — which build.ts's change-detection depends on — is identical
+  // regardless of the order responses came back in.
+  const seasonNames = [...new Set([...rowsBySeason.keys(), currentSeason])].sort(compareSeasonKeys);
+
   const seasons: Record<string, BoardRow[]> = {};
   const provisional: Record<string, BoardRow[]> = {};
-  for (const [season, rows] of rowsBySeason) {
+  for (const season of seasonNames) {
+    const rows = rowsBySeason.get(season) ?? [];
     // rankPlayers' sort is stable but not fully ordered (ties fall through to
     // insertion order), and insertion order here is bulk-API response order,
     // which is documented-unstable. Sort by eaId first so tied rows land in
@@ -74,17 +125,15 @@ export function buildBoard(
     provisional[season] = split.provisional;
   }
 
-  // The current season must always be a valid key, so the board renders an
-  // empty state rather than 404ing on the day a new season starts.
-  seasons[currentSeason] ??= [];
-  provisional[currentSeason] ??= [];
-
-  const unresolved: UnresolvedEntry[] = roster
-    .filter((r) => !r.personaId || !r.nucleusId)
-    .map((r) => ({ eaId: r.eaId, displayName: r.displayName, reason: 'not_found' as const }));
-
-  // seasons[currentSeason] is seeded above, so this is never empty.
-  const seasonNames = Object.keys(seasons).sort();
+  const unresolved: UnresolvedEntry[] = roster.flatMap((r): UnresolvedEntry[] => {
+    if (!r.personaId || !r.nucleusId) {
+      return [{ eaId: r.eaId, displayName: r.displayName, reason: 'not_found' }];
+    }
+    if (!respondedPersonas.has(r.personaId)) {
+      return [{ eaId: r.eaId, displayName: r.displayName, reason: 'no_data' }];
+    }
+    return [];
+  });
 
   return {
     meta: {

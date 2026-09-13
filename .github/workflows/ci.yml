@@ -16,5 +16,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
-      - run: npx tsc --noEmit
       - run: npm run build
+      # next build generates .next/types/**, which route handlers' typed
+      # params reference — running tsc before build would leave those
+      # route types unchecked.
+      - run: npx tsc --noEmit

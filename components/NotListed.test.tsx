@@ -30,4 +30,19 @@ describe('NotListed', () => {
     render(<NotListed entries={[]} />);
     expect(screen.getByText(/everyone on the roster/i)).toBeInTheDocument();
   });
+
+  it('explains no_data members separately from not_found members', () => {
+    render(
+      <NotListed
+        entries={[
+          { eaId: 'kathemkh9', displayName: 'Kathem', reason: 'not_found' },
+          { eaId: 'ghost', displayName: 'Ghost', reason: 'no_data' },
+        ]}
+      />,
+    );
+    expect(screen.getByText(/currently unreadable/i)).toBeInTheDocument();
+    expect(screen.getByText(/went private/i)).toBeInTheDocument();
+    expect(screen.getByText('Kathem')).toBeInTheDocument();
+    expect(screen.getByText('Ghost')).toBeInTheDocument();
+  });
 });

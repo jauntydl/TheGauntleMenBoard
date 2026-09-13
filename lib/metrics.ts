@@ -30,8 +30,14 @@ export function computeMetrics(slice: StatSlice): Metrics {
 
   const minutes = timeSec / 60;
 
+  // Kills-as-K/D covers "played matches, died zero times" — a real, if rare,
+  // outcome. It is not a substitute for missing match data: some season
+  // slices (see buildBoard) carry a lifetime/legacy Kills_Total with no
+  // matches/deaths/time at all, and treating that as a K/D would render an
+  // absurd rate stat (thousands of "kills per death"). Require matches > 0.
   let kd: number | null;
-  if (deaths > 0) kd = kills / deaths;
+  if (matches === 0) kd = null;
+  else if (deaths > 0) kd = kills / deaths;
   else if (kills > 0) kd = kills;
   else kd = null;
 

@@ -15,9 +15,37 @@ import type { BoardFile, RosterEntry } from '../lib/types';
 
 const dryRun = process.argv.includes('--dry-run');
 
+/**
+ * Fail fast on a malformed roster rather than silently misbehaving:
+ * a duplicate personaId would drop one of the members from the bulk
+ * response's match-back (byPersona is keyed by personaId) and misattribute
+ * the survivor's stats, and a duplicate eaId throws inside DataGrid, which
+ * uses eaId as its row id.
+ */
+function validateRoster(roster: RosterEntry[]): void {
+  const dupes = (values: string[]): string[] => {
+    const seen = new Set<string>();
+    const dup = new Set<string>();
+    for (const v of values) (seen.has(v) ? dup : seen).add(v);
+    return [...dup];
+  };
+
+  const dupEaIds = dupes(roster.map((m) => m.eaId));
+  const dupPersonaIds = dupes(roster.filter((m) => m.personaId).map((m) => m.personaId!));
+
+  const problems: string[] = [];
+  if (dupEaIds.length > 0) problems.push(`duplicate eaId(s): ${dupEaIds.join(', ')}`);
+  if (dupPersonaIds.length > 0) problems.push(`duplicate personaId(s): ${dupPersonaIds.join(', ')}`);
+
+  if (problems.length > 0) {
+    throw new Error(`roster.json is invalid — ${problems.join('; ')}`);
+  }
+}
+
 async function main() {
   const roster: RosterEntry[] = JSON.parse(readFileSync('roster.json', 'utf8'));
   console.log(`Roster: ${roster.length} members`);
+  validateRoster(roster);
 
   const currentSeason = await fetchCurrentSeason();
   console.log(`Current season: ${currentSeason}`);
@@ -86,6 +114,7 @@ async function main() {
     );
   }
   writeFileSync('data/unresolved.json', JSON.stringify(board.unresolved, null, 2) + '\n');
+  writeFileSync('data/meta.json', JSON.stringify(board.meta, null, 2) + '\n');
 
   console.log('Wrote data/board.json and per-season files');
 }

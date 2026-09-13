@@ -69,6 +69,33 @@ describe('LeaderboardTable', () => {
     expect(screen.getByText(/no players/i)).toBeInTheDocument();
   });
 
+  it('renders the default sort order — Win % descending — regardless of input order', () => {
+    // Deliberately out of Win %  order: low, high, mid.
+    render(
+      <LeaderboardTable
+        rows={[
+          row({ eaId: 'low', displayName: 'Low', winPct: 20 }),
+          row({ eaId: 'high', displayName: 'High', winPct: 90 }),
+          row({ eaId: 'mid', displayName: 'Mid', winPct: 55 }),
+        ]}
+      />,
+    );
+    const names = screen.getAllByText(/^(Low|High|Mid)$/).map((el) => el.textContent);
+    expect(names).toEqual(['High', 'Mid', 'Low']);
+  });
+
+  it('shows the footer once rows exceed the page-size threshold', () => {
+    const rows = Array.from({ length: 101 }, (_, i) => row({ eaId: `p${i}`, displayName: `P${i}` }));
+    const { container } = render(<LeaderboardTable rows={rows} />);
+    expect(container.querySelector('.MuiDataGrid-footerContainer')).not.toBeNull();
+  });
+
+  it('hides the footer at or below the page-size threshold', () => {
+    const rows = Array.from({ length: 100 }, (_, i) => row({ eaId: `p${i}`, displayName: `P${i}` }));
+    const { container } = render(<LeaderboardTable rows={rows} />);
+    expect(container.querySelector('.MuiDataGrid-footerContainer')).toBeNull();
+  });
+
   it('hides secondary columns at phone width', () => {
     const original = window.matchMedia;
     // Narrow viewport: report a match for the component's own breakpoint query.

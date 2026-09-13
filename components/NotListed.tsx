@@ -8,6 +8,9 @@ import Box from '@mui/material/Box';
 import type { UnresolvedEntry } from '@/lib/types';
 
 export function NotListed({ entries }: { entries: UnresolvedEntry[] }) {
+  const notFound = entries.filter((e) => e.reason === 'not_found');
+  const wentPrivate = entries.filter((e) => e.reason === 'no_data');
+
   return (
     <Container maxWidth="sm" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
       <Typography variant="h4" component="h1" gutterBottom>
@@ -37,18 +40,41 @@ export function NotListed({ entries }: { entries: UnresolvedEntry[] }) {
           Everyone on the roster is currently resolving. Nothing to fix.
         </Typography>
       ) : (
-        <Box sx={{ mt: 3 }}>
-          <Typography variant="h6" component="h2">
-            Currently unreadable ({entries.length})
-          </Typography>
-          <List dense>
-            {entries.map((e) => (
-              <ListItem key={e.eaId} disableGutters>
-                <ListItemText primary={e.displayName} secondary={`EA ID: ${e.eaId}`} />
-              </ListItem>
-            ))}
-          </List>
-        </Box>
+        <>
+          {notFound.length > 0 && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="h6" component="h2">
+                Currently unreadable ({notFound.length})
+              </Typography>
+              <List dense>
+                {notFound.map((e) => (
+                  <ListItem key={e.eaId} disableGutters>
+                    <ListItemText primary={e.displayName} secondary={`EA ID: ${e.eaId}`} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
+
+          {wentPrivate.length > 0 && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="h6" component="h2">
+                Went private ({wentPrivate.length})
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.7, mb: 1 }}>
+                These members were readable before and aren&apos;t anymore — most
+                often this means privacy was switched off again after resolving.
+              </Typography>
+              <List dense>
+                {wentPrivate.map((e) => (
+                  <ListItem key={e.eaId} disableGutters>
+                    <ListItemText primary={e.displayName} secondary={`EA ID: ${e.eaId}`} />
+                  </ListItem>
+                ))}
+              </List>
+            </Box>
+          )}
+        </>
       )}
 
       <Box sx={{ mt: 4 }}>

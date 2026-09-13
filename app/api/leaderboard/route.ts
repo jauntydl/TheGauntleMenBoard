@@ -5,7 +5,7 @@ export function GET(req: Request): Response {
   const result = getSeason(season);
 
   if (!result) {
-    return Response.json({ error: `Unknown season: ${season}` }, { status: 404 });
+    return Response.json({ error: 'Unknown season' }, { status: 404 });
   }
   return Response.json(result);
 }

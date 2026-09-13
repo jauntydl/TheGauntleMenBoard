@@ -19,11 +19,20 @@ export function getUnresolved() {
   return getBoard().unresolved;
 }
 
+/**
+ * The spec documents `?season=<n>` (e.g. `?season=4`), but board keys are
+ * `SeasonN`. Normalise a purely numeric value; anything else (including an
+ * already-correct `SeasonN`, or garbage that will 404) passes through as-is.
+ */
+function normalizeSeasonKey(season: string): string {
+  return /^\d+$/.test(season) ? `Season${season}` : season;
+}
+
 export function getSeason(
   season?: string,
 ): { season: string; ranked: BoardRow[]; provisional: BoardRow[] } | null {
   const board = getBoard();
-  const key = season ?? board.meta.currentSeason;
+  const key = season === undefined ? board.meta.currentSeason : normalizeSeasonKey(season);
   const ranked = board.seasons[key];
   if (!ranked) return null;
   return { season: key, ranked, provisional: board.provisional[key] ?? [] };

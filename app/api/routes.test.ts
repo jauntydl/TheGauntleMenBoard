@@ -20,6 +20,14 @@ describe('GET /api/leaderboard', () => {
     expect((await res.json()).season).toBe(current);
   });
 
+  it('accepts the numeric form the spec documents (?season=4)', async () => {
+    const current = getMeta().currentSeason;
+    const numeric = current.replace(/^Season/, '');
+    const res = await leaderboard(new Request(`http://x/api/leaderboard?season=${numeric}`));
+    expect(res.status).toBe(200);
+    expect((await res.json()).season).toBe(current);
+  });
+
   it('404s an unknown season instead of returning an empty board', async () => {
     const res = await leaderboard(new Request('http://x/api/leaderboard?season=Season99'));
     expect(res.status).toBe(404);

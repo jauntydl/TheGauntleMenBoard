@@ -43,11 +43,14 @@ describe('buildBoard', () => {
     expect(row.eaId).toBe('pkidarkpki');
   });
 
-  it('computes metrics for the season row', () => {
+  it('computes metrics for the season row, rounded to 2 decimal places', () => {
+    // computeMetrics itself keeps full precision (see metrics.test.ts) —
+    // buildBoard rounds rate stats for the committed board, to shrink the
+    // payload. Full precision here would be 14.792716424426535.
     const row = buildBoard([dark], [rawSample], 'Season4').seasons.Season4[0];
     expect(row.matches).toBe(50);
-    expect(row.winPct).toBeCloseTo(58.0, 4);
-    expect(row.jetPct).toBeCloseTo(14.7927164244, 6);
+    expect(row.winPct).toBe(58);
+    expect(row.jetPct).toBe(14.79);
   });
 
   it('puts under-floor players in provisional', () => {
@@ -75,9 +78,36 @@ describe('buildBoard', () => {
     ]);
   });
 
-  it('omits members who resolved but never played Gauntlet', () => {
-    const other: RosterEntry = { ...dark, eaId: 'other', personaId: '1', nucleusId: '2' };
+  it('marks a resolved member as no_data when no response comes back for their persona', () => {
+    // Simulates a member who resolved previously (ids are cached) but has
+    // since turned their in-game stats privacy back off: the bulk response
+    // simply has no entry for their persona at all. That's different from
+    // never having resolved, and different from having a response with no
+    // Gauntlet slice (see the next test) — the page needs to tell these
+    // apart so "why am I not listed?" gets the right answer.
+    const other: RosterEntry = { ...dark, eaId: 'other', displayName: 'Other', personaId: '1', nucleusId: '2' };
     const board = buildBoard([other], [rawSample], 'Season4');
+    expect(board.seasons.Season4 ?? []).toEqual([]);
+    expect(board.unresolved).toEqual([{ eaId: 'other', displayName: 'Other', reason: 'no_data' }]);
+  });
+
+  it('omits members who resolved, got a response, but never played Gauntlet', () => {
+    const noGauntlet: RawResponse = {
+      playerStats: [
+        {
+          player: { nucleusId: dark.nucleusId!, personaId: dark.personaId!, platformId: 1 },
+          categories: [
+            {
+              catName: 'glacier_mp',
+              catFields: [
+                { name: 'Kills_Total', value: 999, fields: dim('Conquest0', 'Season4') },
+              ],
+            },
+          ],
+        },
+      ],
+    };
+    const board = buildBoard([dark], [noGauntlet], 'Season4');
     expect(board.seasons.Season4 ?? []).toEqual([]);
     expect(board.unresolved).toEqual([]);
   });
@@ -137,7 +167,15 @@ describe('buildBoard', () => {
     expect(bravoRow?.matches).toBe(20);
   });
 
-  it('produces an identical board regardless of bulk response order, even when rows tie', () => {
+  it('produces byte-identical JSON regardless of bulk response order, across multiple seasons', () => {
+    // build.ts's change-detection (scripts/build.ts) compares JSON.stringify
+    // output directly, which is key-order sensitive. Season key insertion
+    // order used to follow rowsBySeason Map iteration order, which in turn
+    // follows the order players appear in the bulk response — documented as
+    // unstable. A single-season fixture can't exercise this: with only one
+    // season, the top-level key order can't differ no matter what. So: zed
+    // has Season4 data only, amy has Season2 data only — which player is
+    // processed first changes which season key gets inserted first.
     const zed: RosterEntry = {
       eaId: 'zed', displayName: 'Zed', platform: 'pc', region: 'X',
       mainMode: 'both', personaId: '901', nucleusId: '902',
@@ -147,24 +185,81 @@ describe('buildBoard', () => {
       mainMode: 'both', personaId: '903', nucleusId: '904',
     };
 
-    // Both players have identical (all-zero) Season4 stats, so they tie
-    // under every rankPlayers comparator key. Only insertion order could
-    // break the tie, and insertion order here comes from the bulk response.
-    const tieStats = (nucleusId: string, personaId: string) => ({
-      player: { nucleusId, personaId, platformId: 1 },
+    const zedEntry = {
+      player: { nucleusId: '902', personaId: '901', platformId: 1 },
       categories: [{
         catName: 'glacier_mp',
-        catFields: [{ name: 'matches_gm_gntgauntlet', value: 0, fields: dim('GraniteGauntlet0', 'Season4') }],
+        catFields: [
+          { name: 'matches_gm_gntgauntlet', value: 20, fields: dim('GraniteGauntlet0', 'Season4') },
+          { name: 'tp_gm_gntgauntlet', value: 6000, fields: dim('GraniteGauntlet0', 'Season4') },
+        ],
       }],
-    });
-
-    const zedEntry = tieStats('902', '901');
-    const amyEntry = tieStats('904', '903');
+    };
+    const amyEntry = {
+      player: { nucleusId: '904', personaId: '903', platformId: 1 },
+      categories: [{
+        catName: 'glacier_mp',
+        catFields: [
+          { name: 'matches_gm_gntgauntlet', value: 20, fields: dim('GraniteGauntlet0', 'Season2') },
+          { name: 'tp_gm_gntgauntlet', value: 6000, fields: dim('GraniteGauntlet0', 'Season2') },
+        ],
+      }],
+    };
 
     const at = new Date('2026-09-12T00:00:00.000Z');
     const boardZedFirst = buildBoard([zed, amy], [{ playerStats: [zedEntry, amyEntry] }], 'Season4', at);
     const boardAmyFirst = buildBoard([zed, amy], [{ playerStats: [amyEntry, zedEntry] }], 'Season4', at);
 
-    expect(boardZedFirst).toEqual(boardAmyFirst);
+    // The exact property build.ts's change-detection depends on.
+    expect(JSON.stringify(boardZedFirst)).toBe(JSON.stringify(boardAmyFirst));
+    // Pin the actual order too, so a regression to plain (unsorted) insertion
+    // order — which happens to agree between these two runs only because
+    // both start from the same roster array — can't slip through unnoticed.
+    expect(Object.keys(boardZedFirst.seasons)).toEqual(['Season2', 'Season4']);
+  });
+
+  it('orders season keys naturally, not lexicographically (Season2 before Season10)', () => {
+    const multiSeason: RawResponse = {
+      playerStats: [
+        {
+          player: { nucleusId: dark.nucleusId!, personaId: dark.personaId!, platformId: 1 },
+          categories: [{
+            catName: 'glacier_mp',
+            catFields: [
+              { name: 'matches_gm_gntgauntlet', value: 15, fields: dim('GraniteGauntlet0', 'Season10') },
+              { name: 'matches_gm_gntgauntlet', value: 15, fields: dim('GraniteGauntlet0', 'Season2') },
+            ],
+          }],
+        },
+      ],
+    };
+    const board = buildBoard([dark], [multiSeason], 'Season10');
+    expect(Object.keys(board.seasons)).toEqual(['Season2', 'Season10']);
+    expect(board.meta.seasons).toEqual(['Season2', 'Season10']);
+  });
+
+  it('excludes a season slice with kills but no measurable play (pre-per-mode-counter seasons)', () => {
+    // Real shape of a Season 1/2 Gauntlet slice: DICE added the
+    // _gm_gntgauntlet counters after Season 1, so kills/damage/assists carry
+    // over from a lifetime-scoped field but matches/deaths/time do not
+    // exist for that season at all. No rate stat is computable, so the
+    // member simply doesn't appear for that season — the season key itself
+    // isn't created if nobody has measurable play in it.
+    const noPlaySeason: RawResponse = {
+      playerStats: [
+        {
+          player: { nucleusId: dark.nucleusId!, personaId: dark.personaId!, platformId: 1 },
+          categories: [{
+            catName: 'glacier_mp',
+            catFields: [
+              { name: 'Kills_Total', value: 8299, fields: dim('GraniteGauntlet0', 'Season1') },
+            ],
+          }],
+        },
+      ],
+    };
+    const board = buildBoard([dark], [noPlaySeason], 'Season4');
+    expect(board.seasons.Season1).toBeUndefined();
+    expect(board.provisional.Season1).toBeUndefined();
   });
 });

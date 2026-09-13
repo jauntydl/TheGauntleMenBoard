@@ -14,6 +14,12 @@ describe('data accessors', () => {
     expect(getSeason('Season99')).toBeNull();
   });
 
+  it('normalises a purely numeric season to SeasonN, as the spec documents', () => {
+    const current = getMeta().currentSeason;
+    const numeric = current.replace(/^Season/, '');
+    expect(getSeason(numeric)!.season).toBe(current);
+  });
+
   it('exposes meta', () => {
     const meta = getMeta();
     expect(Array.isArray(meta.seasons)).toBe(true);

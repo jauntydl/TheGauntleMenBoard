@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { DataGrid, type GridColDef } from '@mui/x-data-grid';
+import { DataGrid, type GridColDef, type GridComparatorFn, type GridSortDirection } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
@@ -19,6 +19,24 @@ const FOOTER_ROW_THRESHOLD = 100;
 export const fmtPct = (v: number | null): string => (v === null ? DASH : `${v.toFixed(1)}%`);
 export const fmtNum = (v: number | null, digits = 2): string => (v === null ? DASH : v.toFixed(digits));
 export const fmtHours = (sec: number): string => `${(sec / 3600).toFixed(1)}h`;
+
+/**
+ * lib/ranking.ts documents "nulls sort last regardless of direction" for the
+ * server-side standings comparator. DataGrid's own default numeric comparator
+ * doesn't know that rule — its default puts nulls first on an ascending sort
+ * — so a user sorting a nullable column (K/D, KPM, DPM, Win %, Rank)
+ * ascending would see em dashes on top. getSortComparator hands us the
+ * direction and takes full control (unlike sortComparator, whose result the
+ * grid still negates for desc), so we can enforce "nulls last" both ways.
+ */
+const nullsLastComparator =
+  (sortDirection: GridSortDirection): GridComparatorFn<number | null> =>
+  (v1, v2) => {
+    if (v1 === null && v2 === null) return 0;
+    if (v1 === null) return 1;
+    if (v2 === null) return -1;
+    return sortDirection === 'desc' ? v2 - v1 : v1 - v2;
+  };
 
 export function LeaderboardTable({
   rows,
@@ -42,6 +60,7 @@ export function LeaderboardTable({
         headerName: '#',
         width: 64,
         renderCell: (p) => (p.row.rank === null ? DASH : p.row.rank),
+        getSortComparator: nullsLastComparator,
       },
       {
         field: 'displayName',
@@ -66,10 +85,34 @@ export function LeaderboardTable({
         width: 90,
         valueGetter: (_v, r) => `${r.wins}–${r.losses}`,
       },
-      { field: 'winPct', headerName: 'Win %', width: 90, renderCell: (p) => fmtPct(p.row.winPct) },
-      { field: 'kd', headerName: 'K/D', width: 80, renderCell: (p) => fmtNum(p.row.kd) },
-      { field: 'kpm', headerName: 'KPM', width: 80, renderCell: (p) => fmtNum(p.row.kpm) },
-      { field: 'dpm', headerName: 'DPM', width: 90, renderCell: (p) => fmtNum(p.row.dpm, 0) },
+      {
+        field: 'winPct',
+        headerName: 'Win %',
+        width: 90,
+        renderCell: (p) => fmtPct(p.row.winPct),
+        getSortComparator: nullsLastComparator,
+      },
+      {
+        field: 'kd',
+        headerName: 'K/D',
+        width: 80,
+        renderCell: (p) => fmtNum(p.row.kd),
+        getSortComparator: nullsLastComparator,
+      },
+      {
+        field: 'kpm',
+        headerName: 'KPM',
+        width: 80,
+        renderCell: (p) => fmtNum(p.row.kpm),
+        getSortComparator: nullsLastComparator,
+      },
+      {
+        field: 'dpm',
+        headerName: 'DPM',
+        width: 90,
+        renderCell: (p) => fmtNum(p.row.dpm, 0),
+        getSortComparator: nullsLastComparator,
+      },
       { field: 'revives', headerName: 'Revives', width: 90 },
       { field: 'timeSec', headerName: 'Time', width: 90, renderCell: (p) => fmtHours(p.row.timeSec) },
     ],
@@ -102,8 +145,14 @@ export function LeaderboardTable({
       density="compact"
       hideFooter={rows.length <= FOOTER_ROW_THRESHOLD}
       columnVisibilityModel={columnVisibility}
-      // Win % descending is the agreed default ordering.
-      initialState={{ sorting: { sortModel: [{ field: 'winPct', sort: 'desc' }] } }}
+      // Win % descending is the agreed default ordering. The page size is
+      // pinned to FOOTER_ROW_THRESHOLD explicitly — hideFooter above assumes
+      // a single page holds every row up to that threshold, and DataGrid's
+      // own default page size is not guaranteed to stay 100 forever.
+      initialState={{
+        sorting: { sortModel: [{ field: 'winPct', sort: 'desc' }] },
+        pagination: { paginationModel: { pageSize: FOOTER_ROW_THRESHOLD } },
+      }}
       sx={{
         opacity: provisional ? 0.75 : 1,
         border: 0,
