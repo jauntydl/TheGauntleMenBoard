@@ -80,6 +80,27 @@ Within a `GraniteGauntlet0 × SeasonN` slice, mode-scoped fields use a
 812 + 6841 + 479 = 8132). Summing parent and children double-counts — use the
 parent only.
 
+**`Kills_Total` and the other unsuffixed `*_Total` fields are genuinely
+mode-scoped**, not season-wide. Verified against a live payload: within one
+player's Season 4, `Kills_Total` differs per `GameMode` — Breakthrough0 1452,
+Conquest0 228, GraniteGauntlet0 1162, GraniteSquad0 422, MP_Operations0 565,
+and so on across 13 modes. Season-wide fields would be identical. K/D, KPM and
+DPM are therefore sound. This was challenged during review and empirically
+settled; do not re-derive it from the field names alone.
+
+**The per-mode counters did not exist before Season 3.** A Season 1 or Season 2
+Gauntlet slice carries hundreds of fields — `Kills_Total`, `Dmg_Dealt_Total`,
+`score_total` — but **zero** fields ending in `_gm_gntgauntlet`. Verified across
+two independent players: Season 1 and 2 have no `matches_gm_gntgauntlet` and no
+`tp_gm_gntgauntlet`; Seasons 3 and 4 have both. DICE added these counters
+mid-life.
+
+Consequence: for those early seasons **no rate stat is computable** — there is
+no match count, death count, or time played to divide by. A slice with
+`matches === 0 && timeSec === 0` therefore represents no measurable play and is
+omitted from the board entirely. Without this rule the board published rows
+reading "8,299 kills in 0 matches" and a K/D of 8299.00.
+
 ## Ranking Model
 
 Rate stats, so newer members can compete with grinders.
@@ -184,7 +205,7 @@ page load can never hit the upstream API.
 
 | Route | Returns |
 |---|---|
-| `GET /api/leaderboard?season=<n>` | ranked rows for that season; defaults to current |
+| `GET /api/leaderboard?season=<n>` | ranked rows for that season; defaults to current. Accepts either the bare number (`4`) or the full key (`Season4`) — a purely numeric value is normalised to `Season<n>`. |
 | `GET /api/unresolved` | members whose stats can't be read |
 | `GET /api/meta` | current season id, build timestamp, season list |
 
@@ -261,6 +282,26 @@ This is expected, not an error. Unresolved members are written to
 `data/unresolved.json` and surfaced on a "Why am I not listed?" page explaining
 the fix: set in-game stats privacy to **Everyone**, then allow time for DICE to
 propagate. This pre-empts the most common support question.
+
+**Two distinct reasons, because they need different wording:**
+
+- `not_found` — never resolved at all; no cached ids. Privacy was off from the
+  start, or the EA ID is wrong.
+- `no_data` — resolved before, but this run returned nothing readable. Most
+  often the member turned privacy off after being added.
+
+Detecting `no_data` needs care. A member who has gone private still returns a
+**valid `player` block** from the bulk endpoint, with `categories` present but
+**no `catFields` key at all**. Treating "a player block came back" as proof of a
+response therefore misses the case entirely and the member silently vanishes —
+the exact failure this page exists to prevent. The test is "responded **and**
+produced at least one stat field", checking **any** category: a member who plays
+only Conquest has real `catFields` and no Gauntlet slice, and must be quietly
+omitted rather than reported unreadable.
+
+Rates observed during development are a point-in-time property, not a fixed
+fraction of the roster: members who 404 one day resolve the next once DICE
+indexes them.
 
 ## Error Handling
 
