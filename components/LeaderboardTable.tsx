@@ -58,8 +58,36 @@ export function LeaderboardTable({
       {
         field: 'rank',
         headerName: '#',
-        width: 64,
-        renderCell: (p) => (p.row.rank === null ? DASH : p.row.rank),
+        width: 68,
+        // The one place this board raises its voice. Gauntlet is an
+        // elimination mode, so position is the story — the numeral is lit
+        // like a panel readout, brightest at the top and falling away.
+        renderCell: (p) =>
+          p.row.rank === null ? (
+            <Box component="span" sx={{ color: 'text.secondary' }}>
+              {DASH}
+            </Box>
+          ) : (
+            <Box
+              component="span"
+              className="tnum"
+              sx={{
+                fontFamily: 'var(--font-display), sans-serif',
+                fontWeight: 700,
+                fontSize: p.row.rank === 1 ? '1.5rem' : p.row.rank <= 3 ? '1.2rem' : '1rem',
+                lineHeight: 1,
+                color: p.row.rank <= 3 ? 'primary.main' : 'text.primary',
+                textShadow:
+                  p.row.rank === 1
+                    ? '0 0 18px rgba(255,176,32,0.75)'
+                    : p.row.rank <= 3
+                      ? '0 0 10px rgba(255,176,32,0.35)'
+                      : 'none',
+              }}
+            >
+              {p.row.rank}
+            </Box>
+          ),
         getSortComparator: nullsLastComparator,
       },
       {
@@ -69,10 +97,29 @@ export function LeaderboardTable({
         minWidth: 140,
         renderCell: (p) => (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-            <span>{p.row.displayName}</span>
+            <Box
+              component="span"
+              sx={{ fontWeight: 500, letterSpacing: '0.01em', color: 'text.primary' }}
+            >
+              {p.row.displayName}
+            </Box>
             {p.row.jetPct >= JET_BADGE_THRESHOLD && (
               <Tooltip title={`${p.row.jetPct.toFixed(1)}% of Gauntlet time flown in jets`}>
-                <Chip label="✈" size="small" aria-label="jet-heavy player" />
+                {/* Ice, not amber: sky reads as aviation, and it keeps the
+                    amber channel meaning "rank" and nothing else. */}
+                <Chip
+                  label="✈"
+                  size="small"
+                  aria-label="jet-heavy player"
+                  variant="outlined"
+                  sx={{
+                    height: 20,
+                    borderColor: 'rgba(125,226,255,0.45)',
+                    color: 'secondary.main',
+                    bgcolor: 'rgba(125,226,255,0.08)',
+                    '& .MuiChip-label': { px: 0.75, fontSize: '0.7rem' },
+                  }}
+                />
               </Tooltip>
             )}
           </Box>
@@ -154,8 +201,36 @@ export function LeaderboardTable({
         pagination: { paginationModel: { pageSize: FOOTER_ROW_THRESHOLD } },
       }}
       sx={{
-        opacity: provisional ? 0.75 : 1,
-        border: 0,
+        opacity: provisional ? 0.68 : 1,
+        border: '1px solid',
+        borderColor: 'divider',
+        borderRadius: 0,
+        bgcolor: 'rgba(12,17,24,0.55)',
+        backdropFilter: 'blur(2px)',
+        // Numbers are compared down a column, so they must not shift width.
+        '& .MuiDataGrid-cell': {
+          fontVariantNumeric: 'tabular-nums',
+          borderColor: 'rgba(27,38,52,0.7)',
+        },
+        '& .MuiDataGrid-columnHeaders': {
+          bgcolor: 'rgba(6,8,13,0.9)',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+        },
+        '& .MuiDataGrid-columnHeaderTitle': {
+          fontFamily: 'var(--font-display), sans-serif',
+          fontWeight: 600,
+          letterSpacing: '0.06em',
+          color: 'text.secondary',
+        },
+        // A scanning highlight rather than a card hover: the row lights up
+        // along its leading edge, like a selected line on an instrument panel.
+        '& .MuiDataGrid-row:hover': {
+          bgcolor: 'rgba(255,176,32,0.06)',
+          boxShadow: 'inset 3px 0 0 rgba(255,176,32,0.9)',
+        },
+        '& .MuiDataGrid-footerContainer': { borderColor: 'divider' },
+        '& .MuiDataGrid-columnSeparator': { color: 'rgba(27,38,52,0.9)' },
       }}
     />
   );

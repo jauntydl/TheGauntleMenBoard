@@ -19,13 +19,43 @@ export function BoardView({ board }: { board: BoardFile }) {
 
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        The GauntleMen Board
-      </Typography>
-      <Typography variant="body2" sx={{ opacity: 0.7, mb: 2 }}>
-        Battlefield 6 Gauntlet standings · updated{' '}
-        {new Date(board.meta.builtAt).toLocaleDateString()}
-      </Typography>
+      <Box
+        component="header"
+        sx={{
+          mb: 3,
+          pb: 2.5,
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <Typography
+          variant="h4"
+          component="h1"
+          sx={{
+            fontSize: { xs: '1.9rem', sm: '2.6rem' },
+            lineHeight: 1.05,
+            color: 'text.primary',
+            textShadow: '0 0 28px rgba(255,176,32,0.28)',
+          }}
+        >
+          The GauntleMen Board
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+          Battlefield 6 Gauntlet. Eight squads start, one is left standing.
+        </Typography>
+        <Typography
+          variant="caption"
+          className="tnum"
+          sx={{ color: 'text.secondary', opacity: 0.75, display: 'block', mt: 0.5 }}
+        >
+          Standings updated{' '}
+          {new Date(board.meta.builtAt).toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+          })}
+        </Typography>
+      </Box>
 
       <Tabs
         value={season}
@@ -58,7 +88,7 @@ export function BoardView({ board }: { board: BoardFile }) {
       )}
 
       <Box sx={{ mt: 4 }}>
-        <Link href="/not-listed">Not listed? Here&apos;s why →</Link>
+        <Link href="/not-listed">Not listed? Here&apos;s why</Link>
       </Box>
     </Container>
   );
