@@ -38,7 +38,7 @@ export function BoardView({ board }: { board: BoardFile }) {
             textShadow: '0 0 28px rgba(255,176,32,0.28)',
           }}
         >
-          The GauntleMen Board
+          GauntleMen League
         </Typography>
         <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
           Battlefield 6 Gauntlet. Eight squads start, one is left standing.

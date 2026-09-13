@@ -1,4 +1,4 @@
-# The GauntleMen Board — Handoff
+# GauntleMen League — Handoff
 
 **Last updated:** 2026-09-13
 **Branch:** `main` — 35 commits, pushed to `github.com/jauntydl/TheGauntleMenBoard` (public)
