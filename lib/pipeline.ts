@@ -4,10 +4,18 @@ import { computeMetrics } from './metrics';
 import { rankPlayers } from './ranking';
 import type { BulkPlayer } from './gametools';
 
-/** Build a bulk-API entry from a resolved roster member. */
+/**
+ * Build a bulk-API entry from a resolved roster member.
+ *
+ * The upstream API currently ignores this field (verified live: the same
+ * player returns identical data tagged 'pc', 'ps', 'xbox', 'steam', or
+ * even 'unknown'), but we still send the member's real platform rather than
+ * a hardcoded one, so a future tightening on their end doesn't silently
+ * start returning wrong or empty data for non-pc members.
+ */
 export function toBulkPlayer(entry: RosterEntry): BulkPlayer | null {
   if (!entry.personaId || !entry.nucleusId) return null;
-  return { player_id: entry.personaId, user_id: entry.nucleusId, platform: 'pc' };
+  return { player_id: entry.personaId, user_id: entry.nucleusId, platform: entry.platform };
 }
 
 /**
@@ -56,7 +64,12 @@ export function buildBoard(
   const seasons: Record<string, BoardRow[]> = {};
   const provisional: Record<string, BoardRow[]> = {};
   for (const [season, rows] of rowsBySeason) {
-    const split = rankPlayers(rows);
+    // rankPlayers' sort is stable but not fully ordered (ties fall through to
+    // insertion order), and insertion order here is bulk-API response order,
+    // which is documented-unstable. Sort by eaId first so tied rows land in
+    // the same place on every run, keeping the daily build idempotent.
+    const sorted = [...rows].sort((a, b) => a.eaId.localeCompare(b.eaId));
+    const split = rankPlayers(sorted);
     seasons[season] = split.ranked;
     provisional[season] = split.provisional;
   }
@@ -70,12 +83,13 @@ export function buildBoard(
     .filter((r) => !r.personaId || !r.nucleusId)
     .map((r) => ({ eaId: r.eaId, displayName: r.displayName, reason: 'not_found' as const }));
 
+  // seasons[currentSeason] is seeded above, so this is never empty.
   const seasonNames = Object.keys(seasons).sort();
 
   return {
     meta: {
       currentSeason,
-      seasons: seasonNames.length ? seasonNames : [currentSeason],
+      seasons: seasonNames,
       builtAt: now.toISOString(),
     },
     seasons,

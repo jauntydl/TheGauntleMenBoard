@@ -2,17 +2,25 @@
 import { describe, it, expect } from 'vitest';
 import { buildBoard, toBulkPlayer } from './pipeline';
 import { rawSample } from './fixtures/raw-sample';
-import type { RosterEntry } from './types';
+import type { RawResponse, RosterEntry } from './types';
 
 const dark: RosterEntry = {
   eaId: 'pkidarkpki', displayName: 'Dark', platform: 'pc', region: 'US East',
   mainMode: 'both', personaId: '849687045', nucleusId: '2250375376',
 };
 
+const dim = (gameMode: string, season: string) => [
+  { name: 'GameMode', value: gameMode },
+  { name: 'Season', value: season },
+];
+
 describe('toBulkPlayer', () => {
-  it('maps personaId to player_id and nucleusId to user_id', () => {
-    expect(toBulkPlayer(dark)).toEqual({
-      player_id: '849687045', user_id: '2250375376', platform: 'pc',
+  it('forwards the roster member\'s own platform, not a hardcoded one', () => {
+    // Fixture platform is deliberately not 'pc' so this fails if the
+    // implementation ever goes back to hardcoding 'pc'.
+    const psMember: RosterEntry = { ...dark, platform: 'ps' };
+    expect(toBulkPlayer(psMember)).toEqual({
+      player_id: '849687045', user_id: '2250375376', platform: 'ps',
     });
   });
 
@@ -84,5 +92,79 @@ describe('buildBoard', () => {
   it('omits builtAt drift by accepting an injected clock', () => {
     const at = new Date('2026-09-12T00:00:00.000Z');
     expect(buildBoard([], [], 'Season4', at).meta.builtAt).toBe('2026-09-12T00:00:00.000Z');
+  });
+
+  it('matches a multi-player bulk response back to roster members by personaId, not response order', () => {
+    const alpha: RosterEntry = {
+      eaId: 'alpha', displayName: 'Alpha', platform: 'pc', region: 'US East',
+      mainMode: 'both', personaId: '100', nucleusId: '200',
+    };
+    const bravo: RosterEntry = {
+      eaId: 'bravo', displayName: 'Bravo', platform: 'pc', region: 'US East',
+      mainMode: 'both', personaId: '300', nucleusId: '400',
+    };
+
+    // One bulk response carrying both players, deliberately ordered opposite
+    // to roster order (bravo first, alpha second) — the real API is
+    // documented to return entries out of request order.
+    const bulk: RawResponse = {
+      playerStats: [
+        {
+          player: { nucleusId: '400', personaId: '300', platformId: 1 },
+          categories: [{
+            catName: 'glacier_mp',
+            catFields: [{ name: 'matches_gm_gntgauntlet', value: 20, fields: dim('GraniteGauntlet0', 'Season4') }],
+          }],
+        },
+        {
+          player: { nucleusId: '200', personaId: '100', platformId: 1 },
+          categories: [{
+            catName: 'glacier_mp',
+            catFields: [{ name: 'matches_gm_gntgauntlet', value: 40, fields: dim('GraniteGauntlet0', 'Season4') }],
+          }],
+        },
+      ],
+    };
+
+    const board = buildBoard([alpha, bravo], [bulk], 'Season4');
+    const rows = board.seasons.Season4;
+    const alphaRow = rows.find((r) => r.eaId === 'alpha');
+    const bravoRow = rows.find((r) => r.eaId === 'bravo');
+
+    expect(alphaRow?.displayName).toBe('Alpha');
+    expect(alphaRow?.matches).toBe(40);
+    expect(bravoRow?.displayName).toBe('Bravo');
+    expect(bravoRow?.matches).toBe(20);
+  });
+
+  it('produces an identical board regardless of bulk response order, even when rows tie', () => {
+    const zed: RosterEntry = {
+      eaId: 'zed', displayName: 'Zed', platform: 'pc', region: 'X',
+      mainMode: 'both', personaId: '901', nucleusId: '902',
+    };
+    const amy: RosterEntry = {
+      eaId: 'amy', displayName: 'Amy', platform: 'pc', region: 'X',
+      mainMode: 'both', personaId: '903', nucleusId: '904',
+    };
+
+    // Both players have identical (all-zero) Season4 stats, so they tie
+    // under every rankPlayers comparator key. Only insertion order could
+    // break the tie, and insertion order here comes from the bulk response.
+    const tieStats = (nucleusId: string, personaId: string) => ({
+      player: { nucleusId, personaId, platformId: 1 },
+      categories: [{
+        catName: 'glacier_mp',
+        catFields: [{ name: 'matches_gm_gntgauntlet', value: 0, fields: dim('GraniteGauntlet0', 'Season4') }],
+      }],
+    });
+
+    const zedEntry = tieStats('902', '901');
+    const amyEntry = tieStats('904', '903');
+
+    const at = new Date('2026-09-12T00:00:00.000Z');
+    const boardZedFirst = buildBoard([zed, amy], [{ playerStats: [zedEntry, amyEntry] }], 'Season4', at);
+    const boardAmyFirst = buildBoard([zed, amy], [{ playerStats: [amyEntry, zedEntry] }], 'Season4', at);
+
+    expect(boardZedFirst).toEqual(boardAmyFirst);
   });
 });
