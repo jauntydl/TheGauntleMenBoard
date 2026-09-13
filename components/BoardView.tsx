@@ -22,6 +22,8 @@ export function BoardView({ board }: { board: BoardFile }) {
   const visibleRanked = filterRows(ranked, filters);
   const visibleProvisional = filterRows(provisional, filters);
 
+  const allRows = React.useMemo(() => ranked.concat(provisional), [ranked, provisional]);
+
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
       <Typography variant="h4" component="h1" gutterBottom>
@@ -34,7 +36,14 @@ export function BoardView({ board }: { board: BoardFile }) {
 
       <Tabs
         value={season}
-        onChange={(_e, v: string) => setSeason(v)}
+        onChange={(_e, v: string) => {
+          setSeason(v);
+          // Chip options are derived per season (FilterChips' distinct()), so a
+          // filter value absent from the new season would render no active chip
+          // while still filtering — an invisible filter that silently empties
+          // the board. Reset rather than carry it over.
+          setFilters(EMPTY_FILTERS);
+        }}
         variant="scrollable"
         scrollButtons="auto"
         sx={{ mb: 2 }}
@@ -48,7 +57,7 @@ export function BoardView({ board }: { board: BoardFile }) {
         ))}
       </Tabs>
 
-      <FilterChips rows={ranked.concat(provisional)} value={filters} onChange={setFilters} />
+      <FilterChips rows={allRows} value={filters} onChange={setFilters} />
 
       <LeaderboardTable rows={visibleRanked} />
 

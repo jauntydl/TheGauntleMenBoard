@@ -51,4 +51,35 @@ describe('BoardView', () => {
     render(<BoardView board={board} />);
     expect(screen.getByRole('link', { name: /not listed/i })).toHaveAttribute('href', '/not-listed');
   });
+
+  it('resets filters on season switch so a stale filter cannot silently empty the board', async () => {
+    const filterBoard: BoardFile = {
+      meta: { currentSeason: 'Season4', seasons: ['Season3', 'Season4'], builtAt: '2026-09-12T00:00:00.000Z' },
+      seasons: {
+        // Season4 has an "EU" player to filter down to; Season3 has no EU
+        // rows at all, so if the "EU" filter survived the tab switch, every
+        // Season3 row (region "NA West") would be filtered out.
+        Season4: [
+          row({ eaId: 'eu', displayName: 'EuPlayer', region: 'EU' }),
+          row({ eaId: 'na', displayName: 'NaPlayer', region: 'NA West' }),
+        ],
+        Season3: [row({ eaId: 'old', displayName: 'Archived', region: 'NA West' })],
+      },
+      provisional: { Season4: [], Season3: [] },
+      unresolved: [],
+    };
+
+    render(<BoardView board={filterBoard} />);
+
+    await userEvent.click(screen.getByText('EU'));
+    // Filter took effect: the non-matching row is gone.
+    expect(screen.queryByText('NaPlayer')).not.toBeInTheDocument();
+    expect(screen.getByText('EuPlayer')).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole('tab', { name: /Season3/ }));
+
+    // If the "EU" filter had survived, this row (region "NA West") would be
+    // filtered out and invisible with no indication why.
+    expect(screen.getByText('Archived')).toBeInTheDocument();
+  });
 });
