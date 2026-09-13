@@ -124,6 +124,17 @@ describe('computeMetrics', () => {
     expect(m.kd).toBeLessThan(2);
   });
 
+  it('rates revives per hour, not per match or in total', () => {
+    // Real Season 4 data: 140 revives over 54973s (15.27h).
+    const m = computeMetrics(darkSlice);
+    expect(m.revives).toBe(140);
+    expect(m.revivesPerHour).toBeCloseTo(140 / (54973 / 3600), 6);
+  });
+
+  it('returns null revives per hour when no time was played', () => {
+    expect(computeMetrics({ revives_gm_gntgauntlet: 9 }).revivesPerHour).toBeNull();
+  });
+
   it('exposes the badge threshold', () => {
     expect(JET_BADGE_THRESHOLD).toBe(10);
   });

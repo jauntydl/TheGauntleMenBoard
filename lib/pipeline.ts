@@ -97,6 +97,7 @@ export function buildBoard(
         kd: roundRate(metrics.kd),
         kpm: roundRate(metrics.kpm),
         dpm: roundRate(metrics.dpm),
+        revivesPerHour: roundRate(metrics.revivesPerHour),
         jetPct: roundRate(metrics.jetPct) ?? 0,
         eaId: member.eaId,
         displayName: member.displayName,

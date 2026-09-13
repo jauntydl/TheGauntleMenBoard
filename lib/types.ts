@@ -36,6 +36,9 @@ export type Metrics = {
   kd: number | null;
   kpm: number | null;
   dpm: number | null;
+  /** Per hour, not per minute: revives are rare enough that a per-minute rate
+   *  reads as 0.0x for everyone. */
+  revivesPerHour: number | null;
   jetPct: number;
 };
 

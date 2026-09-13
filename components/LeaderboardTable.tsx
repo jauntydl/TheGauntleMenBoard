@@ -160,7 +160,14 @@ export function LeaderboardTable({
         renderCell: (p) => fmtNum(p.row.dpm, 0),
         getSortComparator: nullsLastComparator,
       },
-      { field: 'revives', headerName: 'Revives', width: 90 },
+      {
+        field: 'revivesPerHour',
+        headerName: 'Rev/h',
+        width: 90,
+        description: 'Revives per hour played',
+        renderCell: (p) => fmtNum(p.row.revivesPerHour, 1),
+        getSortComparator: nullsLastComparator,
+      },
       { field: 'timeSec', headerName: 'Time', width: 90, renderCell: (p) => fmtHours(p.row.timeSec) },
     ],
     [],
@@ -171,7 +178,7 @@ export function LeaderboardTable({
   // sizes its virtual scroller from the columns array, so CSS-only hiding
   // leaves the column's track (and horizontal scroll space) behind.
   const columnVisibility = React.useMemo(
-    () => ({ kpm: !isNarrow, dpm: !isNarrow, revives: !isNarrow, timeSec: !isNarrow }),
+    () => ({ kpm: !isNarrow, dpm: !isNarrow, revivesPerHour: !isNarrow, timeSec: !isNarrow }),
     [isNarrow],
   );
 

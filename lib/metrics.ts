@@ -39,6 +39,7 @@ export function computeMetrics(slice: StatSlice): Metrics {
   const jetSec = num(slice, 'tp_veh_air_jets');
 
   const minutes = timeSec / 60;
+  const hours = timeSec / 3600;
 
   // Kills-as-K/D covers "played matches, died zero times" — a real, if rare,
   // outcome. It is not a substitute for missing match data: some season
@@ -65,6 +66,7 @@ export function computeMetrics(slice: StatSlice): Metrics {
     kd,
     kpm: minutes > 0 ? kills / minutes : null,
     dpm: minutes > 0 ? damage / minutes : null,
+    revivesPerHour: hours > 0 ? revives / hours : null,
     jetPct: timeSec > 0 ? (jetSec / timeSec) * 100 : 0,
   };
 }
