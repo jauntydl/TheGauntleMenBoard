@@ -139,6 +139,13 @@ export function LeaderboardTable({
         renderCell: (p) => fmtPct(p.row.winPct),
         getSortComparator: nullsLastComparator,
       },
+      { field: 'kills', headerName: 'Kills', width: 80 },
+      {
+        field: 'headshots',
+        headerName: 'HS',
+        width: 80,
+        description: 'Headshot kills',
+      },
       {
         field: 'kd',
         headerName: 'K/D',
@@ -178,7 +185,14 @@ export function LeaderboardTable({
   // sizes its virtual scroller from the columns array, so CSS-only hiding
   // leaves the column's track (and horizontal scroll space) behind.
   const columnVisibility = React.useMemo(
-    () => ({ kpm: !isNarrow, dpm: !isNarrow, revivesPerHour: !isNarrow, timeSec: !isNarrow }),
+    () => ({
+      kills: !isNarrow,
+      headshots: !isNarrow,
+      kpm: !isNarrow,
+      dpm: !isNarrow,
+      revivesPerHour: !isNarrow,
+      timeSec: !isNarrow,
+    }),
     [isNarrow],
   );
 

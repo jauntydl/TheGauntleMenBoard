@@ -29,6 +29,7 @@ export function computeMetrics(slice: StatSlice): Metrics {
   const wins = num(slice, 'wins_gm_gntgauntlet');
   const losses = num(slice, 'losses_gm_gntgauntlet');
   const kills = num(slice, 'kills_gm_gntgauntlet');
+  const headshots = num(slice, 'hsw_gm_gntgauntlet');
   const deaths = num(slice, 'deaths_gm_gntgauntlet');
   const damage = num(slice, 'dmg_gm_gntgauntlet');
   const assists = num(slice, 'assists_gm_gntgauntlet');
@@ -57,6 +58,7 @@ export function computeMetrics(slice: StatSlice): Metrics {
     wins,
     losses,
     kills,
+    headshots,
     deaths,
     damage,
     assists,

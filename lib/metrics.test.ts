@@ -14,6 +14,8 @@ const darkSlice: StatSlice = {
   assists_gm_gntgauntlet: 278,
   revives_gm_gntgauntlet: 140,
   tp_veh_air_jets: 8132,
+  hsw_gm_gntgauntlet: 217,
+  kills_Headshots_Total: 9999,
 };
 
 // Real Season 4 Gauntlet data for EA ID "CHASEXRYAN" (no jet time)
@@ -133,6 +135,14 @@ describe('computeMetrics', () => {
 
   it('returns null revives per hour when no time was played', () => {
     expect(computeMetrics({ revives_gm_gntgauntlet: 9 }).revivesPerHour).toBeNull();
+  });
+
+  it('reads headshots from the mode counter, not the rollup', () => {
+    // A Season 2 slice carries hsw_gm_gntgauntlet = 9 beside
+    // kills_Headshots_Total = 1512. Only the suffixed field names the mode.
+    const m = computeMetrics(darkSlice);
+    expect(m.headshots).toBe(217);
+    expect(m.headshots).not.toBe(9999);
   });
 
   it('exposes the badge threshold', () => {

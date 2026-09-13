@@ -26,6 +26,9 @@ export type Metrics = {
   wins: number;
   losses: number;
   kills: number;
+  /** Headshot kills. From hsw_gm_gntgauntlet — kills_Headshots_Total is a
+   *  rollup that reads 1512 against 9 in a Season 2 slice. */
+  headshots: number;
   deaths: number;
   damage: number;
   assists: number;
