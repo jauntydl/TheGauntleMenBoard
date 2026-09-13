@@ -1,4 +1,4 @@
-# GauntletTracker — Handoff
+# The GauntleMen Board — Handoff
 
 **Last updated:** 2026-09-13
 **Branch:** `feat/gauntlet-leaderboard` — 28 commits, **not merged**, no git remote configured

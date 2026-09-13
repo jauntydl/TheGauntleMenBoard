@@ -1,4 +1,4 @@
-# GauntletTracker — Community Gauntlet Leaderboard
+# The GauntleMen Board — Community Gauntlet Leaderboard
 
 **Date:** 2026-09-12
 **Status:** Approved design, ready for implementation planning

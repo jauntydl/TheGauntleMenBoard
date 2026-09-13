@@ -1,4 +1,4 @@
-# Gauntlet Tracker
+# The GauntleMen Board
 
 A Battlefield 6 **Gauntlet** leaderboard for our community, ranked by season on
 skill-based rate stats.

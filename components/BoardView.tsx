@@ -27,7 +27,7 @@ export function BoardView({ board }: { board: BoardFile }) {
   return (
     <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
       <Typography variant="h4" component="h1" gutterBottom>
-        Gauntlet Tracker
+        The GauntleMen Board
       </Typography>
       <Typography variant="body2" sx={{ opacity: 0.7, mb: 2 }}>
         Battlefield 6 Gauntlet standings · updated{' '}

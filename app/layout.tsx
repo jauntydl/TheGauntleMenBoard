@@ -5,7 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from './theme';
 
 export const metadata: Metadata = {
-  title: 'Gauntlet Tracker',
+  title: 'The GauntleMen Board',
   description: 'Battlefield 6 Gauntlet leaderboard',
 };
 
