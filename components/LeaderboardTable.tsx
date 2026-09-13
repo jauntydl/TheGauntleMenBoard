@@ -72,13 +72,7 @@ export function LeaderboardTable({
     <DataGrid
       rows={rows}
       columns={columns}
-      // Compound key: `eaId` alone is the intended identity, but DataGrid's
-      // internal row lookup is keyed by this value, so two rows resolving to
-      // the same id silently collapse to one (MUI keeps only the last write).
-      // `rank` is unique per row in a real board (or absent for every row in
-      // provisional mode), so pairing it with `eaId` costs nothing for real
-      // data while guarding against accidental id collisions.
-      getRowId={(r) => `${r.eaId}#${r.rank}`}
+      getRowId={(r) => r.eaId}
       disableRowSelectionOnClick
       density="compact"
       hideFooter={rows.length <= 100}

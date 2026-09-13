@@ -4,13 +4,17 @@ import { render, screen } from '@testing-library/react';
 import { LeaderboardTable, fmtPct, fmtNum, fmtHours } from './LeaderboardTable';
 import type { BoardRow } from '@/lib/types';
 
-const row = (over: Partial<BoardRow>): BoardRow => ({
-  eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
-  matches: 20, wins: 10, losses: 10, kills: 100, deaths: 50, damage: 1000,
-  assists: 0, revives: 0, timeSec: 3600,
-  winPct: 50, kd: 2, kpm: 1, dpm: 10, jetPct: 0, rank: 1,
-  ...over,
-});
+const row = (over: Partial<BoardRow>): BoardRow => {
+  const base: BoardRow = {
+    eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
+    matches: 20, wins: 10, losses: 10, kills: 100, deaths: 50, damage: 1000,
+    assists: 0, revives: 0, timeSec: 3600,
+    winPct: 50, kd: 2, kpm: 1, dpm: 10, jetPct: 0, rank: 1,
+    ...over,
+  };
+  // eaId is the roster key and is unique in production; keep fixtures unique too.
+  return over.eaId ? base : { ...base, eaId: base.displayName };
+};
 
 describe('formatters', () => {
   it('formats percentages to one decimal', () => {
