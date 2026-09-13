@@ -68,4 +68,39 @@ describe('LeaderboardTable', () => {
     render(<LeaderboardTable rows={[]} />);
     expect(screen.getByText(/no players/i)).toBeInTheDocument();
   });
+
+  it('hides secondary columns at phone width', () => {
+    const original = window.matchMedia;
+    // Narrow viewport: report a match for the component's own breakpoint query.
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      configurable: true,
+      value: (query: string) => ({
+        matches: query.includes('max-width:600px') || query.includes('max-width: 600px'),
+        media: query,
+        onchange: null,
+        addEventListener: () => {},
+        removeEventListener: () => {},
+        addListener: () => {},
+        removeListener: () => {},
+        dispatchEvent: () => false,
+      }),
+    });
+
+    try {
+      render(<LeaderboardTable rows={[row({ displayName: 'Phone' })]} />);
+      // The core ranking columns survive...
+      expect(screen.getByText('Win %')).toBeInTheDocument();
+      expect(screen.getByText('K/D')).toBeInTheDocument();
+      // ...and the secondary ones are gone entirely, not merely visually hidden.
+      expect(screen.queryByText('DPM')).not.toBeInTheDocument();
+      expect(screen.queryByText('KPM')).not.toBeInTheDocument();
+      expect(screen.queryByText('Revives')).not.toBeInTheDocument();
+      expect(screen.queryByText('Time')).not.toBeInTheDocument();
+    } finally {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true, configurable: true, value: original,
+      });
+    }
+  });
 });
