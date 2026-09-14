@@ -44,6 +44,13 @@ export type Metrics = {
   /** Per hour, not per minute: revives are rare enough that a per-minute rate
    *  reads as 0.0x for everyone. */
   revivesPerHour: number | null;
+  /**
+   * Share of weapon kills taken with snipers and DMRs. null when the weapon
+   * fields cannot be trusted for that season — see computeMetrics.
+   */
+  sniperPct: number | null;
+  /** Share of weapon kills taken with automatics. null under the same guard. */
+  autoPct: number | null;
   jetPct: number;
 };
 

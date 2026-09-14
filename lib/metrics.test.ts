@@ -15,6 +15,8 @@ const darkSlice: StatSlice = {
   revives_gm_gntgauntlet: 140,
   tp_veh_air_jets: 8132,
   hsw_gm_gntgauntlet: 217,
+  kills_ar_total: 300, kills_crb_total: 100, kills_smg_total: 118, kills_mg_total: 0,
+  kills_snp_total: 180, kills_dmr_total: 20, kills_sg_total: 40, kills_pst_total: 40,
   kills_Headshots_Total: 9999,
 };
 
@@ -156,6 +158,26 @@ describe('computeMetrics', () => {
 
   it('returns null kills per match when there are no matches', () => {
     expect(computeMetrics({ kills_gm_gntgauntlet: 9 }).killsPerMatch).toBeNull();
+  });
+
+  it('reports the weapon mix as a share of weapon kills', () => {
+    const m = computeMetrics(darkSlice);
+    // 300+100+118+0 auto, 180+20 precision, 40+40 other = 798 weapon kills.
+    expect(m.autoPct).toBeCloseTo((518 / 798) * 100, 4);
+    expect(m.sniperPct).toBeCloseTo((200 / 798) * 100, 4);
+  });
+
+  it('refuses the weapon mix when the fields are a wider rollup', () => {
+    // Real Season 2 shape: 8721 weapon kills against a mode count of 71.
+    const m = computeMetrics({
+      matches_gm_gntgauntlet: 4,
+      kills_gm_gntgauntlet: 71,
+      kills_ar_total: 1702,
+      kills_snp_total: 681,
+      kills_mg_total: 2150,
+    });
+    expect(m.sniperPct).toBeNull();
+    expect(m.autoPct).toBeNull();
   });
 
   it('exposes the badge threshold', () => {

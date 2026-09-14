@@ -14,6 +14,11 @@ const num = (slice: StatSlice, key: string): number => {
  * Every rate stat returns null rather than NaN/Infinity when its denominator
  * is zero, so the UI can render an em dash instead of nonsense.
  */
+/** Kills by weapon class. These are NOT mode-suffixed — see sniperPct. */
+const AUTO_CLASSES = ['ar', 'crb', 'smg', 'mg'] as const;
+const PRECISION_CLASSES = ['snp', 'dmr'] as const;
+const OTHER_CLASSES = ['sg', 'pst'] as const;
+
 /**
  * Read the mode-suffixed counters, never the unsuffixed `*_Total` ones.
  *
@@ -41,6 +46,21 @@ export function computeMetrics(slice: StatSlice): Metrics {
 
   const minutes = timeSec / 60;
   const hours = timeSec / 3600;
+
+  // Playstyle, as a share of weapon kills rather than of all kills: melee,
+  // grenades, gadgets and vehicles account for the rest, so weapon classes
+  // reliably total only 85-93% of a player's kills.
+  //
+  // These fields are NOT mode-suffixed, so they carry the same rollup hazard
+  // as Kills_Total: a Season 2 slice sums 8721 weapon kills against a mode
+  // count of 71. When the sum exceeds the mode count the fields are a rollup
+  // for some wider scope and the mix is meaningless, so report null.
+  const classKills = (cls: readonly string[]): number =>
+    cls.reduce((t, c) => t + num(slice, `kills_${c}_total`), 0);
+  const autoKills = classKills(AUTO_CLASSES);
+  const precisionKills = classKills(PRECISION_CLASSES);
+  const weaponKills = autoKills + precisionKills + classKills(OTHER_CLASSES);
+  const weaponMixTrusted = weaponKills > 0 && kills > 0 && weaponKills <= kills * 1.1;
 
   // Kills-as-K/D covers "played matches, died zero times" — a real, if rare,
   // outcome. It is not a substitute for missing match data: some season
@@ -70,6 +90,8 @@ export function computeMetrics(slice: StatSlice): Metrics {
     kpm: minutes > 0 ? kills / minutes : null,
     dpm: minutes > 0 ? damage / minutes : null,
     revivesPerHour: hours > 0 ? revives / hours : null,
+    sniperPct: weaponMixTrusted ? (precisionKills / weaponKills) * 100 : null,
+    autoPct: weaponMixTrusted ? (autoKills / weaponKills) * 100 : null,
     jetPct: timeSec > 0 ? (jetSec / timeSec) * 100 : 0,
   };
 }

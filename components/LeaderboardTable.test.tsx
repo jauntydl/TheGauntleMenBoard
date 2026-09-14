@@ -1,7 +1,7 @@
 // components/LeaderboardTable.test.tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { LeaderboardTable, fmtPct, fmtNum, fmtHours } from './LeaderboardTable';
+import { LeaderboardTable, fmtPct, fmtNum, fmtHours, playstyle } from './LeaderboardTable';
 import type { BoardRow } from '@/lib/types';
 
 const row = (over: Partial<BoardRow>): BoardRow => {
@@ -9,7 +9,7 @@ const row = (over: Partial<BoardRow>): BoardRow => {
     eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
     matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
     assists: 0, revives: 0, timeSec: 3600,
-    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, jetPct: 0, rank: 1,
+    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, sniperPct: 20, autoPct: 75, jetPct: 0, rank: 1,
     ...over,
   };
   // eaId is the roster key and is unique in production; keep fixtures unique too.
@@ -26,6 +26,33 @@ describe('formatters', () => {
   });
   it('formats hours', () => {
     expect(fmtHours(3600)).toBe('1.0h');
+  });
+});
+
+describe('playstyle', () => {
+  it('names a precision-heavy player Deadeye with their sniper share', () => {
+    // Real Season 4 data for Conqueror.
+    expect(playstyle(45, 51)).toMatchObject({ label: 'Deadeye', detail: '51%' });
+  });
+
+  it('names an automatics-heavy player Bullet Hose with their auto share', () => {
+    // Real Season 4 data for Noxious.
+    expect(playstyle(88, 10)).toMatchObject({ label: 'Bullet Hose', detail: '88%' });
+  });
+
+  it('shows both halves when neither weapon class dominates', () => {
+    // Real Season 4 data for Excited Pianist.
+    expect(playstyle(47, 39)).toMatchObject({ label: 'Flex', detail: '47/39' });
+  });
+
+  it('never contradicts the number beside the label', () => {
+    // Real Season 4 data for Dark: 64.6% auto renders as "65", and the Bullet
+    // Hose floor is 65 — comparing the raw value produced "Flex 65/26".
+    expect(playstyle(64.6, 25.6)).toMatchObject({ label: 'Bullet Hose', detail: '65%' });
+  });
+
+  it('returns null when the weapon mix could not be trusted', () => {
+    expect(playstyle(null, null)).toBeNull();
   });
 });
 
@@ -122,6 +149,7 @@ describe('LeaderboardTable', () => {
       // ...and the secondary ones are gone entirely, not merely visually hidden.
       expect(screen.queryByText('DPM')).not.toBeInTheDocument();
       expect(screen.queryByText('KPM')).not.toBeInTheDocument();
+      expect(screen.queryByText('Style')).not.toBeInTheDocument();
       expect(screen.queryByText('Kills')).not.toBeInTheDocument();
       expect(screen.queryByText('K/match')).not.toBeInTheDocument();
       expect(screen.queryByText('HS')).not.toBeInTheDocument();

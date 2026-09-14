@@ -38,6 +38,39 @@ const nullsLastComparator =
     return sortDirection === 'desc' ? v2 - v1 : v1 - v2;
   };
 
+/**
+ * Name a player by how they get their kills.
+ *
+ * Thresholds are deliberately asymmetric because the weapons are. Snipers and
+ * DMRs fire slowly, so even a committed sniper rarely takes half their kills
+ * with one — 45% is genuinely precision-heavy. Automatics are high volume, so
+ * it takes 65% before that reads as a commitment rather than a default.
+ */
+const SNIPER_FLOOR = 45;
+const AUTO_FLOOR = 65;
+
+export function playstyle(
+  autoPct: number | null,
+  sniperPct: number | null,
+): { label: string; detail: string; tone: string } | null {
+  if (autoPct === null || sniperPct === null) return null;
+
+  // Compare the rounded figures, not the raw ones, so the label can never
+  // contradict the number beside it — 64.6% renders as "65" and must not then
+  // read "Flex 65/26" while the Bullet Hose floor is 65.
+  const auto = Math.round(autoPct);
+  const sniper = Math.round(sniperPct);
+
+  if (sniper >= SNIPER_FLOOR) {
+    return { label: 'Deadeye', detail: `${sniper}%`, tone: 'secondary.main' };
+  }
+  if (auto >= AUTO_FLOOR) {
+    return { label: 'Bullet Hose', detail: `${auto}%`, tone: 'primary.main' };
+  }
+  // Neither dominates, so show both halves — auto first, matching the label.
+  return { label: 'Flex', detail: `${auto}/${sniper}`, tone: 'text.primary' };
+}
+
 export function LeaderboardTable({
   rows,
   provisional = false,
@@ -139,6 +172,28 @@ export function LeaderboardTable({
         renderCell: (p) => fmtPct(p.row.winPct),
         getSortComparator: nullsLastComparator,
       },
+      {
+        field: 'sniperPct',
+        headerName: 'Style',
+        width: 150,
+        description:
+          'Playstyle by weapon mix. Deadeye = precision-heavy, Bullet Hose = automatics-heavy, Flex = both (auto/sniper).',
+        renderCell: (p) => {
+          const style = playstyle(p.row.autoPct, p.row.sniperPct);
+          if (!style) return <Box component="span" sx={{ color: 'text.secondary' }}>{DASH}</Box>;
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.6 }}>
+              <Box component="span" sx={{ color: style.tone, fontWeight: 600 }}>
+                {style.label}
+              </Box>
+              <Box component="span" className="tnum" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
+                {style.detail}
+              </Box>
+            </Box>
+          );
+        },
+        getSortComparator: nullsLastComparator,
+      },
       { field: 'kills', headerName: 'Kills', width: 80 },
       {
         field: 'headshots',
@@ -196,6 +251,7 @@ export function LeaderboardTable({
   // leaves the column's track (and horizontal scroll space) behind.
   const columnVisibility = React.useMemo(
     () => ({
+      sniperPct: !isNarrow,
       kills: !isNarrow,
       headshots: !isNarrow,
       killsPerMatch: !isNarrow,

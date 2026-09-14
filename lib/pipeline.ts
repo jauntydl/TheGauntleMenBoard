@@ -99,6 +99,8 @@ export function buildBoard(
         kpm: roundRate(metrics.kpm),
         dpm: roundRate(metrics.dpm),
         revivesPerHour: roundRate(metrics.revivesPerHour),
+        sniperPct: roundRate(metrics.sniperPct),
+        autoPct: roundRate(metrics.autoPct),
         jetPct: roundRate(metrics.jetPct) ?? 0,
         eaId: member.eaId,
         displayName: member.displayName,
