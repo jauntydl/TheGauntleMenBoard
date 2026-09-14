@@ -9,7 +9,7 @@ const row = (over: Partial<BoardRow>): BoardRow => {
     eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
     matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
     assists: 0, revives: 0, timeSec: 3600,
-    winPct: 50, kd: 2, kpm: 1, dpm: 10, revivesPerHour: 3, jetPct: 0, rank: 1,
+    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, jetPct: 0, rank: 1,
     ...over,
   };
   // eaId is the roster key and is unique in production; keep fixtures unique too.
@@ -123,6 +123,7 @@ describe('LeaderboardTable', () => {
       expect(screen.queryByText('DPM')).not.toBeInTheDocument();
       expect(screen.queryByText('KPM')).not.toBeInTheDocument();
       expect(screen.queryByText('Kills')).not.toBeInTheDocument();
+      expect(screen.queryByText('K/match')).not.toBeInTheDocument();
       expect(screen.queryByText('HS')).not.toBeInTheDocument();
       expect(screen.queryByText('Rev/h')).not.toBeInTheDocument();
       expect(screen.queryByText('Time')).not.toBeInTheDocument();

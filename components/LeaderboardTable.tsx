@@ -154,9 +154,19 @@ export function LeaderboardTable({
         getSortComparator: nullsLastComparator,
       },
       {
+        field: 'killsPerMatch',
+        headerName: 'K/match',
+        width: 90,
+        description: 'Kills per match',
+        renderCell: (p) => fmtNum(p.row.killsPerMatch, 1),
+        getSortComparator: nullsLastComparator,
+      },
+      {
         field: 'kpm',
         headerName: 'KPM',
         width: 80,
+        // Spelled out because K/match sits next to it and both start with K.
+        description: 'Kills per minute',
         renderCell: (p) => fmtNum(p.row.kpm),
         getSortComparator: nullsLastComparator,
       },
@@ -188,6 +198,7 @@ export function LeaderboardTable({
     () => ({
       kills: !isNarrow,
       headshots: !isNarrow,
+      killsPerMatch: !isNarrow,
       kpm: !isNarrow,
       dpm: !isNarrow,
       revivesPerHour: !isNarrow,

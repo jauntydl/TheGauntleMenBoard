@@ -95,6 +95,7 @@ export function buildBoard(
         ...metrics,
         winPct: roundRate(metrics.winPct),
         kd: roundRate(metrics.kd),
+        killsPerMatch: roundRate(metrics.killsPerMatch),
         kpm: roundRate(metrics.kpm),
         dpm: roundRate(metrics.dpm),
         revivesPerHour: roundRate(metrics.revivesPerHour),

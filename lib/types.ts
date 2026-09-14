@@ -37,6 +37,8 @@ export type Metrics = {
   /** null when the denominator is zero; the UI renders these as an em dash. */
   winPct: number | null;
   kd: number | null;
+  /** Kills per match. Distinct from kpm, which is per minute. */
+  killsPerMatch: number | null;
   kpm: number | null;
   dpm: number | null;
   /** Per hour, not per minute: revives are rare enough that a per-minute rate

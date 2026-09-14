@@ -66,6 +66,7 @@ export function computeMetrics(slice: StatSlice): Metrics {
     timeSec,
     winPct: matches > 0 ? (wins / matches) * 100 : null,
     kd,
+    killsPerMatch: matches > 0 ? kills / matches : null,
     kpm: minutes > 0 ? kills / minutes : null,
     dpm: minutes > 0 ? damage / minutes : null,
     revivesPerHour: hours > 0 ? revives / hours : null,

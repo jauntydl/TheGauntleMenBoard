@@ -145,6 +145,19 @@ describe('computeMetrics', () => {
     expect(m.headshots).not.toBe(9999);
   });
 
+  it('rates kills per match as well as per minute', () => {
+    // Real Season 4 data: 1162 kills over 50 matches and 54973s.
+    const m = computeMetrics(darkSlice);
+    expect(m.killsPerMatch).toBeCloseTo(1162 / 50, 6);
+    expect(m.kpm).toBeCloseTo(1162 / (54973 / 60), 6);
+    // The two must not be confused for one another.
+    expect(m.killsPerMatch).not.toBeCloseTo(m.kpm!, 3);
+  });
+
+  it('returns null kills per match when there are no matches', () => {
+    expect(computeMetrics({ kills_gm_gntgauntlet: 9 }).killsPerMatch).toBeNull();
+  });
+
   it('exposes the badge threshold', () => {
     expect(JET_BADGE_THRESHOLD).toBe(10);
   });
