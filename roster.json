@@ -1394,5 +1394,17 @@
     "source": "selfserve",
     "inGameName": "Exoticzzzonly",
     "inGamePlatform": "ea"
+  },
+  {
+    "eaId": "Splyph420",
+    "displayName": "Splyph420",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "174333161",
+    "nucleusId": "2250214921",
+    "source": "selfserve",
+    "inGameName": "Splyph420",
+    "inGamePlatform": "ea"
   }
 ]
