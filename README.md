@@ -13,9 +13,12 @@ page-load time.
 
 ## Ranking
 
-Ranked on **Win %** (descending), tie-broken by matches then K/D. You need at
-least **10 matches** in a season to be ranked; below that you appear under
-*Provisional*.
+Ranked on an overall **rating** out of 100: win rate 50%, K/D 12%, kills per
+minute 12%, score per minute 12%, revives per hour 10%, damage per minute 4%.
+Each part scores you by where you sit among everyone else ranked that season,
+so the rating needs no invented coefficients — and it moves when other people
+play. You need at least **30 matches** in a season to be ranked; below that you
+appear under *Provisional*. Full explanation at `/rating`.
 
 A ✈ badge means 10%+ of that player's Gauntlet time was flown in jets. Season 4's
 "Gauntlet: Fighter Sweep" event shares a stats bucket with normal Gauntlet, so
@@ -48,6 +51,7 @@ seed from a Discord dump instead: `npm run roster:parse -- intros.txt`.
 |---|---|
 | `npm run dev` | Run locally |
 | `npm test` | Run the test suite |
+| `npm run build` | Production build |
 | `npm run data` | Refresh `data/` from the API |
 | `npm run data:dry` | Same, but write nothing |
 

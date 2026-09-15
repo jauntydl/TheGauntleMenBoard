@@ -12,7 +12,7 @@ const row = (over: Partial<BoardRow>): BoardRow => ({
 });
 
 describe('rankPlayers', () => {
-  it('uses a floor of 10 matches', () => {
+  it('uses a floor of 30 matches', () => {
     expect(MIN_MATCHES).toBe(30);
   });
 
