@@ -1298,5 +1298,17 @@
     "source": "selfserve",
     "inGameName": "flounderpounder",
     "inGamePlatform": "steam"
+  },
+  {
+    "eaId": "HoRR1DDD",
+    "displayName": "HoRR1DDD",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1010744532704",
+    "nucleusId": "1023848532704",
+    "source": "selfserve",
+    "inGameName": "HoRR1DDD",
+    "inGamePlatform": "ea"
   }
 ]
