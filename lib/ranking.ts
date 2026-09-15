@@ -1,7 +1,13 @@
 import type { BoardRow } from './types';
 
-/** Players below this many matches are shown as Provisional, not ranked. */
-export const MIN_MATCHES = 10;
+/**
+ * Players below this many matches are shown as Provisional, not ranked.
+ *
+ * Raised from 10 when the board grew past fifty players: at that size a
+ * 10-match run of luck outranked veterans with several hundred matches, which
+ * is the exact distortion a rate-ranked board exists to avoid.
+ */
+export const MIN_MATCHES = 30;
 
 /** Nulls sort last regardless of direction. */
 const desc = (a: number | null, b: number | null): number => {

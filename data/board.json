@@ -6,38 +6,11 @@
       "Season3",
       "Season4"
     ],
-    "builtAt": "2026-09-15T01:46:50.580Z"
+    "builtAt": "2026-09-15T04:04:30.580Z"
   },
   "seasons": {
     "Season2": [],
     "Season3": [
-      {
-        "matches": 24,
-        "wins": 23,
-        "losses": 1,
-        "kills": 824,
-        "headshots": 167,
-        "deaths": 199,
-        "damage": 146157,
-        "assists": 275,
-        "revives": 58,
-        "timeSec": 33982,
-        "winPct": 95.83,
-        "kd": 4.14,
-        "killsPerMatch": 34.33,
-        "kpm": 1.45,
-        "dpm": 258.06,
-        "revivesPerHour": 6.14,
-        "sniperPct": 22.52,
-        "autoPct": 71.79,
-        "jetPct": 0,
-        "eaId": "pkidarkpki",
-        "displayName": "Dark",
-        "platform": "pc",
-        "region": "US East",
-        "mainMode": "both",
-        "rank": 1
-      },
       {
         "matches": 95,
         "wins": 86,
@@ -63,34 +36,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 2
-      },
-      {
-        "matches": 20,
-        "wins": 18,
-        "losses": 2,
-        "kills": 517,
-        "headshots": 70,
-        "deaths": 188,
-        "damage": 108354,
-        "assists": 224,
-        "revives": 79,
-        "timeSec": 28544,
-        "winPct": 90,
-        "kd": 2.75,
-        "killsPerMatch": 25.85,
-        "kpm": 1.09,
-        "dpm": 227.76,
-        "revivesPerHour": 9.96,
-        "sniperPct": 0.62,
-        "autoPct": 96.89,
-        "jetPct": 0,
-        "eaId": "DShepherd176",
-        "displayName": "DShepherd176",
-        "platform": "xbox",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 3
+        "rank": 1
       },
       {
         "matches": 184,
@@ -117,7 +63,7 @@
         "platform": "steam",
         "region": "USA",
         "mainMode": "gauntlet",
-        "rank": 4
+        "rank": 2
       },
       {
         "matches": 531,
@@ -144,7 +90,7 @@
         "platform": "steam pc",
         "region": "East FL",
         "mainMode": "gauntlet",
-        "rank": 5
+        "rank": 3
       },
       {
         "matches": 127,
@@ -171,7 +117,7 @@
         "platform": "steam",
         "region": "USA",
         "mainMode": "both",
-        "rank": 6
+        "rank": 4
       },
       {
         "matches": 550,
@@ -198,7 +144,7 @@
         "platform": "ps5: kricked_-",
         "region": "west",
         "mainMode": "gauntlet",
-        "rank": 7
+        "rank": 5
       },
       {
         "matches": 45,
@@ -225,7 +171,7 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 8
+        "rank": 6
       },
       {
         "matches": 314,
@@ -252,7 +198,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 9
+        "rank": 7
       },
       {
         "matches": 389,
@@ -279,7 +225,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 10
+        "rank": 8
       },
       {
         "matches": 92,
@@ -306,7 +252,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 11
+        "rank": 9
       },
       {
         "matches": 91,
@@ -333,7 +279,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 12
+        "rank": 10
       },
       {
         "matches": 102,
@@ -360,7 +306,7 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 13
+        "rank": 11
       },
       {
         "matches": 810,
@@ -387,7 +333,7 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 14
+        "rank": 12
       },
       {
         "matches": 95,
@@ -414,7 +360,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 15
+        "rank": 13
       },
       {
         "matches": 259,
@@ -441,7 +387,7 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 16
+        "rank": 14
       },
       {
         "matches": 276,
@@ -468,7 +414,7 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 17
+        "rank": 15
       },
       {
         "matches": 181,
@@ -495,7 +441,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 18
+        "rank": 16
       },
       {
         "matches": 553,
@@ -522,7 +468,7 @@
         "platform": "xbox series x",
         "region": "USA (West Coast)",
         "mainMode": "gauntlet",
-        "rank": 19
+        "rank": 17
       },
       {
         "matches": 290,
@@ -549,34 +495,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 20
-      },
-      {
-        "matches": 24,
-        "wins": 18,
-        "losses": 6,
-        "kills": 707,
-        "headshots": 273,
-        "deaths": 143,
-        "damage": 113173,
-        "assists": 282,
-        "revives": 59,
-        "timeSec": 32705,
-        "winPct": 75,
-        "kd": 4.94,
-        "killsPerMatch": 29.46,
-        "kpm": 1.3,
-        "dpm": 207.63,
-        "revivesPerHour": 6.49,
-        "sniperPct": 43.09,
-        "autoPct": 50.29,
-        "jetPct": 0,
-        "eaId": "MorsOrtu",
-        "displayName": "MorsOrtu",
-        "platform": "steam",
-        "region": "CA",
-        "mainMode": "unknown",
-        "rank": 21
+        "rank": 18
       },
       {
         "matches": 98,
@@ -603,34 +522,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 22
-      },
-      {
-        "matches": 26,
-        "wins": 19,
-        "losses": 7,
-        "kills": 522,
-        "headshots": 133,
-        "deaths": 185,
-        "damage": 168712,
-        "assists": 284,
-        "revives": 39,
-        "timeSec": 35399,
-        "winPct": 73.08,
-        "kd": 2.82,
-        "killsPerMatch": 20.08,
-        "kpm": 0.88,
-        "dpm": 285.96,
-        "revivesPerHour": 3.97,
-        "sniperPct": 36.38,
-        "autoPct": 48.05,
-        "jetPct": 0,
-        "eaId": "DaBoogiemanSJ",
-        "displayName": "DaBoogiemanSJ",
-        "platform": "ea",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 23
+        "rank": 19
       },
       {
         "matches": 349,
@@ -657,7 +549,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 24
+        "rank": 20
       },
       {
         "matches": 89,
@@ -684,7 +576,7 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 25
+        "rank": 21
       },
       {
         "matches": 64,
@@ -711,7 +603,7 @@
         "platform": "pc",
         "region": "NA West",
         "mainMode": "both",
-        "rank": 26
+        "rank": 22
       },
       {
         "matches": 236,
@@ -738,7 +630,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 27
+        "rank": 23
       },
       {
         "matches": 291,
@@ -765,7 +657,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 28
+        "rank": 24
       },
       {
         "matches": 186,
@@ -792,7 +684,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 29
+        "rank": 25
       },
       {
         "matches": 79,
@@ -819,7 +711,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 30
+        "rank": 26
       },
       {
         "matches": 163,
@@ -846,7 +738,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 31
+        "rank": 27
       },
       {
         "matches": 734,
@@ -873,7 +765,7 @@
         "platform": "steam / pc",
         "region": "NA East",
         "mainMode": "gauntlet",
-        "rank": 32
+        "rank": 28
       },
       {
         "matches": 281,
@@ -900,7 +792,7 @@
         "platform": "xbox",
         "region": "CA",
         "mainMode": "unknown",
-        "rank": 33
+        "rank": 29
       },
       {
         "matches": 57,
@@ -927,7 +819,7 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 34
+        "rank": 30
       },
       {
         "matches": 489,
@@ -954,7 +846,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 35
+        "rank": 31
       },
       {
         "matches": 664,
@@ -981,34 +873,7 @@
         "platform": "xbox",
         "region": "Canada East",
         "mainMode": "gauntlet",
-        "rank": 36
-      },
-      {
-        "matches": 19,
-        "wins": 12,
-        "losses": 7,
-        "kills": 349,
-        "headshots": 50,
-        "deaths": 231,
-        "damage": 71770,
-        "assists": 116,
-        "revives": 56,
-        "timeSec": 26845,
-        "winPct": 63.16,
-        "kd": 1.51,
-        "killsPerMatch": 18.37,
-        "kpm": 0.78,
-        "dpm": 160.41,
-        "revivesPerHour": 7.51,
-        "sniperPct": 0.3,
-        "autoPct": 94.59,
-        "jetPct": 0,
-        "eaId": "TTV_GarnetWolfe",
-        "displayName": "TTV_GarnetWolfe",
-        "platform": "ea",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 37
+        "rank": 32
       },
       {
         "matches": 222,
@@ -1035,34 +900,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 38
-      },
-      {
-        "matches": 29,
-        "wins": 18,
-        "losses": 11,
-        "kills": 1200,
-        "headshots": 246,
-        "deaths": 310,
-        "damage": 186663,
-        "assists": 231,
-        "revives": 115,
-        "timeSec": 41352,
-        "winPct": 62.07,
-        "kd": 3.87,
-        "killsPerMatch": 41.38,
-        "kpm": 1.74,
-        "dpm": 270.84,
-        "revivesPerHour": 10.01,
-        "sniperPct": 13.93,
-        "autoPct": 81.99,
-        "jetPct": 0,
-        "eaId": "BananaBoat581",
-        "displayName": "BananaBoat581",
-        "platform": "ps",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 39
+        "rank": 33
       },
       {
         "matches": 95,
@@ -1089,7 +927,7 @@
         "platform": "ea",
         "region": "CA",
         "mainMode": "unknown",
-        "rank": 40
+        "rank": 34
       },
       {
         "matches": 323,
@@ -1116,7 +954,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 41
+        "rank": 35
       },
       {
         "matches": 143,
@@ -1143,34 +981,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 42
-      },
-      {
-        "matches": 10,
-        "wins": 6,
-        "losses": 4,
-        "kills": 62,
-        "headshots": 12,
-        "deaths": 67,
-        "damage": 12873,
-        "assists": 73,
-        "revives": 18,
-        "timeSec": 12069,
-        "winPct": 60,
-        "kd": 0.93,
-        "killsPerMatch": 6.2,
-        "kpm": 0.31,
-        "dpm": 64,
-        "revivesPerHour": 5.37,
-        "sniperPct": 0,
-        "autoPct": 100,
-        "jetPct": 0,
-        "eaId": "TheTwitchGirl",
-        "displayName": "TwitchGirl",
-        "platform": "steam",
-        "region": "USA",
-        "mainMode": "unknown",
-        "rank": 43
+        "rank": 36
       },
       {
         "matches": 581,
@@ -1197,34 +1008,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 44
-      },
-      {
-        "matches": 19,
-        "wins": 11,
-        "losses": 8,
-        "kills": 541,
-        "headshots": 64,
-        "deaths": 240,
-        "damage": 99240,
-        "assists": 130,
-        "revives": 29,
-        "timeSec": 25308,
-        "winPct": 57.89,
-        "kd": 2.25,
-        "killsPerMatch": 28.47,
-        "kpm": 1.28,
-        "dpm": 235.28,
-        "revivesPerHour": 4.13,
-        "sniperPct": 17.79,
-        "autoPct": 78.94,
-        "jetPct": 0,
-        "eaId": "AtomicBoggy",
-        "displayName": "AtomicBoggy",
-        "platform": "ps",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 45
+        "rank": 37
       },
       {
         "matches": 149,
@@ -1251,34 +1035,7 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 46
-      },
-      {
-        "matches": 26,
-        "wins": 14,
-        "losses": 12,
-        "kills": 1293,
-        "headshots": 1065,
-        "deaths": 196,
-        "damage": 168959,
-        "assists": 198,
-        "revives": 20,
-        "timeSec": 37076,
-        "winPct": 53.85,
-        "kd": 6.6,
-        "killsPerMatch": 49.73,
-        "kpm": 2.09,
-        "dpm": 273.43,
-        "revivesPerHour": 1.94,
-        "sniperPct": 93.91,
-        "autoPct": 0.4,
-        "jetPct": 0,
-        "eaId": "ShaydeFPS",
-        "displayName": "ShaydeFPS",
-        "platform": "ea",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 47
+        "rank": 38
       },
       {
         "matches": 79,
@@ -1305,7 +1062,7 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 48
+        "rank": 39
       },
       {
         "matches": 53,
@@ -1332,7 +1089,7 @@
         "platform": "ps",
         "region": "NA Weat",
         "mainMode": "both",
-        "rank": 49
+        "rank": 40
       },
       {
         "matches": 39,
@@ -1359,7 +1116,7 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 50
+        "rank": 41
       },
       {
         "matches": 278,
@@ -1386,7 +1143,7 @@
         "platform": "pc",
         "region": "Central",
         "mainMode": "gauntlet",
-        "rank": 51
+        "rank": 42
       },
       {
         "matches": 154,
@@ -1413,7 +1170,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 52
+        "rank": 43
       },
       {
         "matches": 536,
@@ -1440,7 +1197,7 @@
         "platform": "ea",
         "region": "CA",
         "mainMode": "unknown",
-        "rank": 53
+        "rank": 44
       },
       {
         "matches": 121,
@@ -1467,7 +1224,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 54
+        "rank": 45
       },
       {
         "matches": 73,
@@ -1494,7 +1251,7 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 55
+        "rank": 46
       },
       {
         "matches": 52,
@@ -1521,7 +1278,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 56
+        "rank": 47
       },
       {
         "matches": 140,
@@ -1548,7 +1305,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 57
+        "rank": 48
       },
       {
         "matches": 33,
@@ -1575,29 +1332,29 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 58
+        "rank": 49
       }
     ],
     "Season4": [
       {
-        "matches": 384,
-        "wins": 354,
-        "losses": 30,
-        "kills": 12570,
-        "headshots": 6458,
-        "deaths": 2474,
-        "damage": 1937269,
-        "assists": 3339,
-        "revives": 652,
-        "timeSec": 565169,
-        "winPct": 92.19,
-        "kd": 5.08,
-        "killsPerMatch": 32.73,
-        "kpm": 1.33,
-        "dpm": 205.67,
-        "revivesPerHour": 4.15,
-        "sniperPct": 46.62,
-        "autoPct": 51.25,
+        "matches": 389,
+        "wins": 357,
+        "losses": 32,
+        "kills": 12725,
+        "headshots": 6548,
+        "deaths": 2509,
+        "damage": 1958387,
+        "assists": 3373,
+        "revives": 662,
+        "timeSec": 571260,
+        "winPct": 91.77,
+        "kd": 5.07,
+        "killsPerMatch": 32.71,
+        "kpm": 1.34,
+        "dpm": 205.69,
+        "revivesPerHour": 4.17,
+        "sniperPct": 46.66,
+        "autoPct": 51.22,
         "jetPct": 0,
         "eaId": "ZD4NIM4L",
         "displayName": "D4NIM4L",
@@ -1742,24 +1499,24 @@
         "rank": 6
       },
       {
-        "matches": 231,
-        "wins": 190,
+        "matches": 235,
+        "wins": 194,
         "losses": 41,
-        "kills": 6250,
-        "headshots": 1225,
-        "deaths": 1776,
-        "damage": 1124212,
-        "assists": 2549,
-        "revives": 620,
-        "timeSec": 326944,
-        "winPct": 82.25,
-        "kd": 3.52,
-        "killsPerMatch": 27.06,
+        "kills": 6362,
+        "headshots": 1244,
+        "deaths": 1802,
+        "damage": 1140654,
+        "assists": 2589,
+        "revives": 641,
+        "timeSec": 332208,
+        "winPct": 82.55,
+        "kd": 3.53,
+        "killsPerMatch": 27.07,
         "kpm": 1.15,
-        "dpm": 206.31,
-        "revivesPerHour": 6.83,
-        "sniperPct": 1.42,
-        "autoPct": 92.55,
+        "dpm": 206.01,
+        "revivesPerHour": 6.95,
+        "sniperPct": 1.4,
+        "autoPct": 92.66,
         "jetPct": 0,
         "eaId": "LT__Fletch",
         "displayName": "LT__Fletch",
@@ -1769,24 +1526,24 @@
         "rank": 7
       },
       {
-        "matches": 215,
-        "wins": 175,
-        "losses": 40,
-        "kills": 5131,
-        "headshots": 1526,
-        "deaths": 1998,
-        "damage": 971417,
-        "assists": 1950,
-        "revives": 350,
-        "timeSec": 301875,
-        "winPct": 81.4,
+        "matches": 218,
+        "wins": 177,
+        "losses": 41,
+        "kills": 5201,
+        "headshots": 1554,
+        "deaths": 2027,
+        "damage": 982280,
+        "assists": 1972,
+        "revives": 354,
+        "timeSec": 305885,
+        "winPct": 81.19,
         "kd": 2.57,
-        "killsPerMatch": 23.87,
+        "killsPerMatch": 23.86,
         "kpm": 1.02,
-        "dpm": 193.08,
+        "dpm": 192.68,
         "revivesPerHour": 4.17,
-        "sniperPct": 19.92,
-        "autoPct": 79.45,
+        "sniperPct": 20.02,
+        "autoPct": 79.36,
         "jetPct": 0,
         "eaId": "Cit1es",
         "displayName": "Cit1es",
@@ -1796,24 +1553,24 @@
         "rank": 8
       },
       {
-        "matches": 52,
-        "wins": 42,
+        "matches": 53,
+        "wins": 43,
         "losses": 10,
-        "kills": 999,
-        "headshots": 233,
-        "deaths": 419,
-        "damage": 182059,
-        "assists": 511,
-        "revives": 131,
-        "timeSec": 74734,
-        "winPct": 80.77,
-        "kd": 2.38,
-        "killsPerMatch": 19.21,
-        "kpm": 0.8,
-        "dpm": 146.17,
-        "revivesPerHour": 6.31,
-        "sniperPct": 10.26,
-        "autoPct": 88.01,
+        "kills": 1026,
+        "headshots": 239,
+        "deaths": 425,
+        "damage": 186056,
+        "assists": 515,
+        "revives": 134,
+        "timeSec": 76182,
+        "winPct": 81.13,
+        "kd": 2.41,
+        "killsPerMatch": 19.36,
+        "kpm": 0.81,
+        "dpm": 146.54,
+        "revivesPerHour": 6.33,
+        "sniperPct": 9.97,
+        "autoPct": 88.35,
         "jetPct": 0,
         "eaId": "CHASEXRYAN",
         "displayName": "Noxious",
@@ -1931,24 +1688,24 @@
         "rank": 13
       },
       {
-        "matches": 236,
-        "wins": 181,
-        "losses": 55,
-        "kills": 6982,
-        "headshots": 1878,
-        "deaths": 1997,
-        "damage": 1343058,
-        "assists": 2773,
-        "revives": 407,
-        "timeSec": 334028,
-        "winPct": 76.69,
-        "kd": 3.5,
-        "killsPerMatch": 29.58,
-        "kpm": 1.25,
-        "dpm": 241.25,
-        "revivesPerHour": 4.39,
-        "sniperPct": 24.47,
-        "autoPct": 69.02,
+        "matches": 241,
+        "wins": 185,
+        "losses": 56,
+        "kills": 7161,
+        "headshots": 1940,
+        "deaths": 2037,
+        "damage": 1371760,
+        "assists": 2842,
+        "revives": 418,
+        "timeSec": 341151,
+        "winPct": 76.76,
+        "kd": 3.52,
+        "killsPerMatch": 29.71,
+        "kpm": 1.26,
+        "dpm": 241.26,
+        "revivesPerHour": 4.41,
+        "sniperPct": 24.75,
+        "autoPct": 68.76,
         "jetPct": 0,
         "eaId": "xSweatyKarmax",
         "displayName": "xSweatyKarmax",
@@ -1985,33 +1742,6 @@
         "rank": 15
       },
       {
-        "matches": 21,
-        "wins": 16,
-        "losses": 5,
-        "kills": 790,
-        "headshots": 150,
-        "deaths": 197,
-        "damage": 116235,
-        "assists": 231,
-        "revives": 130,
-        "timeSec": 30964,
-        "winPct": 76.19,
-        "kd": 4.01,
-        "killsPerMatch": 37.62,
-        "kpm": 1.53,
-        "dpm": 225.23,
-        "revivesPerHour": 15.11,
-        "sniperPct": 45.06,
-        "autoPct": 48.96,
-        "jetPct": 0,
-        "eaId": "BananaBoat581",
-        "displayName": "BananaBoat581",
-        "platform": "ps",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 16
-      },
-      {
         "matches": 255,
         "wins": 194,
         "losses": 61,
@@ -2036,7 +1766,7 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 17
+        "rank": 16
       },
       {
         "matches": 110,
@@ -2063,34 +1793,34 @@
         "platform": "steam",
         "region": "USA",
         "mainMode": "unknown",
-        "rank": 18
+        "rank": 17
       },
       {
-        "matches": 296,
-        "wins": 219,
+        "matches": 298,
+        "wins": 221,
         "losses": 77,
-        "kills": 7854,
-        "headshots": 1493,
-        "deaths": 3052,
-        "damage": 1279666,
-        "assists": 2308,
-        "revives": 823,
-        "timeSec": 416795,
-        "winPct": 73.99,
+        "kills": 7903,
+        "headshots": 1507,
+        "deaths": 3072,
+        "damage": 1286679,
+        "assists": 2324,
+        "revives": 825,
+        "timeSec": 419600,
+        "winPct": 74.16,
         "kd": 2.57,
-        "killsPerMatch": 26.53,
+        "killsPerMatch": 26.52,
         "kpm": 1.13,
-        "dpm": 184.22,
-        "revivesPerHour": 7.11,
+        "dpm": 183.99,
+        "revivesPerHour": 7.08,
         "sniperPct": 0,
-        "autoPct": 97.74,
+        "autoPct": 97.72,
         "jetPct": 0,
         "eaId": "Monkey76083",
         "displayName": "Monkey76083",
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 19
+        "rank": 18
       },
       {
         "matches": 41,
@@ -2117,7 +1847,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 20
+        "rank": 19
       },
       {
         "matches": 491,
@@ -2144,34 +1874,34 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 21
+        "rank": 20
       },
       {
-        "matches": 726,
-        "wins": 528,
-        "losses": 198,
-        "kills": 24734,
-        "headshots": 8933,
-        "deaths": 7199,
-        "damage": 3780563,
-        "assists": 5648,
-        "revives": 1128,
-        "timeSec": 1029975,
-        "winPct": 72.73,
+        "matches": 731,
+        "wins": 532,
+        "losses": 199,
+        "kills": 24938,
+        "headshots": 9000,
+        "deaths": 7250,
+        "damage": 3806685,
+        "assists": 5709,
+        "revives": 1139,
+        "timeSec": 1037098,
+        "winPct": 72.78,
         "kd": 3.44,
-        "killsPerMatch": 34.07,
+        "killsPerMatch": 34.11,
         "kpm": 1.44,
         "dpm": 220.23,
-        "revivesPerHour": 3.94,
-        "sniperPct": 23.39,
-        "autoPct": 74.18,
+        "revivesPerHour": 3.95,
+        "sniperPct": 23.35,
+        "autoPct": 74.23,
         "jetPct": 0.04,
         "eaId": "Bourn3A",
         "displayName": "Bourne",
         "platform": "steam / pc",
         "region": "NA East",
         "mainMode": "gauntlet",
-        "rank": 22
+        "rank": 21
       },
       {
         "matches": 146,
@@ -2198,7 +1928,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 23
+        "rank": 22
       },
       {
         "matches": 77,
@@ -2225,7 +1955,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 24
+        "rank": 23
       },
       {
         "matches": 120,
@@ -2252,34 +1982,34 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 25
+        "rank": 24
       },
       {
-        "matches": 438,
-        "wins": 306,
-        "losses": 132,
-        "kills": 8782,
-        "headshots": 1505,
-        "deaths": 4119,
-        "damage": 1592052,
-        "assists": 3241,
-        "revives": 2345,
-        "timeSec": 617594,
-        "winPct": 69.86,
+        "matches": 440,
+        "wins": 307,
+        "losses": 133,
+        "kills": 8844,
+        "headshots": 1516,
+        "deaths": 4159,
+        "damage": 1602237,
+        "assists": 3264,
+        "revives": 2376,
+        "timeSec": 621775,
+        "winPct": 69.77,
         "kd": 2.13,
-        "killsPerMatch": 20.05,
+        "killsPerMatch": 20.1,
         "kpm": 0.85,
-        "dpm": 154.67,
-        "revivesPerHour": 13.67,
-        "sniperPct": 25.01,
-        "autoPct": 73.56,
+        "dpm": 154.61,
+        "revivesPerHour": 13.76,
+        "sniperPct": 24.82,
+        "autoPct": 73.75,
         "jetPct": 0.09,
         "eaId": "Nickybzbz",
         "displayName": "Nickybzbz",
         "platform": "xbox",
         "region": "Canada East",
         "mainMode": "gauntlet",
-        "rank": 26
+        "rank": 25
       },
       {
         "matches": 207,
@@ -2306,7 +2036,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 27
+        "rank": 26
       },
       {
         "matches": 136,
@@ -2333,7 +2063,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 28
+        "rank": 27
       },
       {
         "matches": 177,
@@ -2360,7 +2090,7 @@
         "platform": "steam",
         "region": "USA",
         "mainMode": "both",
-        "rank": 29
+        "rank": 28
       },
       {
         "matches": 709,
@@ -2387,34 +2117,34 @@
         "platform": "ea",
         "region": "CA",
         "mainMode": "unknown",
-        "rank": 30
+        "rank": 29
       },
       {
-        "matches": 150,
-        "wins": 99,
+        "matches": 151,
+        "wins": 100,
         "losses": 51,
-        "kills": 4216,
-        "headshots": 1118,
-        "deaths": 1275,
-        "damage": 724139,
-        "assists": 1386,
-        "revives": 392,
-        "timeSec": 210539,
-        "winPct": 66,
+        "kills": 4240,
+        "headshots": 1131,
+        "deaths": 1282,
+        "damage": 727389,
+        "assists": 1393,
+        "revives": 393,
+        "timeSec": 211956,
+        "winPct": 66.23,
         "kd": 3.31,
-        "killsPerMatch": 28.11,
+        "killsPerMatch": 28.08,
         "kpm": 1.2,
-        "dpm": 206.37,
-        "revivesPerHour": 6.7,
-        "sniperPct": 17.28,
-        "autoPct": 80.71,
+        "dpm": 205.91,
+        "revivesPerHour": 6.67,
+        "sniperPct": 17.58,
+        "autoPct": 80.4,
         "jetPct": 0,
         "eaId": "UniqueCure",
         "displayName": "UniqueCure",
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 31
+        "rank": 30
       },
       {
         "matches": 147,
@@ -2441,7 +2171,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 32
+        "rank": 31
       },
       {
         "matches": 127,
@@ -2468,34 +2198,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 33
-      },
-      {
-        "matches": 10,
-        "wins": 6,
-        "losses": 4,
-        "kills": 269,
-        "headshots": 48,
-        "deaths": 93,
-        "damage": 55959,
-        "assists": 115,
-        "revives": 14,
-        "timeSec": 14782,
-        "winPct": 60,
-        "kd": 2.89,
-        "killsPerMatch": 26.9,
-        "kpm": 1.09,
-        "dpm": 227.14,
-        "revivesPerHour": 3.41,
-        "sniperPct": 7.91,
-        "autoPct": 83.79,
-        "jetPct": 0,
-        "eaId": "DaBoogiemanSJ",
-        "displayName": "DaBoogiemanSJ",
-        "platform": "ea",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 34
+        "rank": 32
       },
       {
         "matches": 72,
@@ -2522,7 +2225,7 @@
         "platform": "ea",
         "region": "CA",
         "mainMode": "unknown",
-        "rank": 35
+        "rank": 33
       },
       {
         "matches": 50,
@@ -2549,34 +2252,34 @@
         "platform": "pc",
         "region": "US East",
         "mainMode": "both",
-        "rank": 36
+        "rank": 34
       },
       {
-        "matches": 233,
+        "matches": 234,
         "wins": 134,
-        "losses": 99,
-        "kills": 5104,
-        "headshots": 1564,
-        "deaths": 2598,
-        "damage": 1008189,
-        "assists": 1766,
-        "revives": 233,
-        "timeSec": 311584,
-        "winPct": 57.51,
-        "kd": 1.96,
-        "killsPerMatch": 21.91,
+        "losses": 100,
+        "kills": 5136,
+        "headshots": 1576,
+        "deaths": 2613,
+        "damage": 1012763,
+        "assists": 1771,
+        "revives": 234,
+        "timeSec": 313024,
+        "winPct": 57.26,
+        "kd": 1.97,
+        "killsPerMatch": 21.95,
         "kpm": 0.98,
-        "dpm": 194.14,
+        "dpm": 194.12,
         "revivesPerHour": 2.69,
-        "sniperPct": 55.5,
-        "autoPct": 41.96,
+        "sniperPct": 55.36,
+        "autoPct": 42.11,
         "jetPct": 0.07,
         "eaId": "wyldd00d",
         "displayName": "wyldd00d",
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 37
+        "rank": 35
       },
       {
         "matches": 103,
@@ -2603,7 +2306,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 38
+        "rank": 36
       },
       {
         "matches": 68,
@@ -2630,61 +2333,61 @@
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 39
+        "rank": 37
       },
       {
-        "matches": 179,
-        "wins": 93,
+        "matches": 182,
+        "wins": 96,
         "losses": 86,
-        "kills": 3899,
-        "headshots": 377,
-        "deaths": 2141,
-        "damage": 874701,
-        "assists": 1705,
-        "revives": 169,
-        "timeSec": 253869,
-        "winPct": 51.96,
-        "kd": 1.82,
-        "killsPerMatch": 21.78,
+        "kills": 3968,
+        "headshots": 379,
+        "deaths": 2187,
+        "damage": 885566,
+        "assists": 1740,
+        "revives": 170,
+        "timeSec": 258135,
+        "winPct": 52.75,
+        "kd": 1.81,
+        "killsPerMatch": 21.8,
         "kpm": 0.92,
-        "dpm": 206.73,
-        "revivesPerHour": 2.4,
+        "dpm": 205.84,
+        "revivesPerHour": 2.37,
         "sniperPct": 0.04,
-        "autoPct": 98.33,
+        "autoPct": 98.36,
         "jetPct": 0,
         "eaId": "DaddyDemocracy",
         "displayName": "DaddyDemocracy",
         "platform": "steam",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 40
+        "rank": 38
       },
       {
-        "matches": 145,
+        "matches": 146,
         "wins": 75,
-        "losses": 70,
-        "kills": 3330,
-        "headshots": 1284,
-        "deaths": 1171,
-        "damage": 602044,
-        "assists": 1026,
-        "revives": 236,
-        "timeSec": 203734,
-        "winPct": 51.72,
-        "kd": 2.84,
-        "killsPerMatch": 22.97,
+        "losses": 71,
+        "kills": 3343,
+        "headshots": 1288,
+        "deaths": 1184,
+        "damage": 604772,
+        "assists": 1034,
+        "revives": 237,
+        "timeSec": 205055,
+        "winPct": 51.37,
+        "kd": 2.82,
+        "killsPerMatch": 22.9,
         "kpm": 0.98,
-        "dpm": 177.3,
-        "revivesPerHour": 4.17,
-        "sniperPct": 34.27,
-        "autoPct": 65.14,
+        "dpm": 176.96,
+        "revivesPerHour": 4.16,
+        "sniperPct": 34.19,
+        "autoPct": 65.22,
         "jetPct": 0,
         "eaId": "PIRRS3D",
         "displayName": "PIRRS3D",
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 41
+        "rank": 39
       },
       {
         "matches": 55,
@@ -2711,7 +2414,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 42
+        "rank": 40
       },
       {
         "matches": 121,
@@ -2738,7 +2441,7 @@
         "platform": "xbox",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 43
+        "rank": 41
       },
       {
         "matches": 276,
@@ -2765,7 +2468,7 @@
         "platform": "ps",
         "region": "NA Weat",
         "mainMode": "both",
-        "rank": 44
+        "rank": 42
       },
       {
         "matches": 293,
@@ -2792,7 +2495,7 @@
         "platform": "pc",
         "region": "Central",
         "mainMode": "gauntlet",
-        "rank": 45
+        "rank": 43
       },
       {
         "matches": 126,
@@ -2819,34 +2522,7 @@
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 46
-      },
-      {
-        "matches": 13,
-        "wins": 5,
-        "losses": 8,
-        "kills": 261,
-        "headshots": 40,
-        "deaths": 179,
-        "damage": 52088,
-        "assists": 101,
-        "revives": 11,
-        "timeSec": 17547,
-        "winPct": 38.46,
-        "kd": 1.46,
-        "killsPerMatch": 20.08,
-        "kpm": 0.89,
-        "dpm": 178.11,
-        "revivesPerHour": 2.26,
-        "sniperPct": 18.64,
-        "autoPct": 78.81,
-        "jetPct": 0,
-        "eaId": "AtomicBoggy",
-        "displayName": "AtomicBoggy",
-        "platform": "ps",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 47
+        "rank": 44
       },
       {
         "matches": 156,
@@ -2873,88 +2549,34 @@
         "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
-        "rank": 48
+        "rank": 45
       },
       {
-        "matches": 114,
+        "matches": 116,
         "wins": 40,
-        "losses": 74,
-        "kills": 3895,
-        "headshots": 603,
-        "deaths": 1207,
-        "damage": 718572,
-        "assists": 574,
+        "losses": 76,
+        "kills": 3990,
+        "headshots": 628,
+        "deaths": 1230,
+        "damage": 733402,
+        "assists": 577,
         "revives": 134,
-        "timeSec": 154891,
-        "winPct": 35.09,
-        "kd": 3.23,
-        "killsPerMatch": 34.17,
-        "kpm": 1.51,
-        "dpm": 278.35,
-        "revivesPerHour": 3.11,
+        "timeSec": 157631,
+        "winPct": 34.48,
+        "kd": 3.24,
+        "killsPerMatch": 34.4,
+        "kpm": 1.52,
+        "dpm": 279.16,
+        "revivesPerHour": 3.06,
         "sniperPct": 0.03,
-        "autoPct": 97,
+        "autoPct": 96.91,
         "jetPct": 0,
         "eaId": "SidewalkEnf0rcer",
         "displayName": "SidewalkEnf0rcer",
         "platform": "pc",
         "region": "NA East",
         "mainMode": "gauntlet",
-        "rank": 49
-      },
-      {
-        "matches": 19,
-        "wins": 4,
-        "losses": 15,
-        "kills": 407,
-        "headshots": 81,
-        "deaths": 146,
-        "damage": 70819,
-        "assists": 123,
-        "revives": 42,
-        "timeSec": 23374,
-        "winPct": 21.05,
-        "kd": 2.79,
-        "killsPerMatch": 21.42,
-        "kpm": 1.04,
-        "dpm": 181.79,
-        "revivesPerHour": 6.47,
-        "sniperPct": 12.4,
-        "autoPct": 63.59,
-        "jetPct": 0,
-        "eaId": "Meecheel",
-        "displayName": "Meecheel",
-        "platform": "ea",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 50
-      },
-      {
-        "matches": 24,
-        "wins": 2,
-        "losses": 22,
-        "kills": 550,
-        "headshots": 215,
-        "deaths": 298,
-        "damage": 101206,
-        "assists": 120,
-        "revives": 22,
-        "timeSec": 29731,
-        "winPct": 8.33,
-        "kd": 1.85,
-        "killsPerMatch": 22.92,
-        "kpm": 1.11,
-        "dpm": 204.24,
-        "revivesPerHour": 2.66,
-        "sniperPct": 47.04,
-        "autoPct": 48.22,
-        "jetPct": 1.91,
-        "eaId": "hrsaputra",
-        "displayName": "hrsaputra",
-        "platform": "ea",
-        "region": "US",
-        "mainMode": "unknown",
-        "rank": 51
+        "rank": 46
       }
     ]
   },
@@ -3071,6 +2693,114 @@
         "rank": null
       },
       {
+        "matches": 24,
+        "wins": 23,
+        "losses": 1,
+        "kills": 824,
+        "headshots": 167,
+        "deaths": 199,
+        "damage": 146157,
+        "assists": 275,
+        "revives": 58,
+        "timeSec": 33982,
+        "winPct": 95.83,
+        "kd": 4.14,
+        "killsPerMatch": 34.33,
+        "kpm": 1.45,
+        "dpm": 258.06,
+        "revivesPerHour": 6.14,
+        "sniperPct": 22.52,
+        "autoPct": 71.79,
+        "jetPct": 0,
+        "eaId": "pkidarkpki",
+        "displayName": "Dark",
+        "platform": "pc",
+        "region": "US East",
+        "mainMode": "both",
+        "rank": null
+      },
+      {
+        "matches": 20,
+        "wins": 18,
+        "losses": 2,
+        "kills": 517,
+        "headshots": 70,
+        "deaths": 188,
+        "damage": 108354,
+        "assists": 224,
+        "revives": 79,
+        "timeSec": 28544,
+        "winPct": 90,
+        "kd": 2.75,
+        "killsPerMatch": 25.85,
+        "kpm": 1.09,
+        "dpm": 227.76,
+        "revivesPerHour": 9.96,
+        "sniperPct": 0.62,
+        "autoPct": 96.89,
+        "jetPct": 0,
+        "eaId": "DShepherd176",
+        "displayName": "DShepherd176",
+        "platform": "xbox",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 24,
+        "wins": 18,
+        "losses": 6,
+        "kills": 707,
+        "headshots": 273,
+        "deaths": 143,
+        "damage": 113173,
+        "assists": 282,
+        "revives": 59,
+        "timeSec": 32705,
+        "winPct": 75,
+        "kd": 4.94,
+        "killsPerMatch": 29.46,
+        "kpm": 1.3,
+        "dpm": 207.63,
+        "revivesPerHour": 6.49,
+        "sniperPct": 43.09,
+        "autoPct": 50.29,
+        "jetPct": 0,
+        "eaId": "MorsOrtu",
+        "displayName": "MorsOrtu",
+        "platform": "steam",
+        "region": "CA",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 26,
+        "wins": 19,
+        "losses": 7,
+        "kills": 522,
+        "headshots": 133,
+        "deaths": 185,
+        "damage": 168712,
+        "assists": 284,
+        "revives": 39,
+        "timeSec": 35399,
+        "winPct": 73.08,
+        "kd": 2.82,
+        "killsPerMatch": 20.08,
+        "kpm": 0.88,
+        "dpm": 285.96,
+        "revivesPerHour": 3.97,
+        "sniperPct": 36.38,
+        "autoPct": 48.05,
+        "jetPct": 0,
+        "eaId": "DaBoogiemanSJ",
+        "displayName": "DaBoogiemanSJ",
+        "platform": "ea",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
         "matches": 3,
         "wins": 2,
         "losses": 1,
@@ -3094,6 +2824,87 @@
         "displayName": "kdnOps",
         "platform": "steam",
         "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 19,
+        "wins": 12,
+        "losses": 7,
+        "kills": 349,
+        "headshots": 50,
+        "deaths": 231,
+        "damage": 71770,
+        "assists": 116,
+        "revives": 56,
+        "timeSec": 26845,
+        "winPct": 63.16,
+        "kd": 1.51,
+        "killsPerMatch": 18.37,
+        "kpm": 0.78,
+        "dpm": 160.41,
+        "revivesPerHour": 7.51,
+        "sniperPct": 0.3,
+        "autoPct": 94.59,
+        "jetPct": 0,
+        "eaId": "TTV_GarnetWolfe",
+        "displayName": "TTV_GarnetWolfe",
+        "platform": "ea",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 29,
+        "wins": 18,
+        "losses": 11,
+        "kills": 1200,
+        "headshots": 246,
+        "deaths": 310,
+        "damage": 186663,
+        "assists": 231,
+        "revives": 115,
+        "timeSec": 41352,
+        "winPct": 62.07,
+        "kd": 3.87,
+        "killsPerMatch": 41.38,
+        "kpm": 1.74,
+        "dpm": 270.84,
+        "revivesPerHour": 10.01,
+        "sniperPct": 13.93,
+        "autoPct": 81.99,
+        "jetPct": 0,
+        "eaId": "BananaBoat581",
+        "displayName": "BananaBoat581",
+        "platform": "ps",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 10,
+        "wins": 6,
+        "losses": 4,
+        "kills": 62,
+        "headshots": 12,
+        "deaths": 67,
+        "damage": 12873,
+        "assists": 73,
+        "revives": 18,
+        "timeSec": 12069,
+        "winPct": 60,
+        "kd": 0.93,
+        "killsPerMatch": 6.2,
+        "kpm": 0.31,
+        "dpm": 64,
+        "revivesPerHour": 5.37,
+        "sniperPct": 0,
+        "autoPct": 100,
+        "jetPct": 0,
+        "eaId": "TheTwitchGirl",
+        "displayName": "TwitchGirl",
+        "platform": "steam",
+        "region": "USA",
         "mainMode": "unknown",
         "rank": null
       },
@@ -3125,6 +2936,33 @@
         "rank": null
       },
       {
+        "matches": 19,
+        "wins": 11,
+        "losses": 8,
+        "kills": 541,
+        "headshots": 64,
+        "deaths": 240,
+        "damage": 99240,
+        "assists": 130,
+        "revives": 29,
+        "timeSec": 25308,
+        "winPct": 57.89,
+        "kd": 2.25,
+        "killsPerMatch": 28.47,
+        "kpm": 1.28,
+        "dpm": 235.28,
+        "revivesPerHour": 4.13,
+        "sniperPct": 17.79,
+        "autoPct": 78.94,
+        "jetPct": 0,
+        "eaId": "AtomicBoggy",
+        "displayName": "AtomicBoggy",
+        "platform": "ps",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
         "matches": 9,
         "wins": 5,
         "losses": 4,
@@ -3147,6 +2985,33 @@
         "eaId": "MhT0k3n",
         "displayName": "MhT0k3n",
         "platform": "xbox",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 26,
+        "wins": 14,
+        "losses": 12,
+        "kills": 1293,
+        "headshots": 1065,
+        "deaths": 196,
+        "damage": 168959,
+        "assists": 198,
+        "revives": 20,
+        "timeSec": 37076,
+        "winPct": 53.85,
+        "kd": 6.6,
+        "killsPerMatch": 49.73,
+        "kpm": 2.09,
+        "dpm": 273.43,
+        "revivesPerHour": 1.94,
+        "sniperPct": 93.91,
+        "autoPct": 0.4,
+        "jetPct": 0,
+        "eaId": "ShaydeFPS",
+        "displayName": "ShaydeFPS",
+        "platform": "ea",
         "region": "US",
         "mainMode": "unknown",
         "rank": null
@@ -3370,6 +3235,33 @@
         "rank": null
       },
       {
+        "matches": 21,
+        "wins": 16,
+        "losses": 5,
+        "kills": 790,
+        "headshots": 150,
+        "deaths": 197,
+        "damage": 116235,
+        "assists": 231,
+        "revives": 130,
+        "timeSec": 30964,
+        "winPct": 76.19,
+        "kd": 4.01,
+        "killsPerMatch": 37.62,
+        "kpm": 1.53,
+        "dpm": 225.23,
+        "revivesPerHour": 15.11,
+        "sniperPct": 45.06,
+        "autoPct": 48.96,
+        "jetPct": 0,
+        "eaId": "BananaBoat581",
+        "displayName": "BananaBoat581",
+        "platform": "ps",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
         "matches": 8,
         "wins": 6,
         "losses": 2,
@@ -3397,6 +3289,33 @@
         "rank": null
       },
       {
+        "matches": 10,
+        "wins": 6,
+        "losses": 4,
+        "kills": 269,
+        "headshots": 48,
+        "deaths": 93,
+        "damage": 55959,
+        "assists": 115,
+        "revives": 14,
+        "timeSec": 14782,
+        "winPct": 60,
+        "kd": 2.89,
+        "killsPerMatch": 26.9,
+        "kpm": 1.09,
+        "dpm": 227.14,
+        "revivesPerHour": 3.41,
+        "sniperPct": 7.91,
+        "autoPct": 83.79,
+        "jetPct": 0,
+        "eaId": "DaBoogiemanSJ",
+        "displayName": "DaBoogiemanSJ",
+        "platform": "ea",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
         "matches": 5,
         "wins": 3,
         "losses": 2,
@@ -3419,6 +3338,33 @@
         "eaId": "pizzawolf238",
         "displayName": "pizzawolf238",
         "platform": "steam",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 13,
+        "wins": 5,
+        "losses": 8,
+        "kills": 261,
+        "headshots": 40,
+        "deaths": 179,
+        "damage": 52088,
+        "assists": 101,
+        "revives": 11,
+        "timeSec": 17547,
+        "winPct": 38.46,
+        "kd": 1.46,
+        "killsPerMatch": 20.08,
+        "kpm": 0.89,
+        "dpm": 178.11,
+        "revivesPerHour": 2.26,
+        "sniperPct": 18.64,
+        "autoPct": 78.81,
+        "jetPct": 0,
+        "eaId": "AtomicBoggy",
+        "displayName": "AtomicBoggy",
+        "platform": "ps",
         "region": "US",
         "mainMode": "unknown",
         "rank": null
@@ -3451,6 +3397,33 @@
         "rank": null
       },
       {
+        "matches": 19,
+        "wins": 4,
+        "losses": 15,
+        "kills": 407,
+        "headshots": 81,
+        "deaths": 146,
+        "damage": 70819,
+        "assists": 123,
+        "revives": 42,
+        "timeSec": 23374,
+        "winPct": 21.05,
+        "kd": 2.79,
+        "killsPerMatch": 21.42,
+        "kpm": 1.04,
+        "dpm": 181.79,
+        "revivesPerHour": 6.47,
+        "sniperPct": 12.4,
+        "autoPct": 63.59,
+        "jetPct": 0,
+        "eaId": "Meecheel",
+        "displayName": "Meecheel",
+        "platform": "ea",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
         "matches": 7,
         "wins": 1,
         "losses": 6,
@@ -3472,6 +3445,33 @@
         "jetPct": 14.77,
         "eaId": "mk3_beaST",
         "displayName": "mk3_beaST",
+        "platform": "ea",
+        "region": "US",
+        "mainMode": "unknown",
+        "rank": null
+      },
+      {
+        "matches": 24,
+        "wins": 2,
+        "losses": 22,
+        "kills": 550,
+        "headshots": 215,
+        "deaths": 298,
+        "damage": 101206,
+        "assists": 120,
+        "revives": 22,
+        "timeSec": 29731,
+        "winPct": 8.33,
+        "kd": 1.85,
+        "killsPerMatch": 22.92,
+        "kpm": 1.11,
+        "dpm": 204.24,
+        "revivesPerHour": 2.66,
+        "sniperPct": 47.04,
+        "autoPct": 48.22,
+        "jetPct": 1.91,
+        "eaId": "hrsaputra",
+        "displayName": "hrsaputra",
         "platform": "ea",
         "region": "US",
         "mainMode": "unknown",

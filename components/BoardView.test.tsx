@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BoardView } from './BoardView';
 import type { BoardFile, BoardRow } from '@/lib/types';
+import { MIN_MATCHES } from '@/lib/ranking';
 
 const row = (over: Partial<BoardRow>): BoardRow => ({
   eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA West', mainMode: 'gauntlet',
@@ -43,8 +44,16 @@ describe('BoardView', () => {
 
   it('shows the provisional section', () => {
     render(<BoardView board={board} />);
-    expect(screen.getByText(/provisional/i)).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: /provisional/i })).toBeInTheDocument();
     expect(screen.getByText('Rookie')).toBeInTheDocument();
+  });
+
+  it('states the ranking rule and the match floor on the board', () => {
+    render(<BoardView board={board} />);
+    // The rule has to be visible where the ranking is, not only inside the
+    // Provisional section, which a reader may never scroll to.
+    expect(screen.getByText(/ranked by win rate/i)).toBeInTheDocument();
+    expect(screen.getByText(new RegExp(`minimum ${MIN_MATCHES} matches`, 'i'))).toBeInTheDocument();
   });
 
   it('links to the not-listed page', () => {

@@ -183,14 +183,14 @@ describe('buildBoard', () => {
           player: { nucleusId: '400', personaId: '300', platformId: 1 },
           categories: [{
             catName: 'glacier_mp',
-            catFields: [{ name: 'matches_gm_gntgauntlet', value: 20, fields: dim('GraniteGauntlet0', 'Season4') }],
+            catFields: [{ name: 'matches_gm_gntgauntlet', value: 50, fields: dim('GraniteGauntlet0', 'Season4') }],
           }],
         },
         {
           player: { nucleusId: '200', personaId: '100', platformId: 1 },
           categories: [{
             catName: 'glacier_mp',
-            catFields: [{ name: 'matches_gm_gntgauntlet', value: 40, fields: dim('GraniteGauntlet0', 'Season4') }],
+            catFields: [{ name: 'matches_gm_gntgauntlet', value: 90, fields: dim('GraniteGauntlet0', 'Season4') }],
           }],
         },
       ],
@@ -202,9 +202,9 @@ describe('buildBoard', () => {
     const bravoRow = rows.find((r) => r.eaId === 'bravo');
 
     expect(alphaRow?.displayName).toBe('Alpha');
-    expect(alphaRow?.matches).toBe(40);
+    expect(alphaRow?.matches).toBe(90);
     expect(bravoRow?.displayName).toBe('Bravo');
-    expect(bravoRow?.matches).toBe(20);
+    expect(bravoRow?.matches).toBe(50);
   });
 
   it('produces byte-identical JSON regardless of bulk response order, across multiple seasons', () => {

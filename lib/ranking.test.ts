@@ -5,7 +5,7 @@ import type { BoardRow } from './types';
 
 const row = (over: Partial<BoardRow>): BoardRow => ({
   eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
-  matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
+  matches: 50, wins: 25, losses: 25, kills: 100, headshots: 25, deaths: 50, damage: 1000,
   assists: 0, revives: 0, timeSec: 6000,
   winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, sniperPct: 20, autoPct: 75, jetPct: 0, rank: null,
   ...over,
@@ -13,7 +13,7 @@ const row = (over: Partial<BoardRow>): BoardRow => ({
 
 describe('rankPlayers', () => {
   it('uses a floor of 10 matches', () => {
-    expect(MIN_MATCHES).toBe(10);
+    expect(MIN_MATCHES).toBe(30);
   });
 
   it('sorts by win percent descending', () => {
@@ -32,8 +32,8 @@ describe('rankPlayers', () => {
 
   it('moves under-floor players to provisional', () => {
     const { ranked, provisional } = rankPlayers([
-      row({ eaId: 'veteran', matches: 10 }),
-      row({ eaId: 'rookie', matches: 9 }),
+      row({ eaId: 'veteran', matches: MIN_MATCHES }),
+      row({ eaId: 'rookie', matches: MIN_MATCHES - 1 }),
     ]);
     expect(ranked.map((r) => r.eaId)).toEqual(['veteran']);
     expect(provisional.map((r) => r.eaId)).toEqual(['rookie']);
@@ -46,9 +46,9 @@ describe('rankPlayers', () => {
 
   it('breaks win-percent ties by matches, then K/D', () => {
     const { ranked } = rankPlayers([
-      row({ eaId: 'fewer', winPct: 50, matches: 20, kd: 3 }),
-      row({ eaId: 'more', winPct: 50, matches: 40, kd: 1 }),
-      row({ eaId: 'tiebreak', winPct: 50, matches: 20, kd: 5 }),
+      row({ eaId: 'fewer', winPct: 50, matches: 40, kd: 3 }),
+      row({ eaId: 'more', winPct: 50, matches: 80, kd: 1 }),
+      row({ eaId: 'tiebreak', winPct: 50, matches: 40, kd: 5 }),
     ]);
     expect(ranked.map((r) => r.eaId)).toEqual(['more', 'tiebreak', 'fewer']);
   });

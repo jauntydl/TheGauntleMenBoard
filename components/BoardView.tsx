@@ -73,6 +73,14 @@ export function BoardView({ board }: { board: BoardFile }) {
         ))}
       </Tabs>
 
+      {/* State the rule where the ranking is, not only in the Provisional
+          section below it — someone looking at the top of the board should
+          not have to scroll to learn what qualified these players. */}
+      <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
+        Ranked by win rate, minimum {MIN_MATCHES} matches this season. Fewer than
+        that and you appear under Provisional.
+      </Typography>
+
       <LeaderboardTable rows={ranked} />
 
       {provisional.length > 0 && (
