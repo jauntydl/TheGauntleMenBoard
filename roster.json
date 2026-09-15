@@ -1382,5 +1382,17 @@
     "source": "selfserve",
     "inGameName": "FRIDAYHOUND",
     "inGamePlatform": "xboxone"
+  },
+  {
+    "eaId": "Exoticzzzonly",
+    "displayName": "Exoticzzzonly",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1005095648017",
+    "nucleusId": "1010170248017",
+    "source": "selfserve",
+    "inGameName": "Exoticzzzonly",
+    "inGamePlatform": "ea"
   }
 ]
