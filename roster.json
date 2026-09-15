@@ -1034,5 +1034,15 @@
     "personaId": "416573071",
     "nucleusId": "2334325734",
     "source": "selfserve"
+  },
+  {
+    "eaId": "DIA6711",
+    "displayName": "DIA6711",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1009348073746",
+    "nucleusId": "1019844073746",
+    "source": "selfserve"
   }
 ]
