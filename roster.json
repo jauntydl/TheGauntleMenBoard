@@ -1286,5 +1286,17 @@
     "source": "selfserve",
     "inGameName": "Dirty McRae",
     "inGamePlatform": "xboxone"
+  },
+  {
+    "eaId": "warFlounder",
+    "displayName": "warFlounder",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "796964312",
+    "nucleusId": "2332059240",
+    "source": "selfserve",
+    "inGameName": "warFlounder",
+    "inGamePlatform": "ea"
   }
 ]
