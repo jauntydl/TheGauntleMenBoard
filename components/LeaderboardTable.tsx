@@ -158,13 +158,6 @@ export function LeaderboardTable({
           </Box>
         ),
       },
-      { field: 'matches', headerName: 'M', width: 70 },
-      {
-        field: 'record',
-        headerName: 'W–L',
-        width: 90,
-        valueGetter: (_v, r) => `${r.wins}–${r.losses}`,
-      },
       {
         field: 'rating',
         headerName: 'Rating',
@@ -180,6 +173,13 @@ export function LeaderboardTable({
             </Box>
           ),
         getSortComparator: nullsLastComparator,
+      },
+      { field: 'matches', headerName: 'M', width: 70 },
+      {
+        field: 'record',
+        headerName: 'W–L',
+        width: 90,
+        valueGetter: (_v, r) => `${r.wins}–${r.losses}`,
       },
       {
         field: 'winPct',
