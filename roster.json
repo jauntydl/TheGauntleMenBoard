@@ -1044,5 +1044,15 @@
     "personaId": "1009348073746",
     "nucleusId": "1019844073746",
     "source": "selfserve"
+  },
+  {
+    "eaId": "Grizzzvg",
+    "displayName": "Grizzzvg",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1008441642380",
+    "nucleusId": "1005772442380",
+    "source": "selfserve"
   }
 ]
