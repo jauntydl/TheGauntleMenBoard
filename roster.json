@@ -1356,5 +1356,17 @@
     "source": "selfserve",
     "inGameName": "Cobia",
     "inGamePlatform": "steam"
+  },
+  {
+    "eaId": "Kreem914",
+    "displayName": "Kreem914",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1870013614",
+    "nucleusId": "1005356066223",
+    "source": "selfserve",
+    "inGameName": "Kreem914",
+    "inGamePlatform": "ea"
   }
 ]
