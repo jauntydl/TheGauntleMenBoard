@@ -167,6 +167,23 @@ describe('computeMetrics', () => {
     expect(m.sniperPct).toBeCloseTo((200 / 798) * 100, 4);
   });
 
+  it('reports weapon kills per match as well as their share', () => {
+    const m = computeMetrics(darkSlice);
+    // 518 auto and 200 precision kills over 50 matches.
+    expect(m.autoKills).toBe(518);
+    expect(m.sniperKills).toBe(200);
+    expect(m.autoPerMatch).toBeCloseTo(518 / 50, 6);
+    expect(m.sniperPerMatch).toBeCloseTo(200 / 50, 6);
+  });
+
+  it('refuses weapon kills per match when there are no matches', () => {
+    // The count survives without matches; the rate cannot be formed from it.
+    const m = computeMetrics({ kills_gm_gntgauntlet: 100, kills_ar_total: 60, kills_snp_total: 20 });
+    expect(m.autoKills).toBe(60);
+    expect(m.autoPerMatch).toBeNull();
+    expect(m.sniperPerMatch).toBeNull();
+  });
+
   it('refuses the weapon mix when the fields are a wider rollup', () => {
     // Real Season 2 shape: 8721 weapon kills against a mode count of 71.
     const m = computeMetrics({
@@ -178,6 +195,10 @@ describe('computeMetrics', () => {
     });
     expect(m.sniperPct).toBeNull();
     expect(m.autoPct).toBeNull();
+    expect(m.sniperKills).toBeNull();
+    expect(m.autoKills).toBeNull();
+    expect(m.sniperPerMatch).toBeNull();
+    expect(m.autoPerMatch).toBeNull();
   });
 
   it('exposes the badge threshold', () => {

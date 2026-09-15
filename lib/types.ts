@@ -58,6 +58,8 @@ export type Metrics = {
   revivesPerHour: number | null;
   /** Overall rating, 0-100, percentile-weighted against the ranked field. */
   rating: number | null;
+  /** The trait this player is most exceptional at, if any names them. */
+  standouts: import('./rating').StandoutTrait[];
   /**
    * Share of weapon kills taken with snipers and DMRs. null when the weapon
    * fields cannot be trusted for that season — see computeMetrics.
@@ -65,6 +67,14 @@ export type Metrics = {
   sniperPct: number | null;
   /** Share of weapon kills taken with automatics. null under the same guard. */
   autoPct: number | null;
+  /** Kills with snipers and DMRs. null under the same guard as the share. */
+  sniperKills: number | null;
+  /** Kills with automatics. null under the same guard as the share. */
+  autoKills: number | null;
+  /** Sniper and DMR kills per match. null when either input is unusable. */
+  sniperPerMatch: number | null;
+  /** Automatic kills per match. null when either input is unusable. */
+  autoPerMatch: number | null;
   jetPct: number;
 };
 

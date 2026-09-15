@@ -1,15 +1,16 @@
 // components/LeaderboardTable.test.tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { LeaderboardTable, fmtPct, fmtNum, fmtHours, fmtInt, playstyle } from './LeaderboardTable';
+import { LeaderboardTable, fmtPct, fmtNum, fmtHours, fmtInt, badges } from './LeaderboardTable';
 import type { BoardRow } from '@/lib/types';
+import { STANDOUT_TRAITS } from '@/lib/rating';
 
 const row = (over: Partial<BoardRow>): BoardRow => {
   const base: BoardRow = {
     eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
     matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
     assists: 0, revives: 0, timeSec: 3600,
-    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, sniperPct: 20, autoPct: 75, jetPct: 0, rank: 1,
+    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, standouts: [], sniperPct: 20, autoPct: 75, sniperKills: 20, autoKills: 75, sniperPerMatch: 1, autoPerMatch: 3.75, jetPct: 0, rank: 1,
     ...over,
   };
   // eaId is the roster key and is unique in production; keep fixtures unique too.
@@ -34,30 +35,57 @@ describe('formatters', () => {
   });
 });
 
-describe('playstyle', () => {
-  it('names a precision-heavy player Deadeye with their sniper share', () => {
-    // Real Season 4 data for Conqueror.
-    expect(playstyle(45, 51)).toMatchObject({ label: 'Deadeye', detail: '51%' });
+describe('badges', () => {
+  // Two icons are SVG elements rather than emoji, so identity is the id.
+  const ids = (r: BoardRow) => badges(r).map((b) => b.id);
+  const icons = (r: BoardRow) => badges(r).map((b) => b.icon);
+
+  it('awards one badge per trait the player stands out on', () => {
+    for (const t of STANDOUT_TRAITS) {
+      expect(ids(row({ standouts: [t] }))).toEqual([t]);
+    }
   });
 
-  it('names an automatics-heavy player Bullet Hose with their auto share', () => {
-    // Real Season 4 data for Noxious.
-    expect(playstyle(88, 10)).toMatchObject({ label: 'Bullet Hose', detail: '88%' });
+  it('gives every trait its own icon', () => {
+    const all = badges(row({ standouts: [...STANDOUT_TRAITS], jetPct: 15 }));
+    expect(all).toHaveLength(STANDOUT_TRAITS.length + 1);
+    expect(new Set(all.map((b) => b.id)).size).toBe(all.length);
+    for (const b of all) expect(b.icon).toBeTruthy();
   });
 
-  it('shows both halves when neither weapon class dominates', () => {
-    // Real Season 4 data for Excited Pianist.
-    expect(playstyle(47, 39)).toMatchObject({ label: 'Flex', detail: '47/39' });
+  it('awards every trait at once, strongest first', () => {
+    // rateAll orders standouts by percentile, so badges must preserve the
+    // order it was given rather than imposing one of its own.
+    expect(ids(row({ standouts: ['revivesPerHour', 'winPct'] }))).toEqual(['revivesPerHour', 'winPct']);
   });
 
-  it('never contradicts the number beside the label', () => {
-    // Real Season 4 data for Dark: 64.6% auto renders as "65", and the Bullet
-    // Hose floor is 65 — comparing the raw value produced "Flex 65/26".
-    expect(playstyle(64.6, 25.6)).toMatchObject({ label: 'Bullet Hose', detail: '65%' });
+  it('stacks flying on top of traits', () => {
+    expect(ids(row({ standouts: ['winPct'], jetPct: 40 }))).toEqual(['winPct', 'jet']);
   });
 
-  it('returns null when the weapon mix could not be trusted', () => {
-    expect(playstyle(null, null)).toBeNull();
+  it('awards the jet badge on an absolute share of time, not a percentile', () => {
+    expect(ids(row({ jetPct: 10 }))).toEqual(['jet']);
+    expect(ids(row({ jetPct: 9.9 }))).toEqual([]);
+  });
+
+  it('awards nothing to a player who met no threshold', () => {
+    // No fallback badge: an unexceptional season earns none, which is what
+    // makes the badges other people hold worth something.
+    expect(badges(row({ standouts: [], jetPct: 0 }))).toEqual([]);
+  });
+
+  it('says what the badge was for and what the figure was', () => {
+    expect(badges(row({ standouts: ['kd'], kd: 5.07 }))[0].detail).toBe('Top 10% — K/D — 5.07');
+    expect(badges(row({ standouts: ['autoPerMatch'], autoPerMatch: 21.4, autoKills: 8132 }))[0].detail)
+      .toBe('Top 10% — automatic kills — 21.4 per match, 8,132 all season');
+    expect(badges(row({ jetPct: 34.6 }))[0].detail)
+      .toBe('Pilot — 34.6% of Gauntlet time flown in jets');
+  });
+
+  it('survives a row built before standouts existed', () => {
+    // The committed board predates the field; an older file must not throw.
+    const legacy = { ...row({}), standouts: undefined } as unknown as BoardRow;
+    expect(badges(legacy)).toEqual([]);
   });
 });
 
@@ -68,21 +96,22 @@ describe('LeaderboardTable', () => {
     expect(screen.getByText('Noxious')).toBeInTheDocument();
   });
 
-  it('shows the jet badge at or above the threshold', () => {
+  it('awards the jet badge at or above the threshold', () => {
     render(<LeaderboardTable rows={[row({ displayName: 'Jetty', jetPct: 14.8 })]} />);
-    expect(screen.getByLabelText(/jet/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/flown in jets/)).toBeInTheDocument();
   });
 
-  it('hides the jet badge below the threshold', () => {
+  it('withholds the jet badge below the threshold', () => {
     render(<LeaderboardTable rows={[row({ displayName: 'Grunt', jetPct: 9.9 })]} />);
-    expect(screen.queryByLabelText(/jet/i)).not.toBeInTheDocument();
+    expect(screen.queryByLabelText(/flown in jets/)).not.toBeInTheDocument();
   });
 
   it('renders an em dash for null rate stats', () => {
     render(<LeaderboardTable rows={[row({ displayName: 'Empty', kd: null, kpm: null })]} />);
-    // Exactly kd and kpm are null in this fixture — pin the count so a
-    // partial regression (only one of the two rendering a dash) is caught.
-    expect(screen.getAllByText('—')).toHaveLength(2);
+    // kd and kpm are null in this fixture, and the default row earns no
+    // badge, so three dashes. Pinned so a partial regression (only one of
+    // the two stats rendering a dash) is caught.
+    expect(screen.getAllByText('—')).toHaveLength(3);
   });
 
   it('shows a rank in ranked mode', () => {
@@ -92,8 +121,8 @@ describe('LeaderboardTable', () => {
 
   it('shows an em dash for rank in provisional mode', () => {
     render(<LeaderboardTable rows={[row({ rank: null })]} provisional />);
-    // Only rank is null in this fixture — pin the count to exactly 1.
-    expect(screen.getAllByText('—')).toHaveLength(1);
+    // Rank is null, and the default row earns no badge — two dashes.
+    expect(screen.getAllByText('—')).toHaveLength(2);
   });
 
   it('renders an empty-state message with no rows', () => {
@@ -101,11 +130,29 @@ describe('LeaderboardTable', () => {
     expect(screen.getByText(/no players/i)).toBeInTheDocument();
   });
 
-  it('shows only the playstyle label in the cell, not the split', () => {
-    render(<LeaderboardTable rows={[row({ displayName: 'Sniper', autoPct: 45, sniperPct: 51 })]} />);
-    expect(screen.getByText('Deadeye')).toBeInTheDocument();
-    // The percentage moved to the tooltip so the column stays glanceable.
-    expect(screen.queryByText('51%')).not.toBeInTheDocument();
+  it('shows badges as icons alone, with the figure only in the tooltip', () => {
+    render(<LeaderboardTable rows={[row({
+      displayName: 'Scoped', standouts: ['sniperPerMatch'], sniperPerMatch: 8.25, sniperKills: 1650,
+    })]} />);
+    expect(screen.getByLabelText('Top 10% — scoped kills — 8.3 per match, 1,650 all season'))
+      .toBeInTheDocument();
+    expect(screen.queryByText(/scoped kills/)).not.toBeInTheDocument();
+  });
+
+  it('renders every badge a player earned', () => {
+    render(<LeaderboardTable rows={[row({
+      displayName: 'Stacked', standouts: ['winPct', 'kd', 'autoPerMatch'], jetPct: 40,
+    })]} />);
+    // Anchored on "Top 10%"/"Pilot" so a column menu's own aria-label
+    // ("K/D column menu") cannot satisfy the query instead of the badge.
+    for (const detail of [/^Top 10% — win rate/, /^Top 10% — K\/D/, /^Top 10% — automatic kills/, /^Pilot —/]) {
+      expect(screen.getByLabelText(detail)).toBeInTheDocument();
+    }
+  });
+
+  it('shows a dash when a player earned nothing', () => {
+    render(<LeaderboardTable rows={[row({ displayName: 'Plain', standouts: [], jetPct: 0 })]} />);
+    expect(screen.getAllByText('—')).toHaveLength(1);
   });
 
   it('renders the default sort order — Rating descending — regardless of input order', () => {
@@ -160,7 +207,7 @@ describe('LeaderboardTable', () => {
       render(<LeaderboardTable rows={[row({ displayName: 'Phone' })]} />);
       expect(screen.getByText('Rating')).toBeInTheDocument();
       expect(screen.getByText('Win %')).toBeInTheDocument();
-      for (const hidden of ['M', 'W–L', 'Style', 'K/D', 'Kills', 'HS', 'K/match', 'KPM', 'DPM', 'Rev/h', 'Time']) {
+      for (const hidden of ['M', 'W–L', 'Badges', 'K/D', 'Kills', 'HS', 'K/match', 'KPM', 'DPM', 'Rev/h', 'Time']) {
         expect(screen.queryByText(hidden)).not.toBeInTheDocument();
       }
     });
@@ -169,7 +216,7 @@ describe('LeaderboardTable', () => {
   it('adds playstyle and combat rates on a tablet, but not the wide-screen detail', () => {
     withViewport(['max-width:1280px'], () => {
       render(<LeaderboardTable rows={[row({ displayName: 'Tablet' })]} />);
-      for (const shown of ['Rating', 'Win %', 'M', 'W–L', 'Style', 'K/D', 'K/match']) {
+      for (const shown of ['Rating', 'Win %', 'M', 'W–L', 'Badges', 'K/D', 'K/match']) {
         expect(screen.getByText(shown)).toBeInTheDocument();
       }
       for (const hidden of ['Kills', 'HS', 'KPM', 'DPM', 'Rev/h', 'Time']) {
@@ -181,7 +228,7 @@ describe('LeaderboardTable', () => {
   it('shows every column on a wide screen', () => {
     withViewport([], () => {
       render(<LeaderboardTable rows={[row({ displayName: 'Desktop' })]} />);
-      for (const shown of ['Rating', 'Win %', 'Style', 'Kills', 'HS', 'K/D', 'K/match', 'KPM', 'DPM', 'Rev/h', 'Time']) {
+      for (const shown of ['Rating', 'Win %', 'Badges', 'Kills', 'HS', 'K/D', 'K/match', 'KPM', 'DPM', 'Rev/h', 'Time']) {
         expect(screen.getByText(shown)).toBeInTheDocument();
       }
     });

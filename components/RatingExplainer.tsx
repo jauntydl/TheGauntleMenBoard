@@ -7,7 +7,7 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Typography from '@mui/material/Typography';
-import { RATING_WEIGHTS, type RatedMetric } from '@/lib/rating';
+import { RATING_WEIGHTS, STANDOUT_FLOOR, type RatedMetric } from '@/lib/rating';
 import { MIN_MATCHES } from '@/lib/ranking';
 
 /**
@@ -97,12 +97,25 @@ export function RatingExplainer() {
       </Typography>
 
       <Typography variant="h6" component="h2" gutterBottom>
+        Badges are separate
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        The icons beside a name are not part of the rating. Each one marks the
+        top {100 - STANDOUT_FLOOR}% of the ranked field on one stat — win rate,
+        K/D, kills per match, revives per hour, scoped kills per match or
+        automatic kills per match — plus one for flying jets. Hover a badge to see which stat it is and what your figure
+        was. Most players hold none, which is what makes the rest worth
+        something.
+      </Typography>
+
+      <Typography variant="h6" component="h2" gutterBottom>
         What is deliberately not in it
       </Typography>
       <Typography sx={{ mb: 2 }}>
         <strong>Headshot rate</strong> mostly measures which gun you hold. Snipers
         and DMRs are headshot-or-nothing, so a sniper main posts a high rate by
-        playing normally. It is shown as the Style column instead, where it belongs.
+        playing normally. What they favour is shown as a badge instead, where it
+        belongs.
       </Typography>
       <Typography sx={{ mb: 2 }}>
         <strong>Total kills and total score</strong> reward whoever plays the most

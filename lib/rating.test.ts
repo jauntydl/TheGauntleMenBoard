@@ -7,7 +7,7 @@ const row = (over: Partial<BoardRow>): BoardRow => ({
   matches: 50, wins: 25, losses: 25, kills: 100, headshots: 25, deaths: 50, damage: 1000,
   assists: 0, revives: 0, timeSec: 3600,
   winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5,
-  revivesPerHour: 3, rating: null, sniperPct: 20, autoPct: 75, jetPct: 0, rank: null,
+  revivesPerHour: 3, rating: null, standouts: [], sniperPct: 20, autoPct: 75, sniperKills: 20, autoKills: 75, sniperPerMatch: 1, autoPerMatch: 3.75, jetPct: 0, rank: null,
   ...over,
 });
 

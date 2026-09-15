@@ -41,7 +41,7 @@ export function rankPlayers(rows: BoardRow[]): { ranked: BoardRow[]; provisional
       // Rating is a percentile against the ranked field. Provisional players
       // are not in that field, so any rating they carry — including one left
       // over from a previous pass — is meaningless and must be cleared.
-      provisional.push({ ...r, rank: null, rating: null });
+      provisional.push({ ...r, rank: null, rating: null, standouts: [] });
     }
   }
 

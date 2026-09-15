@@ -19,6 +19,43 @@ export const RATING_WEIGHTS = {
 export type RatedMetric = keyof typeof RATING_WEIGHTS;
 
 /**
+ * Traits that can earn a badge.
+ *
+ * The first four are rated metrics — damage and objectives feed the rating but
+ * earn no badge, so nobody is decorated for something the board does not show
+ * them. The last two are weapon kills per match, which say nothing about how
+ * good a player is but a lot about how they play. Kills rather than share,
+ * because a share only says what someone carried; per match rather than a
+ * season total, because a total mostly says who played the most.
+ */
+export const STANDOUT_TRAITS = [
+  'winPct',
+  'kd',
+  'killsPerMatch',
+  'revivesPerHour',
+  'sniperPerMatch',
+  'autoPerMatch',
+] as const;
+export type StandoutTrait = (typeof STANDOUT_TRAITS)[number];
+
+/**
+ * How far above the field a trait must sit to earn its badge: the top ten per
+ * cent of the season's ranked players.
+ *
+ * Percentile rather than an absolute figure, because absolute floors decay
+ * into noise. A 65%-automatic-kills floor sounded selective and turned out to
+ * cover nearly the whole board — most people carry a rifle. A tenth of the
+ * field is a tenth of the field whatever the meta does.
+ */
+export const STANDOUT_FLOOR = 90;
+
+/**
+ * A player earns a badge for every trait they are exceptional at, not just
+ * their best one: someone in the top ten per cent on both revives and win rate
+ * did both, and collapsing that to one badge throws away the interesting half.
+ */
+
+/**
  * Where `value` sits in `population`, 0-100.
  *
  * Uses midrank for ties — everyone level on a metric gets the same percentile
@@ -53,8 +90,10 @@ export function rateAll(rows: BoardRow[]): BoardRow[] {
   const metrics = Object.keys(RATING_WEIGHTS) as RatedMetric[];
 
   // One population per metric, holding only the players who have that value.
-  const populations = new Map<RatedMetric, number[]>(
-    metrics.map((m) => [
+  // Badge traits are included alongside the rated ones: the weapon shares earn
+  // badges without feeding the rating, so they need populations too.
+  const populations = new Map<RatedMetric | StandoutTrait, number[]>(
+    [...new Set<RatedMetric | StandoutTrait>([...metrics, ...STANDOUT_TRAITS])].map((m) => [
       m,
       rows.map((r) => r[m]).filter((v): v is number => v !== null && Number.isFinite(v)),
     ]),
@@ -76,6 +115,19 @@ export function rateAll(rows: BoardRow[]): BoardRow[] {
     // pipeline's rounding pass, so an unrounded value would reach the
     // committed board as 79.95652173913044.
     const rating = weightUsed > 0 ? Math.round((weighted / weightUsed) * 100) / 100 : null;
-    return { ...row, rating };
+
+    // Everything this player is exceptional at. Computed here because only
+    // the pipeline knows the whole field to compare against. Strongest first,
+    // so a display that can only fit some of them keeps the best ones.
+    const scored: { trait: StandoutTrait; pct: number }[] = [];
+    for (const t of STANDOUT_TRAITS) {
+      const value = row[t];
+      if (value === null || !Number.isFinite(value)) continue;
+      const pct = percentile(populations.get(t) ?? [], value);
+      if (pct >= STANDOUT_FLOOR) scored.push({ trait: t, pct });
+    }
+    scored.sort((a, b) => b.pct - a.pct);
+
+    return { ...row, rating, standouts: scored.map((s) => s.trait) };
   });
 }

@@ -99,10 +99,19 @@ export function computeMetrics(slice: StatSlice): Metrics {
     dpm: minutes > 0 ? damage / minutes : null,
     objPerMatch: matches > 0 ? objActions / matches : null,
     revivesPerHour: hours > 0 ? revives / hours : null,
-    // Filled in by rateAll once the whole field is known.
+    // Both filled in by rateAll once the whole field is known.
     rating: null,
+    standouts: [],
     sniperPct: weaponMixTrusted ? (precisionKills / weaponKills) * 100 : null,
     autoPct: weaponMixTrusted ? (autoKills / weaponKills) * 100 : null,
+    // Counts as well as shares, and behind the same guard: an untrusted
+    // rollup is no more usable as a total than it is as a proportion.
+    sniperKills: weaponMixTrusted ? precisionKills : null,
+    autoKills: weaponMixTrusted ? autoKills : null,
+    // Per match rather than raw totals, for the same reason every other rate
+    // on the board is: a season total mostly measures who played the most.
+    sniperPerMatch: weaponMixTrusted && matches > 0 ? precisionKills / matches : null,
+    autoPerMatch: weaponMixTrusted && matches > 0 ? autoKills / matches : null,
     jetPct: timeSec > 0 ? (jetSec / timeSec) * 100 : 0,
   };
 }

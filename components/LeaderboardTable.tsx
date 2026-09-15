@@ -3,12 +3,12 @@
 import * as React from 'react';
 import { DataGrid, type GridColDef, type GridComparatorFn, type GridSortDirection } from '@mui/x-data-grid';
 import Box from '@mui/material/Box';
-import Chip from '@mui/material/Chip';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { BoardRow } from '@/lib/types';
 import { JET_BADGE_THRESHOLD } from '@/lib/metrics';
+import type { StandoutTrait } from '@/lib/rating';
 
 const DASH = '—';
 
@@ -47,12 +47,8 @@ const nullsLastComparator =
   };
 
 /**
- * Name a player by how they get their kills.
- *
- * Thresholds are deliberately asymmetric because the weapons are. Snipers and
- * DMRs fire slowly, so even a committed sniper rarely takes half their kills
- * with one — 45% is genuinely precision-heavy. Automatics are high volume, so
- * it takes 65% before that reads as a commitment rather than a default.
+ * Centre by default. Names and the style label read better ranged left; kill
+ * counts line up on their last digit ranged right.
  */
 const COLUMN_ALIGN: Record<string, 'left' | 'right' | 'center'> = {
   displayName: 'left',
@@ -61,29 +57,84 @@ const COLUMN_ALIGN: Record<string, 'left' | 'right' | 'center'> = {
   headshots: 'right',
 };
 
-const SNIPER_FLOOR = 45;
-const AUTO_FLOOR = 65;
+/**
+ * Two badges are drawn rather than picked from the emoji set: there is no
+ * assault-rifle emoji at all (🔫 renders as a water pistol on every current
+ * platform) and no medical cross that keeps its shape at 17px. Both take
+ * currentColor, so they sit on the theme rather than beside it.
+ */
+const MedicCross = () => (
+  <svg viewBox="0 0 24 24" width="1em" height="1em" fill="currentColor" aria-hidden focusable="false">
+    <path d="M9.4 3h5.2v6.4H21v5.2h-6.4V21H9.4v-6.4H3V9.4h6.4z" />
+  </svg>
+);
 
-export function playstyle(
-  autoPct: number | null,
-  sniperPct: number | null,
-): { label: string; detail: string; tone: string } | null {
-  if (autoPct === null || sniperPct === null) return null;
+const AutoRifle = () => (
+  <svg viewBox="0 0 24 24" width="1.25em" height="1.25em" fill="currentColor" aria-hidden focusable="false">
+    {/* Barrel, front sight, receiver, top rail, stock, magazine, grip. */}
+    <path d="M13.2 9.5h8.6v1.5h-8.6z" />
+    <path d="M17.4 7.8h1.2v1.9h-1.2z" />
+    <path d="M6.2 8.5h7.6v3.4H6.2z" />
+    <path d="M7.2 7h6v1.3h-6z" />
+    <path d="M1.6 10.3l4.6-1v2.9l-4.6.6z" />
+    <path d="M9.6 11.9h2.7l-.6 4.6H9z" />
+    <path d="M6.7 11.9h2.1l-.8 3.5H6z" />
+  </svg>
+);
 
-  // Compare the rounded figures, not the raw ones, so the label can never
-  // contradict the number beside it — 64.6% renders as "65" and must not then
-  // read "Flex 65/26" while the Bullet Hose floor is 65.
-  const auto = Math.round(autoPct);
-  const sniper = Math.round(sniperPct);
+/**
+ * A badge is an icon and nothing else: the picture carries the meaning, and
+ * the tooltip carries the number behind it. Names were tried first and did
+ * not survive contact — a title tells you a player earned something without
+ * telling you what.
+ */
+export type Badge = { id: StandoutTrait | 'jet'; icon: React.ReactNode; detail: string };
 
-  if (sniper >= SNIPER_FLOOR) {
-    return { label: 'Deadeye', detail: `${sniper}%`, tone: 'secondary.main' };
+const TRAIT_BADGES: Record<StandoutTrait, { icon: React.ReactNode; detail: (r: BoardRow) => string }> = {
+  winPct: { icon: '🏆', detail: (r) => `win rate — ${r.winPct?.toFixed(1)}%` },
+  kd: { icon: '🛡️', detail: (r) => `K/D — ${r.kd?.toFixed(2)}` },
+  killsPerMatch: { icon: '💀', detail: (r) => `kills — ${r.killsPerMatch?.toFixed(1)} per match` },
+  revivesPerHour: {
+    icon: <MedicCross />,
+    detail: (r) => `revives — ${r.revivesPerHour?.toFixed(1)} per hour`,
+  },
+  sniperPerMatch: {
+    icon: '🎯',
+    detail: (r) =>
+      `scoped kills — ${r.sniperPerMatch?.toFixed(1)} per match, ${fmtInt(r.sniperKills ?? 0)} all season`,
+  },
+  autoPerMatch: {
+    icon: <AutoRifle />,
+    detail: (r) =>
+      `automatic kills — ${r.autoPerMatch?.toFixed(1)} per match, ${fmtInt(r.autoKills ?? 0)} all season`,
+  },
+};
+
+/**
+ * Every badge this player has earned, strongest first.
+ *
+ * Each one is a threshold met, so earning none is a normal outcome rather
+ * than a gap to paper over — a badge that everybody holds says nothing.
+ */
+export function badges(row: BoardRow): Badge[] {
+  const earned: Badge[] = (row.standouts ?? []).map((t) => ({
+    id: t,
+    icon: TRAIT_BADGES[t].icon,
+    detail: `Top 10% — ${TRAIT_BADGES[t].detail(row)}`,
+  }));
+
+  // Flying keeps an absolute threshold rather than a percentile. Almost
+  // nobody flies, so a tenth of this field is still a player who touched a
+  // jet once; an hour in ten is a pilot.
+  if (row.jetPct >= JET_BADGE_THRESHOLD) {
+    earned.push({
+      id: 'jet',
+      icon: '✈️',
+      detail: `Pilot — ${row.jetPct.toFixed(1)}% of Gauntlet time flown in jets`,
+    });
   }
-  if (auto >= AUTO_FLOOR) {
-    return { label: 'Bullet Hose', detail: `${auto}%`, tone: 'primary.main' };
-  }
-  // Neither dominates, so show both halves — auto first, matching the label.
-  return { label: 'Flex', detail: `${auto}/${sniper}`, tone: 'text.primary' };
+
+  return earned;
 }
 
 export function LeaderboardTable({
@@ -150,32 +201,11 @@ export function LeaderboardTable({
         flex: 1,
         minWidth: isNarrow ? 104 : 140,
         renderCell: (p) => (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
-            <Box
-              component="span"
-              sx={{ fontWeight: 500, letterSpacing: '0.01em', color: 'text.primary' }}
-            >
-              {p.row.displayName}
-            </Box>
-            {p.row.jetPct >= JET_BADGE_THRESHOLD && (
-              <Tooltip title={`${p.row.jetPct.toFixed(1)}% of Gauntlet time flown in jets`}>
-                {/* Ice, not amber: sky reads as aviation, and it keeps the
-                    amber channel meaning "rank" and nothing else. */}
-                <Chip
-                  label="✈"
-                  size="small"
-                  aria-label="jet-heavy player"
-                  variant="outlined"
-                  sx={{
-                    height: 20,
-                    borderColor: 'rgba(125,226,255,0.45)',
-                    color: 'secondary.main',
-                    bgcolor: 'rgba(125,226,255,0.08)',
-                    '& .MuiChip-label': { px: 0.75, fontSize: '0.7rem' },
-                  }}
-                />
-              </Tooltip>
-            )}
+          <Box
+            component="span"
+            sx={{ fontWeight: 500, letterSpacing: '0.01em', color: 'text.primary' }}
+          >
+            {p.row.displayName}
           </Box>
         ),
       },
@@ -197,24 +227,43 @@ export function LeaderboardTable({
       },
       {
         field: 'sniperPct',
-        headerName: 'Style',
-        width: 112,
+        headerName: 'Badges',
+        width: 130,
+        sortable: false,
         description:
-          'Playstyle by weapon mix. Deadeye = precision-heavy, Bullet Hose = automatics-heavy, Flex = both. Hover a row for the split.',
+          'Earned by finishing in the top 10% of the season on a stat, or by flying jets. Hover a badge to see which.',
         renderCell: (p) => {
-          const style = playstyle(p.row.autoPct, p.row.sniperPct);
-          if (!style) return <Box component="span" sx={{ color: 'text.secondary' }}>{DASH}</Box>;
+          const earned = badges(p.row);
+          if (earned.length === 0) {
+            return <Box component="span" sx={{ color: 'text.secondary' }}>{DASH}</Box>;
+          }
           return (
-            // The split moves into the tooltip rather than being dropped, so
-            // the column stays a glanceable label without losing the detail.
-            <Tooltip title={`${style.label} — ${style.detail} of weapon kills`}>
-              <Box component="span" sx={{ color: style.tone, fontWeight: 600 }}>
-                {style.label}
-              </Box>
-            </Tooltip>
+            <Box sx={{ display: 'flex', alignItems: 'center', height: '100%', gap: 0.5, minWidth: 0 }}>
+              {earned.map((b) => (
+                // Tooltip per badge rather than per cell: with icons alone, the
+                // name is only reachable by pointing at the one you mean.
+                <Tooltip key={b.id} title={b.detail}>
+                  <Box
+                    component="span"
+                    role="img"
+                    aria-label={b.detail}
+                    // Emoji draw above their own line box, so a flex box of
+                    // the glyph's own height centres them; lineHeight 1 rides
+                    // them visibly high in the row.
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      fontSize: '1.05rem',
+                      cursor: 'default',
+                    }}
+                  >
+                    {b.icon}
+                  </Box>
+                </Tooltip>
+              ))}
+            </Box>
           );
         },
-        getSortComparator: nullsLastComparator,
       },
       { field: 'matches', headerName: 'M', width: 70 },
       {
