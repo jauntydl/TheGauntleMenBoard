@@ -1344,5 +1344,17 @@
     "personaId": "1009200745791",
     "nucleusId": "1019170945791",
     "source": "selfserve"
+  },
+  {
+    "eaId": "JayCobia",
+    "displayName": "JayCobia",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1805886524",
+    "nucleusId": "1003915207294",
+    "source": "selfserve",
+    "inGameName": "Cobia",
+    "inGamePlatform": "steam"
   }
 ]
