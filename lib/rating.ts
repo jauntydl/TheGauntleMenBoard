@@ -3,17 +3,17 @@ import type { BoardRow } from './types';
 /**
  * How much each metric contributes to the overall rating.
  *
- * Winning dominates because it is the actual goal; everything else describes
- * how. These are the five weights the previous six were rescaled to when
- * objectives per match came out, so their relative pull is unchanged and the
- * five still total one.
+ * Winning is half the rating because it is the actual goal; the three ways a
+ * player contributes to it — staying alive, killing, and picking teammates
+ * back up — carry equal weight, and damage is a tenth of any of them because
+ * it is already counted once inside the kills it sets up.
  */
 export const RATING_WEIGHTS = {
-  winPct: 0.47,
-  kd: 0.18,
-  killsPerMatch: 0.14,
-  dpm: 0.12,
-  revivesPerHour: 0.09,
+  winPct: 0.5,
+  kd: 0.15,
+  killsPerMatch: 0.15,
+  revivesPerHour: 0.15,
+  dpm: 0.05,
 } as const;
 
 export type RatedMetric = keyof typeof RATING_WEIGHTS;

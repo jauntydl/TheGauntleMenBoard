@@ -102,7 +102,10 @@ export function mergePlayer(board: BoardFile, addition: BoardFile): BoardFile {
       // rolls over, that is the difference between the board opening on the
       // new season and opening on a finished one.
       currentSeason: addition.meta.currentSeason,
-      builtAt: addition.meta.builtAt,
+      // Not the signup's clock. builtAt means "when these stats were read",
+      // and a signup reads one player's — everyone else's are still as of the
+      // last daily refresh, which is what the page tells people.
+      builtAt: board.meta.builtAt,
     },
     seasons,
     provisional,

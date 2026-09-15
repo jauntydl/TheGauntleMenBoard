@@ -10,6 +10,7 @@ import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import { LeaderboardTable } from './LeaderboardTable';
 import { MIN_MATCHES } from '@/lib/ranking';
+import { formatEastern, nextRefreshAfter } from '@/lib/schedule';
 import type { BoardFile } from '@/lib/types';
 
 export function BoardView({ board }: { board: BoardFile }) {
@@ -52,17 +53,17 @@ export function BoardView({ board }: { board: BoardFile }) {
           <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
             Battlefield 6 Gauntlet. Eight squads start, one is left standing.
           </Typography>
+          {/* Both times in US Eastern, named so nobody has to guess, and both
+              derived from builtAt so the server and the browser render the
+              same string. "Stats read" rather than "updated": a signup adds a
+              player without re-reading anyone else's stats. */}
           <Typography
             variant="caption"
             className="tnum"
             sx={{ color: 'text.secondary', opacity: 0.75, display: 'block', mt: 0.5 }}
           >
-            Standings updated{' '}
-            {new Date(board.meta.builtAt).toLocaleDateString('en-GB', {
-              day: 'numeric',
-              month: 'long',
-              year: 'numeric',
-            })}
+            Stats read {formatEastern(new Date(board.meta.builtAt))} · next refresh{' '}
+            {formatEastern(nextRefreshAfter(new Date(board.meta.builtAt)))}
           </Typography>
         </Box>
 

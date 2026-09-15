@@ -21,7 +21,7 @@ const REASONS: Record<RatedMetric, { label: string; why: string }> = {
     label: 'Kills per match',
     why: 'What you contributed per game, so playing more cannot inflate it.',
   },
-  dpm: { label: 'Damage per minute', why: 'Damage that sets up a teammate’s kill still counts.' },
+  dpm: { label: 'Damage per minute', why: 'Counts the shots that set up a teammate’s kill — lightly, since the kill itself is already counted.' },
   revivesPerHour: {
     label: 'Revives per hour',
     why: 'Picking people up keeps a squad in the bracket.',
