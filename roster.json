@@ -984,5 +984,15 @@
     "personaId": "1005150439412",
     "nucleusId": "1010108639412",
     "source": "selfserve"
+  },
+  {
+    "eaId": "Zenith13",
+    "displayName": "Zenith13",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "180646525",
+    "nucleusId": "2271040344",
+    "source": "selfserve"
   }
 ]
