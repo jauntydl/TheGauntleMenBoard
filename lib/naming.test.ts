@@ -14,6 +14,17 @@ describe('pickInGameName', () => {
     expect(pickInGameName('ZD4NIM4L', [p('ZD4NIM4L', 'ea'), p('D4NIM4L', 'steam')])).toBe('D4NIM4L');
   });
 
+  it('matches a shared stem, not just one name inside the other', () => {
+    // warFlounder on EA is flounderpounder on Steam: neither contains the
+    // other, but eight characters in common is not an accident.
+    expect(
+      pickInGameName('warFlounder', [
+        p('flounderpounder', 'steam'),
+        p('WarFlounder', 'ea'),
+      ]),
+    ).toBe('flounderpounder');
+  });
+
   it('sees through punctuation, case and spacing', () => {
     // "dirtymcrae" and "Dirty McRae" are the same name to everyone but a
     // string comparison.
@@ -58,6 +69,9 @@ describe('pickInGameName', () => {
   it('will not match on a fragment too short to mean anything', () => {
     // "GG" appears inside half the EA IDs in the game.
     expect(pickInGameName('VanzzGG', [p('GG', 'steam'), p('VanzzGG', 'ea')])).toBe('VanzzGG');
+    // Five shared characters is where coincidence still lives: "Heelios 7"
+    // shares "heeli" with "Heelix_5" and is a different person's console.
+    expect(pickInGameName('Heelix_5', [p('Heelios 7', 'xboxone'), p('Heelix_5', 'ea')])).toBe('Heelix_5');
   });
 });
 

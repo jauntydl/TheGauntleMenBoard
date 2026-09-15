@@ -87,9 +87,14 @@ export async function resolvePlayer(eaId: string, deps: Deps = {}): Promise<RawP
  * Every persona on an account — one per platform the player has linked.
  *
  * The name shown in game is the platform persona, not the EA ID, so this is
- * what turns a roster entry into a name people recognise. Returns an empty
- * list rather than throwing when the account has none: a missing in-game name
- * costs a nicer label, never a row.
+ * what turns a roster entry into a name people recognise.
+ *
+ * An empty list means NO ANSWER, not "no personas". This endpoint answers 200
+ * with `{"results": []}` when it is throttled or its cache has expired — the
+ * same query returns two personas a minute later. A real answer for a player
+ * with no console always includes their EA persona, so callers must treat
+ * empty as "ask again later" and never as grounds to overwrite a name they
+ * already have.
  */
 export async function fetchPersonas(
   nucleusId: string,

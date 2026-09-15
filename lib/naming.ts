@@ -8,11 +8,11 @@
  *   dirtymcrae [ea] + Dirty McRae [xbox]  -> Dirty McRae
  *   Exclusiive_9    + Exclusiive [steam]  -> Exclusiive
  *
- * The EA ID is usually the platform name with something bolted on, because
- * EA IDs must be globally unique and a plain name is normally taken. That is
- * the signal this uses: a platform persona whose name is contained in the EA
- * ID (or contains it) once punctuation and case are stripped is the same
- * identity, and is the one people see.
+ * The EA ID is usually built from the platform name, because EA IDs must be
+ * globally unique and a plain name is normally taken. Sometimes it contains
+ * it outright (LezWin -> TTVLezWin) and sometimes the two only share a stem
+ * (flounderpounder -> warFlounder). Either way a long run of characters in
+ * common is not a coincidence, and that is the signal this uses.
  *
  * EA lists Steam and Xbox personas but never a PlayStation one — verified
  * against every member of this roster, 19 of whom play on PlayStation and
@@ -32,6 +32,33 @@ export type Persona = { displayName: string; platform: string };
 
 /** Lowercase and drop everything that is not a letter or digit. */
 const normalize = (s: string): string => s.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+/**
+ * How many characters the two names share in one unbroken run.
+ *
+ * Six is the floor for calling that a relationship. Five would accept
+ * "Heelios 7" as a match for "Heelix_5" on the strength of "heeli", which is
+ * a different persona on a different console.
+ */
+const MIN_SHARED = 6;
+
+function longestSharedRun(a: string, b: string): number {
+  // Row-wise longest common substring; the names are short enough that the
+  // simple table costs nothing.
+  let best = 0;
+  let previous = new Array<number>(b.length + 1).fill(0);
+  for (let i = 1; i <= a.length; i++) {
+    const current = new Array<number>(b.length + 1).fill(0);
+    for (let j = 1; j <= b.length; j++) {
+      if (a[i - 1] === b[j - 1]) {
+        current[j] = previous[j - 1] + 1;
+        if (current[j] > best) best = current[j];
+      }
+    }
+    previous = current;
+  }
+  return best;
+}
 
 /**
  * Map a roster platform string to the platform ids EA uses.
@@ -58,22 +85,22 @@ function platformMatches(rosterPlatform: string | undefined, eaPlatform: string)
 export function pickInGameName(eaId: string, personas: Persona[]): string {
   const target = normalize(eaId);
 
-  const related = personas.filter((p) => {
-    if (p.platform === 'ea') return false;
-    const n = normalize(p.displayName);
-    if (n.length < 3) return false;
-    return n.includes(target) || target.includes(n);
-  });
+  const related = personas
+    .filter((p) => p.platform !== 'ea' && normalize(p.displayName).length >= 3)
+    .map((p) => {
+      const n = normalize(p.displayName);
+      // One name inside the other is a match at any length; otherwise they
+      // have to share a long enough run to rule out coincidence.
+      const contained = n.includes(target) || target.includes(n);
+      return { persona: p, shared: contained ? Math.max(n.length, target.length) : longestSharedRun(n, target) };
+    })
+    .filter((c) => c.shared >= MIN_SHARED);
 
   if (related.length === 0) return eaId;
-  if (related.length === 1) return related[0].displayName;
 
-  // Several platforms carry the same identity (Heelix on Steam, Heelios 7 on
-  // Xbox). Longest match wins: it shares the most with the EA ID, so it is
-  // the least likely to be a coincidental overlap.
-  return [...related].sort(
-    (a, b) => normalize(b.displayName).length - normalize(a.displayName).length,
-  )[0].displayName;
+  // Several platforms can carry the same identity. The one sharing the most
+  // with the EA ID is the least likely to be a coincidental overlap.
+  return [...related].sort((a, b) => b.shared - a.shared)[0].persona.displayName;
 }
 
 /**

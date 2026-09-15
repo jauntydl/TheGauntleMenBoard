@@ -206,7 +206,11 @@ describe('processJoin', () => {
     });
     const result = await processJoin('Newbie', d);
     expect(result.ok).toBe(true);
-    expect(state.roster[0].inGameName).toBe('Newbie');
+    // Left unresolved rather than recorded as checked: the endpoint answers
+    // 200 with an empty list when throttled, and caching the EA ID from that
+    // would make a temporary failure permanent. The board falls back to the
+    // EA ID for display and the next build resolves them.
+    expect(state.roster[0].inGameName).toBeUndefined();
   });
 
   it('reports where the player landed', async () => {

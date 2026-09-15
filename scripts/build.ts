@@ -70,15 +70,31 @@ async function main() {
   // none yet, so the first run after this shipped pays for the whole roster
   // and every later run pays only for people who joined since.
   let namedCount = 0;
+  let unanswered = 0;
   for (const member of roster) {
-    if (member.inGameName || !member.nucleusId) continue;
+    // Re-ask for anyone still showing their EA ID. Two reasons: a member who
+    // links a console account later starts showing the name people see, and a
+    // name the matching rule once rejected is reconsidered when the rule
+    // changes. Members already resolved to a platform name are never re-asked.
+    if (!member.nucleusId) continue;
+    if (member.inGameName && member.inGameName !== member.eaId) continue;
     const personas = await fetchPersonas(member.nucleusId);
+    // Empty is the throttled answer, not an answer. Leaving inGameName unset
+    // means the board shows the EA ID today and this member is retried
+    // tomorrow, which is the right trade against caching a wrong name.
+    if (personas.length === 0) {
+      unanswered++;
+      continue;
+    }
     const name = pickInGameNameFor(member.eaId, personas, member.platform);
     member.inGameName = name;
     member.inGamePlatform = personas.find((p) => p.displayName === name)?.platform ?? 'ea';
     if (name !== member.eaId) namedCount++;
+    // The endpoint starts returning empty results when hit in a tight loop.
+    await new Promise((r) => setTimeout(r, 400));
   }
-  console.log(`Named ${namedCount} member(s) by their in-game persona`);
+  console.log(`Named ${namedCount} member(s) by their in-game persona` +
+    (unanswered > 0 ? `; ${unanswered} lookup(s) went unanswered, retried next run` : ''));
 
   const bulk = roster.map(toBulkPlayer).filter((p): p is NonNullable<typeof p> => p !== null);
   console.log(`Fetching stats for ${bulk.length} resolved member(s)`);

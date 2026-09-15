@@ -199,7 +199,10 @@ export async function processJoin(
   // rather than the EA ID they typed. A failure here costs a nicer label, not
   // the signup, so it falls back to the EA ID.
   const personas = await deps.fetchPersonas(ids.nucleusId).catch(() => []);
-  const inGameName = pickInGameNameFor(eaId, personas);
+  // No answer leaves the field unset rather than caching the EA ID as though
+  // it had been checked: the board falls back to the EA ID for display, and
+  // the next daily build resolves them properly.
+  const inGameName = personas.length > 0 ? pickInGameNameFor(eaId, personas) : undefined;
 
   const entry: RosterEntry = {
     eaId,
@@ -211,7 +214,9 @@ export async function processJoin(
     nucleusId: ids.nucleusId,
     source: 'selfserve',
     inGameName,
-    inGamePlatform: personas.find((p) => p.displayName === inGameName)?.platform ?? 'ea',
+    inGamePlatform: inGameName
+      ? (personas.find((p) => p.displayName === inGameName)?.platform ?? 'ea')
+      : undefined,
   };
 
   const bulk = toBulkPlayer(entry);
