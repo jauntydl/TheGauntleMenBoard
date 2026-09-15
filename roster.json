@@ -1064,5 +1064,15 @@
     "personaId": "1005396001103",
     "nucleusId": "1011428201103",
     "source": "selfserve"
+  },
+  {
+    "eaId": "dirtymcrae",
+    "displayName": "dirtymcrae",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1829400701",
+    "nucleusId": "1004411242544",
+    "source": "selfserve"
   }
 ]
