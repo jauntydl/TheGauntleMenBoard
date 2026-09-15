@@ -1014,5 +1014,15 @@
     "personaId": "1006610954557",
     "nucleusId": "1014090554557",
     "source": "selfserve"
+  },
+  {
+    "eaId": "TTVLezWin",
+    "displayName": "TTVLezWin",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1864509586",
+    "nucleusId": "1005154825369",
+    "source": "selfserve"
   }
 ]
