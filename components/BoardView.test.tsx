@@ -26,6 +26,14 @@ const board: BoardFile = {
 };
 
 describe('BoardView', () => {
+  it('puts the signup call to action in the header', () => {
+    // A visitor who is not on the board should not have to scroll past the
+    // whole table to find out they can add themselves.
+    render(<BoardView board={board} />);
+    const cta = screen.getByRole('link', { name: /add your EA ID/i });
+    expect(cta).toHaveAttribute('href', '/join');
+  });
+
   it('opens on the current season', () => {
     render(<BoardView board={board} />);
     expect(screen.getByText('Current')).toBeInTheDocument();

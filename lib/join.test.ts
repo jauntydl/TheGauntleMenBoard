@@ -157,6 +157,7 @@ const deps = (over: Partial<Parameters<typeof processJoin>[1]> = {}, state = { r
       return 'sha';
     },
     resolvePlayer: async () => ({ personaId: '123', nucleusId: '456' }),
+    fetchPersonas: async () => [{ displayName: 'Newbie', platform: 'ea' }],
     fetchBulk: async () => [rawFor('123')],
     currentSeason: async () => 'Season4',
     now: () => new Date('2026-09-15T00:00:00.000Z'),
@@ -179,6 +180,33 @@ describe('processJoin', () => {
     expect(paths).toContain('data/season4.json');
     expect(state.roster.map((m) => m.eaId)).toEqual(['Newbie']);
     expect(state.roster[0].source).toBe('selfserve');
+  });
+
+  it('records the name shown in game, not the EA ID they typed', async () => {
+    const { state, deps: d } = deps({
+      fetchPersonas: async () => [
+        { displayName: 'Newbie', platform: 'steam' },
+        { displayName: 'Newbie_9', platform: 'ea' },
+      ],
+    });
+    await processJoin('Newbie_9', d);
+    expect(state.roster[0]).toMatchObject({
+      eaId: 'Newbie_9',
+      inGameName: 'Newbie',
+      inGamePlatform: 'steam',
+    });
+  });
+
+  it('still signs someone up when the persona lookup fails', async () => {
+    // A nicer label is worth a request; it is not worth the signup.
+    const { state, deps: d } = deps({
+      fetchPersonas: async () => {
+        throw new Error('gametools down');
+      },
+    });
+    const result = await processJoin('Newbie', d);
+    expect(result.ok).toBe(true);
+    expect(state.roster[0].inGameName).toBe('Newbie');
   });
 
   it('reports where the player landed', async () => {

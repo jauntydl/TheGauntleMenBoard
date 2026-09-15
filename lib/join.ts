@@ -2,6 +2,7 @@ import type { BoardFile, BoardRow, RawResponse, RosterEntry } from './types';
 import { buildBoard, toBulkPlayer } from './pipeline';
 import { rankPlayers } from './ranking';
 import { hasStatData } from './extract';
+import { pickInGameNameFor } from './naming';
 
 /**
  * Self-serve signup: a player adds their own EA ID and appears on the board.
@@ -146,6 +147,8 @@ export function placementOf(board: BoardFile, eaId: string): {
 }
 
 export type JoinDeps = {
+  /** Every persona on the account, for choosing the name shown in game. */
+  fetchPersonas: (nucleusId: string) => Promise<{ displayName: string; platform: string }[]>;
   /** Read a file at the tip of the deployed branch. */
   readFile: (path: string) => Promise<string>;
   /** Commit the given files as one change. Throws on a lost race. */
@@ -189,6 +192,12 @@ export async function processJoin(
     };
   }
 
+  // The name on the scoreboard in game, which is usually a platform persona
+  // rather than the EA ID they typed. A failure here costs a nicer label, not
+  // the signup, so it falls back to the EA ID.
+  const personas = await deps.fetchPersonas(ids.nucleusId).catch(() => []);
+  const inGameName = pickInGameNameFor(eaId, personas);
+
   const entry: RosterEntry = {
     eaId,
     displayName: eaId,
@@ -198,6 +207,8 @@ export async function processJoin(
     personaId: ids.personaId,
     nucleusId: ids.nucleusId,
     source: 'selfserve',
+    inGameName,
+    inGamePlatform: personas.find((p) => p.displayName === inGameName)?.platform ?? 'ea',
   };
 
   const bulk = toBulkPlayer(entry);
@@ -269,7 +280,7 @@ export async function processJoin(
     return {
       ok: true,
       eaId,
-      displayName: entry.displayName,
+      displayName: entry.inGameName ?? entry.displayName,
       season: placement?.season ?? currentSeason,
       rank: placement?.rank ?? null,
       rating: placement?.rating ?? null,

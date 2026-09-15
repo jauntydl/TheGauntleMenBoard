@@ -105,6 +105,8 @@ export function buildBoard(
         jetPct: roundRate(metrics.jetPct) ?? 0,
         eaId: member.eaId,
         displayName: member.displayName,
+        inGameName: member.inGameName,
+        inGamePlatform: member.inGamePlatform,
         platform: member.platform,
         region: member.region,
         mainMode: member.mainMode,

@@ -27,6 +27,17 @@ export type RosterEntry = {
    * Absent means community.
    */
   source?: 'community' | 'selfserve' | 'imported';
+  /**
+   * The name on the scoreboard in game, and the platform it belongs to.
+   *
+   * An EA account carries one persona per platform and the EA ID is often a
+   * suffixed variant of the platform name (TTVLezWin on EA is LezWin on
+   * Steam), so the EA ID alone cannot be matched to the person you just
+   * played against. Resolved once by the build and cached here — see
+   * lib/naming.ts for how a persona is chosen. Absent means the EA ID stands.
+   */
+  inGameName?: string;
+  inGamePlatform?: string;
   /** Cached by the build. The only fields the build may write back. */
   personaId?: string;
   nucleusId?: string;
@@ -83,6 +94,9 @@ export type Metrics = {
 export type BoardRow = Metrics & {
   eaId: string;
   displayName: string;
+  /** See RosterEntry.inGameName. Absent falls back to eaId. */
+  inGameName?: string;
+  inGamePlatform?: string;
   platform: string;
   region: string;
   mainMode: MainMode;

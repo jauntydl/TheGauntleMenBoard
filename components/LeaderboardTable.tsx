@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { BoardRow } from '@/lib/types';
 import { JET_BADGE_THRESHOLD } from '@/lib/metrics';
+import { PlatformIcon } from './PlatformIcon';
 import type { StandoutTrait } from '@/lib/rating';
 
 const DASH = '—';
@@ -199,23 +200,45 @@ export function LeaderboardTable({
         field: 'eaId',
         headerName: 'Player',
         flex: 1,
-        minWidth: isNarrow ? 104 : 140,
-        description: 'In-game name. Hover a row to see the name they go by in Discord, where it differs.',
+        minWidth: isNarrow ? 104 : 150,
+        description:
+          'The name on the scoreboard in game. Hover a player for their EA ID and the name they go by in Discord.',
+        // Sort on what is read, not on the EA ID behind it.
+        valueGetter: (_v, r) => r.inGameName ?? r.eaId,
         renderCell: (p) => {
-          // The EA ID, because that is the name on the scoreboard in game —
-          // the one you can match to the person you just played against.
-          // Thirteen members introduced themselves under a different Discord
-          // handle, which survives in the tooltip rather than being lost.
-          const alias = p.row.displayName !== p.row.eaId ? p.row.displayName : null;
+          const shown = p.row.inGameName ?? p.row.eaId;
+          // An EA ID is often a suffixed variant of the in-game name, and a
+          // Discord handle can be a third name again. Both belong somewhere
+          // findable, neither belongs in a column you scan down.
+          const also = [
+            shown !== p.row.eaId ? `${p.row.eaId} on EA` : null,
+            p.row.displayName !== p.row.eaId && p.row.displayName !== shown
+              ? `${p.row.displayName} in Discord`
+              : null,
+          ].filter(Boolean);
+
           const name = (
             <Box
               component="span"
-              sx={{ fontWeight: 500, letterSpacing: '0.01em', color: 'text.primary' }}
+              sx={{
+                fontWeight: 500,
+                letterSpacing: '0.01em',
+                color: 'text.primary',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+              }}
             >
-              {p.row.eaId}
+              {shown}
             </Box>
           );
-          return alias ? <Tooltip title={`${alias} in Discord`}>{name}</Tooltip> : name;
+
+          return (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.6, minWidth: 0, height: '100%' }}>
+              {also.length > 0 ? <Tooltip title={also.join(' · ')}>{name}</Tooltip> : name}
+              <PlatformIcon platform={p.row.inGamePlatform} />
+            </Box>
+          );
         },
       },
       {

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import Tab from '@mui/material/Tab';
@@ -26,35 +27,66 @@ export function BoardView({ board }: { board: BoardFile }) {
           pb: 2.5,
           borderBottom: '1px solid',
           borderColor: 'divider',
+          display: 'flex',
+          alignItems: { xs: 'stretch', sm: 'flex-end' },
+          justifyContent: 'space-between',
+          gap: 2,
+          // The call to action sits beside the title on a desktop and under
+          // it on a phone, where a row would squeeze both into nothing.
+          flexDirection: { xs: 'column', sm: 'row' },
         }}
       >
-        <Typography
-          variant="h4"
-          component="h1"
+        <Box sx={{ minWidth: 0 }}>
+          <Typography
+            variant="h4"
+            component="h1"
+            sx={{
+              fontSize: { xs: '1.9rem', sm: '2.6rem' },
+              lineHeight: 1.05,
+              color: 'text.primary',
+              textShadow: '0 0 28px rgba(255,176,32,0.28)',
+            }}
+          >
+            The GauntleMen League
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
+            Battlefield 6 Gauntlet. Eight squads start, one is left standing.
+          </Typography>
+          <Typography
+            variant="caption"
+            className="tnum"
+            sx={{ color: 'text.secondary', opacity: 0.75, display: 'block', mt: 0.5 }}
+          >
+            Standings updated{' '}
+            {new Date(board.meta.builtAt).toLocaleDateString('en-GB', {
+              day: 'numeric',
+              month: 'long',
+              year: 'numeric',
+            })}
+          </Typography>
+        </Box>
+
+        <Button
+          href="/join"
+          variant="contained"
+          size="large"
           sx={{
-            fontSize: { xs: '1.9rem', sm: '2.6rem' },
-            lineHeight: 1.05,
-            color: 'text.primary',
-            textShadow: '0 0 28px rgba(255,176,32,0.28)',
+            flex: '0 0 auto',
+            alignSelf: { xs: 'flex-start', sm: 'flex-end' },
+            px: 3,
+            py: 1.15,
+            fontWeight: 700,
+            letterSpacing: '0.02em',
+            whiteSpace: 'nowrap',
+            // Lit rather than outlined: this is the one thing a visitor who
+            // is not on the board should do, and it competes with a table
+            // full of amber numbers for attention.
+            boxShadow: '0 0 24px rgba(255,176,32,0.35)',
+            '&:hover': { boxShadow: '0 0 32px rgba(255,176,32,0.5)' },
           }}
         >
-          The GauntleMen League
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-          Battlefield 6 Gauntlet. Eight squads start, one is left standing.
-        </Typography>
-        <Typography
-          variant="caption"
-          className="tnum"
-          sx={{ color: 'text.secondary', opacity: 0.75, display: 'block', mt: 0.5 }}
-        >
-          Standings updated{' '}
-          {new Date(board.meta.builtAt).toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'long',
-            year: 'numeric',
-          })}
-        </Typography>
+          Add your EA ID
+        </Button>
       </Box>
 
       <Tabs
@@ -98,7 +130,6 @@ export function BoardView({ board }: { board: BoardFile }) {
       )}
 
       <Box sx={{ mt: 4, display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-        <Link href="/join">Add yourself to the board</Link>
         <Link href="/rating">How the rating works</Link>
         <Link href="/not-listed">Not listed? Here&apos;s why</Link>
       </Box>

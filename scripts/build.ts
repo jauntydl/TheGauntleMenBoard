@@ -9,7 +9,8 @@
  * expected data (their in-game stats privacy is not set to Everyone).
  */
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
-import { fetchCurrentSeason, resolvePlayer, fetchBulk } from '../lib/gametools';
+import { fetchCurrentSeason, resolvePlayer, fetchBulk, fetchPersonas } from '../lib/gametools';
+import { pickInGameNameFor } from '../lib/naming';
 import { buildBoard, toBulkPlayer } from '../lib/pipeline';
 import type { BoardFile, RosterEntry } from '../lib/types';
 
@@ -65,6 +66,20 @@ async function main() {
   }
   console.log(`Resolved ${resolvedCount} new member(s)`);
 
+  // Cache each member's in-game name once. One request per member who has
+  // none yet, so the first run after this shipped pays for the whole roster
+  // and every later run pays only for people who joined since.
+  let namedCount = 0;
+  for (const member of roster) {
+    if (member.inGameName || !member.nucleusId) continue;
+    const personas = await fetchPersonas(member.nucleusId);
+    const name = pickInGameNameFor(member.eaId, personas, member.platform);
+    member.inGameName = name;
+    member.inGamePlatform = personas.find((p) => p.displayName === name)?.platform ?? 'ea';
+    if (name !== member.eaId) namedCount++;
+  }
+  console.log(`Named ${namedCount} member(s) by their in-game persona`);
+
   const bulk = roster.map(toBulkPlayer).filter((p): p is NonNullable<typeof p> => p !== null);
   console.log(`Fetching stats for ${bulk.length} resolved member(s)`);
   const responses = await fetchBulk(bulk);
@@ -83,7 +98,7 @@ async function main() {
   // Persist newly resolved ids first, so the cache is kept even on a day when
   // no stat moved. These two fields are the only part of roster.json the build
   // may modify; every other field is human-authored.
-  if (resolvedCount > 0) {
+  if (resolvedCount > 0 || roster.some((m) => m.inGameName)) {
     writeFileSync('roster.json', JSON.stringify(roster, null, 2) + '\n');
     console.log('Cached newly resolved ids into roster.json');
   }

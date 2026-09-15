@@ -83,6 +83,28 @@ export async function resolvePlayer(eaId: string, deps: Deps = {}): Promise<RawP
   return readPlayerIds((await res.json()) as RawResponse);
 }
 
+/**
+ * Every persona on an account — one per platform the player has linked.
+ *
+ * The name shown in game is the platform persona, not the EA ID, so this is
+ * what turns a roster entry into a name people recognise. Returns an empty
+ * list rather than throwing when the account has none: a missing in-game name
+ * costs a nicer label, never a row.
+ */
+export async function fetchPersonas(
+  nucleusId: string,
+  deps: Deps = {},
+): Promise<{ displayName: string; platform: string }[]> {
+  const url = `${API_BASE}/bf6/player/?nucleus_id=${encodeURIComponent(nucleusId)}`;
+  const res = await request(url, { method: 'GET', headers: { accept: 'application/json' } }, deps);
+  if (res.status === 404) return [];
+  const body = (await res.json()) as { results?: { displayName?: string; platform?: string }[] };
+  return (body.results ?? [])
+    .filter((r): r is { displayName: string; platform: string } =>
+      typeof r.displayName === 'string' && typeof r.platform === 'string')
+    .map((r) => ({ displayName: r.displayName, platform: r.platform }));
+}
+
 /** Fetch raw stats for many players, batched at BATCH_SIZE. */
 export async function fetchBulk(players: BulkPlayer[], deps: Deps = {}): Promise<RawResponse[]> {
   const out: RawResponse[] = [];

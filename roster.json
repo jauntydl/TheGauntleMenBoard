@@ -7,7 +7,9 @@
     "mainMode": "gauntlet",
     "personaId": "1005168992921",
     "nucleusId": "1010503392921",
-    "source": "community"
+    "source": "community",
+    "inGameName": "SPETZNAZ_HALO",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "esangol",
@@ -17,7 +19,9 @@
     "mainMode": "both",
     "personaId": "849359174",
     "nucleusId": "2798144562",
-    "source": "community"
+    "source": "community",
+    "inGameName": "esangol",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Vanzz_GG",
@@ -35,7 +39,9 @@
     "mainMode": "gauntlet",
     "personaId": "1649413940",
     "nucleusId": "2281781231",
-    "source": "community"
+    "source": "community",
+    "inGameName": "Excited Pianist",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "ZD4NIM4L",
@@ -45,7 +51,9 @@
     "mainMode": "gauntlet",
     "personaId": "1822424886",
     "nucleusId": "2372421924",
-    "source": "community"
+    "source": "community",
+    "inGameName": "D4NIM4L",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "Heelix",
@@ -63,7 +71,9 @@
     "mainMode": "unknown",
     "personaId": "1008053108594",
     "nucleusId": "1016784308594",
-    "source": "community"
+    "source": "community",
+    "inGameName": "TwitchGirl",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "Bourn3A",
@@ -73,7 +83,9 @@
     "mainMode": "gauntlet",
     "personaId": "1031199418",
     "nucleusId": "1000441939968",
-    "source": "community"
+    "source": "community",
+    "inGameName": "Bourn3",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "kricked",
@@ -83,7 +95,9 @@
     "mainMode": "gauntlet",
     "personaId": "948226941",
     "nucleusId": "2266847011",
-    "source": "community"
+    "source": "community",
+    "inGameName": "kricked",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Nickybzbz",
@@ -93,7 +107,9 @@
     "mainMode": "gauntlet",
     "personaId": "1108512995",
     "nucleusId": "1000663560266",
-    "source": "community"
+    "source": "community",
+    "inGameName": "Nickybzbz",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "JonPM1",
@@ -103,7 +119,9 @@
     "mainMode": "both",
     "personaId": "303184906",
     "nucleusId": "2302564474",
-    "source": "community"
+    "source": "community",
+    "inGameName": "JonPM1",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "SidewalkEnf0rcer",
@@ -113,7 +131,9 @@
     "mainMode": "gauntlet",
     "personaId": "847584811",
     "nucleusId": "2832289777",
-    "source": "community"
+    "source": "community",
+    "inGameName": "SidewalkEnf0rcer",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Chance-luck",
@@ -123,7 +143,9 @@
     "mainMode": "both",
     "personaId": "1010362797225",
     "nucleusId": "1022316597225",
-    "source": "community"
+    "source": "community",
+    "inGameName": "Chance-luck",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "kathemkh9",
@@ -133,7 +155,9 @@
     "mainMode": "both",
     "personaId": "1847634115",
     "nucleusId": "1004751459612",
-    "source": "community"
+    "source": "community",
+    "inGameName": "kathemkh9",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "pkidarkpki",
@@ -143,7 +167,9 @@
     "mainMode": "both",
     "personaId": "849687045",
     "nucleusId": "2250375376",
-    "source": "community"
+    "source": "community",
+    "inGameName": "pkidarkpki",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "IHerkyI",
@@ -153,7 +179,9 @@
     "mainMode": "gauntlet",
     "personaId": "392998272",
     "nucleusId": "2312058996",
-    "source": "community"
+    "source": "community",
+    "inGameName": "IHerkyI",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "CHASEXRYAN",
@@ -163,7 +191,9 @@
     "mainMode": "both",
     "personaId": "1804120209",
     "nucleusId": "1003924093498",
-    "source": "community"
+    "source": "community",
+    "inGameName": "CHASEXRYAN",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Coasterfly",
@@ -173,7 +203,9 @@
     "mainMode": "unknown",
     "personaId": "352765036",
     "nucleusId": "2411749849",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Coasterfly",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Unreal413",
@@ -183,7 +215,9 @@
     "mainMode": "unknown",
     "personaId": "1904348677",
     "nucleusId": "1005724991407",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Unreal413",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "wyldd00d",
@@ -193,7 +227,9 @@
     "mainMode": "unknown",
     "personaId": "367847654",
     "nucleusId": "2294500789",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "wyldd00d",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Monkey76083",
@@ -203,7 +239,9 @@
     "mainMode": "unknown",
     "personaId": "790634100",
     "nucleusId": "2300975878",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Monkey76083",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "pizzawolf238",
@@ -213,7 +251,9 @@
     "mainMode": "unknown",
     "personaId": "1005727353237",
     "nucleusId": "1011490553237",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "pizzawolf238",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "L4gent_Secret",
@@ -223,7 +263,9 @@
     "mainMode": "unknown",
     "personaId": "1005241784643",
     "nucleusId": "1010680984643",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "L4gent_Secret",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "I_Baldwin_l",
@@ -233,7 +275,9 @@
     "mainMode": "unknown",
     "personaId": "1009270176730",
     "nucleusId": "1019476776730",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "I_Baldwin_l",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Cit1es",
@@ -243,7 +287,9 @@
     "mainMode": "unknown",
     "personaId": "852503721",
     "nucleusId": "2277398072",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Cit1es",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "PIRRS3D",
@@ -253,7 +299,9 @@
     "mainMode": "unknown",
     "personaId": "261757812",
     "nucleusId": "2340099191",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "PIRRS3D",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Str8UpBeastDGAF",
@@ -263,7 +311,9 @@
     "mainMode": "unknown",
     "personaId": "1005471290022",
     "nucleusId": "1010631490022",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Str8UpBeastDGAF",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Burstfluffy",
@@ -273,7 +323,9 @@
     "mainMode": "unknown",
     "personaId": "1003892221426",
     "nucleusId": "1007542821426",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Burstfluffy",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "sfw421",
@@ -283,7 +335,9 @@
     "mainMode": "unknown",
     "personaId": "364159530",
     "nucleusId": "2291534264",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "sfw421",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "ArtzieBF",
@@ -293,7 +347,9 @@
     "mainMode": "unknown",
     "personaId": "1008308066316",
     "nucleusId": "1017703066316",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Artzie",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "MhT0k3n",
@@ -303,7 +359,9 @@
     "mainMode": "unknown",
     "personaId": "1005883538659",
     "nucleusId": "1012116938659",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "MhT0k3n",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "ronr",
@@ -313,7 +371,9 @@
     "mainMode": "unknown",
     "personaId": "175042353",
     "nucleusId": "2264507099",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "ronr",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "aslyums",
@@ -323,7 +383,9 @@
     "mainMode": "unknown",
     "personaId": "1009595874660",
     "nucleusId": "1020367874660",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "aslyums",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "HerbL",
@@ -333,7 +395,9 @@
     "mainMode": "unknown",
     "personaId": "1760538585",
     "nucleusId": "1002924789366",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Herbl",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "InvalidTurkey",
@@ -343,7 +407,9 @@
     "mainMode": "unknown",
     "personaId": "1006026564471",
     "nucleusId": "1012557364471",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "InvalidTurkey",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "DShepherd176",
@@ -353,7 +419,9 @@
     "mainMode": "unknown",
     "personaId": "1005350268248",
     "nucleusId": "1011308868248",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "DShepherd176",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Merchant_Death_7",
@@ -363,7 +431,9 @@
     "mainMode": "unknown",
     "personaId": "1007628480162",
     "nucleusId": "1015846080162",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Merchant_Death_7",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "TTV_GarnetWolfe",
@@ -373,7 +443,9 @@
     "mainMode": "unknown",
     "personaId": "287116819",
     "nucleusId": "2361582514",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "GarnetWolfe",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "martie_pants",
@@ -383,7 +455,9 @@
     "mainMode": "unknown",
     "personaId": "1003900022645",
     "nucleusId": "1007761622645",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "martie_pants",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "BehemothXI",
@@ -393,7 +467,9 @@
     "mainMode": "unknown",
     "personaId": "1005944680653",
     "nucleusId": "1011860280653",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "BEHEMOTH",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "SkimMilk19",
@@ -403,7 +479,9 @@
     "mainMode": "unknown",
     "personaId": "577137047",
     "nucleusId": "2551926099",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "SkimMilk19",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Gunchain",
@@ -413,7 +491,9 @@
     "mainMode": "unknown",
     "personaId": "1009683501132",
     "nucleusId": "1020437901132",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Gunchain",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "mariobatley",
@@ -423,7 +503,9 @@
     "mainMode": "unknown",
     "personaId": "803642510",
     "nucleusId": "2290945575",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "mariobatley",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "AtomicBoggy",
@@ -433,7 +515,9 @@
     "mainMode": "unknown",
     "personaId": "1005820824777",
     "nucleusId": "1011671824777",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "AtomicBoggy",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "MeowMix",
@@ -443,7 +527,9 @@
     "mainMode": "unknown",
     "personaId": "1052993489",
     "nucleusId": "1000492366086",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "MeowMix",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "EnriqueTheKid",
@@ -453,7 +539,9 @@
     "mainMode": "unknown",
     "personaId": "1859745788",
     "nucleusId": "1000455143763",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "EnriqueTheKid",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Reven",
@@ -463,7 +551,9 @@
     "mainMode": "unknown",
     "personaId": "1005453121392",
     "nucleusId": "1010744521392",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Reven",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Medrilan",
@@ -473,7 +563,9 @@
     "mainMode": "unknown",
     "personaId": "1001179808",
     "nucleusId": "1000333768762",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Medrilan",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "TheOnlineSniper",
@@ -483,7 +575,9 @@
     "mainMode": "unknown",
     "personaId": "390494205",
     "nucleusId": "2276811353",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "TheOnlineSniper",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Shmike",
@@ -493,7 +587,9 @@
     "mainMode": "unknown",
     "personaId": "258132369",
     "nucleusId": "2310406166",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Shmike",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "kinglio",
@@ -503,7 +599,9 @@
     "mainMode": "unknown",
     "personaId": "1011860345955",
     "nucleusId": "1026115745955",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "kinglio",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "pscreen86",
@@ -513,7 +611,9 @@
     "mainMode": "unknown",
     "personaId": "1752119880",
     "nucleusId": "2381580389",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "pscreen86",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Horrorphex",
@@ -523,7 +623,9 @@
     "mainMode": "unknown",
     "personaId": "1003839671582",
     "nucleusId": "1007537071582",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Horrorphex",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Hyperioz",
@@ -533,7 +635,9 @@
     "mainMode": "unknown",
     "personaId": "1008042013000",
     "nucleusId": "1016976013000",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Hyperioz",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "DaddyDemocracy",
@@ -543,7 +647,9 @@
     "mainMode": "unknown",
     "personaId": "895198611",
     "nucleusId": "1000099782978",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "DaddyDemocracy",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "WhalersAPA",
@@ -553,7 +659,9 @@
     "mainMode": "unknown",
     "personaId": "851253172",
     "nucleusId": "2405071841",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "WhalersAPA",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "DarkestWord17",
@@ -563,7 +671,9 @@
     "mainMode": "unknown",
     "personaId": "1005589280158",
     "nucleusId": "1010139380158",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "DarkestWord17",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "CKAMMEPCAHT",
@@ -573,7 +683,9 @@
     "mainMode": "unknown",
     "personaId": "1010954061080",
     "nucleusId": "1024004061080",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "CKAMMEPCAHT",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "ShaydeFPS",
@@ -583,7 +695,9 @@
     "mainMode": "unknown",
     "personaId": "1003935629472",
     "nucleusId": "1007770829472",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "ShaydeFPS",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "CyclonicNinja",
@@ -593,7 +707,9 @@
     "mainMode": "unknown",
     "personaId": "914578411",
     "nucleusId": "2330878325",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "CyclonicNinja",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Lipidologist",
@@ -603,7 +719,9 @@
     "mainMode": "unknown",
     "personaId": "1444966679",
     "nucleusId": "2258487707",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Lipidologist",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "AISIKL",
@@ -613,7 +731,9 @@
     "mainMode": "unknown",
     "personaId": "335462407",
     "nucleusId": "2400203613",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "AISIKL",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "LT__Fletch",
@@ -623,7 +743,9 @@
     "mainMode": "unknown",
     "personaId": "1008236583952",
     "nucleusId": "1016898983952",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "LT__Fletch",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "ShinyGengarr",
@@ -633,7 +755,9 @@
     "mainMode": "unknown",
     "personaId": "1825023862",
     "nucleusId": "1004493298456",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "ShinyGengarr",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Alizayuh",
@@ -643,7 +767,9 @@
     "mainMode": "unknown",
     "personaId": "1688114366",
     "nucleusId": "2383480823",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Alizayuh",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Relevant_Meme69",
@@ -653,7 +779,9 @@
     "mainMode": "unknown",
     "personaId": "1006205351144",
     "nucleusId": "1012709951144",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Relevant Meme",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "Z3R0wing",
@@ -663,7 +791,9 @@
     "mainMode": "unknown",
     "personaId": "229913898",
     "nucleusId": "2250422560",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Z3R0wing",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "oSandman",
@@ -673,7 +803,9 @@
     "mainMode": "unknown",
     "personaId": "1068791939",
     "nucleusId": "1000548921225",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "oSandman",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "DaBoogiemanSJ",
@@ -683,7 +815,9 @@
     "mainMode": "unknown",
     "personaId": "251041213",
     "nucleusId": "2331415734",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "DaBoogiemanSJ",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "smaddy",
@@ -693,7 +827,9 @@
     "mainMode": "unknown",
     "personaId": "174302274",
     "nucleusId": "2263586517",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "smaddy",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "BroSig1855",
@@ -703,7 +839,9 @@
     "mainMode": "unknown",
     "personaId": "1829725080",
     "nucleusId": "1004576631044",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "BroSig1855",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "xSweatyKarmax",
@@ -713,7 +851,9 @@
     "mainMode": "unknown",
     "personaId": "442773650",
     "nucleusId": "2453310500",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "xSweatyKarmax",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "ThiccMonkeh",
@@ -723,7 +863,9 @@
     "mainMode": "unknown",
     "personaId": "1686535999",
     "nucleusId": "1000241193869",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "ThiccMonkeh",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "vvarhead1777",
@@ -733,7 +875,9 @@
     "mainMode": "unknown",
     "personaId": "1711845788",
     "nucleusId": "2766273693",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "vvarhead17",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "rudolpharum",
@@ -743,7 +887,9 @@
     "mainMode": "unknown",
     "personaId": "1286362293",
     "nucleusId": "1001358921178",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "rudolpharum",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "BananaBoat581",
@@ -753,7 +899,9 @@
     "mainMode": "unknown",
     "personaId": "1749527317",
     "nucleusId": "1003410165640",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "BananaBoat581",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "BashK1ng",
@@ -763,7 +911,9 @@
     "mainMode": "unknown",
     "personaId": "1799452604",
     "nucleusId": "1003840418878",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "BashK1ng",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "fobia_571",
@@ -773,7 +923,9 @@
     "mainMode": "unknown",
     "personaId": "352534007",
     "nucleusId": "2317387964",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "fobia_571",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "MorsOrtu",
@@ -783,7 +935,9 @@
     "mainMode": "unknown",
     "personaId": "1006701602658",
     "nucleusId": "1014532602658",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "MorsOrtu",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "lmafo7",
@@ -793,7 +947,9 @@
     "mainMode": "unknown",
     "personaId": "1009728500513",
     "nucleusId": "1020379300513",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "lmafo7",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "UniqueCure",
@@ -803,7 +959,9 @@
     "mainMode": "unknown",
     "personaId": "978961087",
     "nucleusId": "2833754488",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Unique Cure",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "xCMirandax",
@@ -813,7 +971,9 @@
     "mainMode": "unknown",
     "personaId": "1009995226558",
     "nucleusId": "1022117426558",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "xCMirandax",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "thedead2468",
@@ -823,7 +983,9 @@
     "mainMode": "unknown",
     "personaId": "879178447",
     "nucleusId": "2852805856",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "thedead2468",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Doorsexx",
@@ -833,7 +995,9 @@
     "mainMode": "unknown",
     "personaId": "1460465536",
     "nucleusId": "1000082733941",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Doorsexx",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "mk3_beaST",
@@ -843,7 +1007,9 @@
     "mainMode": "unknown",
     "personaId": "1007308230737",
     "nucleusId": "1015179630737",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "mk3_beaST",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "jpigg4032",
@@ -853,7 +1019,9 @@
     "mainMode": "unknown",
     "personaId": "260914439",
     "nucleusId": "2300643172",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "jpigg4032",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "hrsaputra",
@@ -863,7 +1031,9 @@
     "mainMode": "unknown",
     "personaId": "1140408658",
     "nucleusId": "1000784997099",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "hrsaputra",
+    "inGamePlatform": "xboxone"
   },
   {
     "eaId": "RedDevil51",
@@ -873,7 +1043,9 @@
     "mainMode": "unknown",
     "personaId": "457775580",
     "nucleusId": "2485492518",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "RedDevil51",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "COLTREN456",
@@ -883,7 +1055,9 @@
     "mainMode": "unknown",
     "personaId": "854107737",
     "nucleusId": "2557143119",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "COLTREN456",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Meecheel",
@@ -893,7 +1067,9 @@
     "mainMode": "unknown",
     "personaId": "1826741275",
     "nucleusId": "1004632467399",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Meecheel",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "jomoorigotto",
@@ -903,7 +1079,9 @@
     "mainMode": "unknown",
     "personaId": "378862628",
     "nucleusId": "2293739454",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "jomoorigotto",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "kdnOps",
@@ -913,7 +1091,9 @@
     "mainMode": "unknown",
     "personaId": "1003793517413",
     "nucleusId": "1007774717413",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "kdnOps",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "DarkQc",
@@ -923,7 +1103,9 @@
     "mainMode": "unknown",
     "personaId": "174973945",
     "nucleusId": "2252217207",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "DarkQc",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Abunai",
@@ -933,7 +1115,9 @@
     "mainMode": "unknown",
     "personaId": "1004269076634",
     "nucleusId": "1008581076634",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "Abunai",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "RECON-RAT",
@@ -943,7 +1127,9 @@
     "mainMode": "unknown",
     "personaId": "247816579",
     "nucleusId": "2250573644",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "RECON-RAT",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "pterodactyl",
@@ -953,7 +1139,9 @@
     "mainMode": "unknown",
     "personaId": "1003603068095",
     "nucleusId": "1006626468095",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "pterodactyl",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "ManuGalarza",
@@ -963,7 +1151,9 @@
     "mainMode": "unknown",
     "personaId": "1004456976048",
     "nucleusId": "1009023376048",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "ManuGalarza",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "KittyValkyrie",
@@ -973,7 +1163,9 @@
     "mainMode": "unknown",
     "personaId": "886090184",
     "nucleusId": "1000085941504",
-    "source": "imported"
+    "source": "imported",
+    "inGameName": "KittyValkyrie",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "VanzzGG",
@@ -983,7 +1175,9 @@
     "mainMode": "gauntlet",
     "personaId": "1005150439412",
     "nucleusId": "1010108639412",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "VanzzGG",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Zenith13",
@@ -993,7 +1187,9 @@
     "mainMode": "gauntlet",
     "personaId": "180646525",
     "nucleusId": "2271040344",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "Zenith",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "Heelix_5",
@@ -1003,7 +1199,9 @@
     "mainMode": "gauntlet",
     "personaId": "1005543577746",
     "nucleusId": "1011276177746",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "Heelix",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "ZIKU333",
@@ -1013,7 +1211,9 @@
     "mainMode": "gauntlet",
     "personaId": "1006610954557",
     "nucleusId": "1014090554557",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "ZIKU333",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "TTVLezWin",
@@ -1023,7 +1223,9 @@
     "mainMode": "gauntlet",
     "personaId": "1864509586",
     "nucleusId": "1005154825369",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "LezWin",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "Exclusiive_9",
@@ -1033,7 +1235,9 @@
     "mainMode": "gauntlet",
     "personaId": "416573071",
     "nucleusId": "2334325734",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "Exclusiive",
+    "inGamePlatform": "steam"
   },
   {
     "eaId": "DIA6711",
@@ -1043,7 +1247,9 @@
     "mainMode": "gauntlet",
     "personaId": "1009348073746",
     "nucleusId": "1019844073746",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "DIA6711",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "Grizzzvg",
@@ -1053,7 +1259,9 @@
     "mainMode": "gauntlet",
     "personaId": "1008441642380",
     "nucleusId": "1005772442380",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "Grizzzvg",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "GrizEeee",
@@ -1063,7 +1271,9 @@
     "mainMode": "gauntlet",
     "personaId": "1005396001103",
     "nucleusId": "1011428201103",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "GrizEeee",
+    "inGamePlatform": "ea"
   },
   {
     "eaId": "dirtymcrae",
@@ -1073,6 +1283,8 @@
     "mainMode": "gauntlet",
     "personaId": "1829400701",
     "nucleusId": "1004411242544",
-    "source": "selfserve"
+    "source": "selfserve",
+    "inGameName": "Dirty McRae",
+    "inGamePlatform": "xboxone"
   }
 ]

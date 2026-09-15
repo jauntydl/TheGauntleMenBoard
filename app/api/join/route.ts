@@ -1,6 +1,6 @@
 import { processJoin, type JoinFailure } from '@/lib/join';
 import { commitFiles, readConfig, readFile, RefMovedError } from '@/lib/github';
-import { fetchBulk, fetchCurrentSeason, resolvePlayer } from '@/lib/gametools';
+import { fetchBulk, fetchCurrentSeason, fetchPersonas, resolvePlayer } from '@/lib/gametools';
 import { clientKey, take } from '@/lib/ratelimit';
 
 /**
@@ -70,6 +70,7 @@ export async function POST(req: Request): Promise<Response> {
           return ids ? { personaId: ids.personaId, nucleusId: ids.nucleusId } : null;
         },
         fetchBulk: (players) => fetchBulk(players),
+        fetchPersonas: (nucleusId) => fetchPersonas(nucleusId),
         currentSeason: () => fetchCurrentSeason(),
       },
       (e) => e instanceof RefMovedError,

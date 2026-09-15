@@ -108,15 +108,26 @@ describe('LeaderboardTable', () => {
     expect(screen.queryByLabelText(/flown in jets/)).not.toBeInTheDocument();
   });
 
-  it('shows the in-game id, not the name someone introduced themselves by', () => {
-    // Thirteen members posted a Discord handle that is not their EA ID. The
-    // board has to match the in-game scoreboard, or you cannot tell who you
-    // just played against.
-    render(<LeaderboardTable rows={[row({ eaId: 'SPETZNAZ_HALO', displayName: 'Conqueror' })]} />);
-    expect(screen.getByText('SPETZNAZ_HALO')).toBeInTheDocument();
-    expect(screen.queryByText('Conqueror')).not.toBeInTheDocument();
-    // The Discord handle survives in the tooltip rather than being dropped.
-    expect(screen.getByLabelText('Conqueror in Discord')).toBeInTheDocument();
+  it('shows the name on the scoreboard in game, not the EA ID or the Discord handle', () => {
+    // TTVLezWin on EA is LezWin on Steam and "Lez" in Discord. Only one of
+    // those is the name you saw in the match you just played.
+    render(<LeaderboardTable rows={[row({
+      eaId: 'TTVLezWin', displayName: 'Lez', inGameName: 'LezWin', inGamePlatform: 'steam',
+    })]} />);
+    expect(screen.getByText('LezWin')).toBeInTheDocument();
+    expect(screen.queryByText('TTVLezWin')).not.toBeInTheDocument();
+    // Both other names stay reachable rather than being dropped.
+    expect(screen.getByLabelText('TTVLezWin on EA · Lez in Discord')).toBeInTheDocument();
+  });
+
+  it('marks which platform the name comes from', () => {
+    render(<LeaderboardTable rows={[row({ eaId: 'a', inGameName: 'A', inGamePlatform: 'steam' })]} />);
+    expect(screen.getByLabelText('Steam')).toBeInTheDocument();
+  });
+
+  it('falls back to the EA ID when no persona was resolved', () => {
+    render(<LeaderboardTable rows={[row({ eaId: 'CyclonicNinja', displayName: 'CyclonicNinja' })]} />);
+    expect(screen.getByText('CyclonicNinja')).toBeInTheDocument();
   });
 
   it('renders an em dash for null rate stats', () => {
