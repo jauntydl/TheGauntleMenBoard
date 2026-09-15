@@ -1406,5 +1406,17 @@
     "source": "selfserve",
     "inGameName": "Splyph420",
     "inGamePlatform": "ea"
+  },
+  {
+    "eaId": "vinnydot-",
+    "displayName": "vinnydot-",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1010071776188",
+    "nucleusId": "1020845176188",
+    "source": "selfserve",
+    "inGameName": "vinnydot-",
+    "inGamePlatform": "ea"
   }
 ]
