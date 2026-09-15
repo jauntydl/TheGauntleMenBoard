@@ -195,6 +195,27 @@ export function LeaderboardTable({
           ),
         getSortComparator: nullsLastComparator,
       },
+      {
+        field: 'sniperPct',
+        headerName: 'Style',
+        width: 112,
+        description:
+          'Playstyle by weapon mix. Deadeye = precision-heavy, Bullet Hose = automatics-heavy, Flex = both. Hover a row for the split.',
+        renderCell: (p) => {
+          const style = playstyle(p.row.autoPct, p.row.sniperPct);
+          if (!style) return <Box component="span" sx={{ color: 'text.secondary' }}>{DASH}</Box>;
+          return (
+            // The split moves into the tooltip rather than being dropped, so
+            // the column stays a glanceable label without losing the detail.
+            <Tooltip title={`${style.label} — ${style.detail} of weapon kills`}>
+              <Box component="span" sx={{ color: style.tone, fontWeight: 600 }}>
+                {style.label}
+              </Box>
+            </Tooltip>
+          );
+        },
+        getSortComparator: nullsLastComparator,
+      },
       { field: 'matches', headerName: 'M', width: 70 },
       {
         field: 'record',
@@ -207,28 +228,6 @@ export function LeaderboardTable({
         headerName: 'Win %',
         width: 84,
         renderCell: (p) => fmtPct(p.row.winPct),
-        getSortComparator: nullsLastComparator,
-      },
-      {
-        field: 'sniperPct',
-        headerName: 'Style',
-        width: 132,
-        description:
-          'Playstyle by weapon mix. Deadeye = precision-heavy, Bullet Hose = automatics-heavy, Flex = both (auto/sniper).',
-        renderCell: (p) => {
-          const style = playstyle(p.row.autoPct, p.row.sniperPct);
-          if (!style) return <Box component="span" sx={{ color: 'text.secondary' }}>{DASH}</Box>;
-          return (
-            <Box sx={{ display: 'flex', alignItems: 'baseline', gap: 0.6 }}>
-              <Box component="span" sx={{ color: style.tone, fontWeight: 600 }}>
-                {style.label}
-              </Box>
-              <Box component="span" className="tnum" sx={{ color: 'text.secondary', fontSize: '0.8rem' }}>
-                {style.detail}
-              </Box>
-            </Box>
-          );
-        },
         getSortComparator: nullsLastComparator,
       },
       {

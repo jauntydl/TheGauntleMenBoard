@@ -101,6 +101,13 @@ describe('LeaderboardTable', () => {
     expect(screen.getByText(/no players/i)).toBeInTheDocument();
   });
 
+  it('shows only the playstyle label in the cell, not the split', () => {
+    render(<LeaderboardTable rows={[row({ displayName: 'Sniper', autoPct: 45, sniperPct: 51 })]} />);
+    expect(screen.getByText('Deadeye')).toBeInTheDocument();
+    // The percentage moved to the tooltip so the column stays glanceable.
+    expect(screen.queryByText('51%')).not.toBeInTheDocument();
+  });
+
   it('renders the default sort order — Rating descending — regardless of input order', () => {
     // Deliberately out of Rating order: low, high, mid. Win % is set opposite
     // to Rating so a regression to the old win-rate sort would fail loudly
