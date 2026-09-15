@@ -1370,5 +1370,17 @@
     "source": "selfserve",
     "inGameName": "Kreem914",
     "inGamePlatform": "ea"
+  },
+  {
+    "eaId": "FRIDAYHOUNDG5",
+    "displayName": "FRIDAYHOUNDG5",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1009025429277",
+    "nucleusId": "1018706629277",
+    "source": "selfserve",
+    "inGameName": "FRIDAYHOUND",
+    "inGamePlatform": "xboxone"
   }
 ]
