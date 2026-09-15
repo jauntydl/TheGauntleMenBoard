@@ -994,5 +994,15 @@
     "personaId": "180646525",
     "nucleusId": "2271040344",
     "source": "selfserve"
+  },
+  {
+    "eaId": "Heelix_5",
+    "displayName": "Heelix_5",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1005543577746",
+    "nucleusId": "1011276177746",
+    "source": "selfserve"
   }
 ]
