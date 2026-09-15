@@ -3,17 +3,17 @@ import type { BoardRow } from './types';
 /**
  * How much each metric contributes to the overall rating.
  *
- * Gauntlet eliminates squads on objective points rather than kills, so a
- * rating that ignored objectives would misread the mode. Winning still
- * dominates because it is the actual goal; everything else describes how.
+ * Winning dominates because it is the actual goal; everything else describes
+ * how. These are the five weights the previous six were rescaled to when
+ * objectives per match came out, so their relative pull is unchanged and the
+ * five still total one.
  */
 export const RATING_WEIGHTS = {
-  winPct: 0.4,
-  objPerMatch: 0.15,
-  kd: 0.15,
-  killsPerMatch: 0.12,
-  dpm: 0.1,
-  revivesPerHour: 0.08,
+  winPct: 0.47,
+  kd: 0.18,
+  killsPerMatch: 0.14,
+  dpm: 0.12,
+  revivesPerHour: 0.09,
 } as const;
 
 export type RatedMetric = keyof typeof RATING_WEIGHTS;

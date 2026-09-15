@@ -32,9 +32,11 @@ describe('percentile', () => {
 
 describe('rateAll', () => {
   it('weights winning highest', () => {
-    expect(RATING_WEIGHTS.winPct).toBe(0.4);
-    const total = Object.values(RATING_WEIGHTS).reduce((a, b) => a + b, 0);
-    expect(total).toBeCloseTo(1, 6);
+    // The invariant, not the figure: winning outweighs anything else, and the
+    // weights total one so the explainer's percentages add up on the page.
+    const weights = Object.values(RATING_WEIGHTS);
+    expect(RATING_WEIGHTS.winPct).toBe(Math.max(...weights));
+    expect(weights.reduce((a, b) => a + b, 0)).toBeCloseTo(1, 6);
   });
 
   it('scores a stronger player above a weaker one', () => {

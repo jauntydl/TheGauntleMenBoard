@@ -16,10 +16,6 @@ import { MIN_MATCHES } from '@/lib/ranking';
  */
 const REASONS: Record<RatedMetric, { label: string; why: string }> = {
   winPct: { label: 'Win rate', why: 'Last squad standing is the whole point of the mode.' },
-  objPerMatch: {
-    label: 'Objectives per match',
-    why: 'Gauntlet knocks squads out on objective points, not kills.',
-  },
   kd: { label: 'Kills / deaths', why: 'Staying alive matters when dying ends your squad’s round.' },
   killsPerMatch: {
     label: 'Kills per match',
@@ -44,9 +40,9 @@ export function RatingExplainer() {
       </Typography>
 
       <Typography sx={{ mb: 2 }}>
-        Every ranked player gets a score out of 100. It blends six things, because
-        winning alone does not say whether you carried your squad or were carried
-        by it.
+        Every ranked player gets a score out of 100. It blends five things,
+        because winning alone does not say whether you carried your squad or
+        were carried by it.
       </Typography>
 
       <Table size="small" sx={{ mb: 3 }}>
@@ -74,9 +70,10 @@ export function RatingExplainer() {
         You are scored against the field, not against a target
       </Typography>
       <Typography sx={{ mb: 2 }}>
-        For each of the six, we work out where you sit among everyone else ranked
-        this season. Top of the field on a stat is worth 100, bottom is worth 0,
-        middle is 50. Those six positions are then blended using the weights above.
+        For each of the five, we work out where you sit among everyone else
+        ranked this season. Top of the field on a stat is worth 100, bottom is
+        worth 0, middle is 50. Those five positions are then blended using the
+        weights above.
       </Typography>
       <Typography sx={{ mb: 2 }}>
         Two consequences worth knowing. A 3.0 K/D and 420 damage per minute cannot

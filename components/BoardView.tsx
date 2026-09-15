@@ -78,8 +78,8 @@ export function BoardView({ board }: { board: BoardFile }) {
           not have to scroll to learn what qualified these players. */}
       <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
         Ranked by overall rating, minimum {MIN_MATCHES} matches this season. Rating
-        blends win rate, objectives, K/D, kills, damage and revives, each scored
-        against the rest of the field — <Link href="/rating">how that works</Link>.
+        blends win rate, K/D, kills, damage and revives, each scored against the
+        rest of the field — <Link href="/rating">how that works</Link>.
         Fewer matches and you appear under Provisional.
       </Typography>
 
