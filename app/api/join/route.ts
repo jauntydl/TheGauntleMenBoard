@@ -24,11 +24,15 @@ const STATUS: Record<JoinFailure, number> = {
 export async function POST(req: Request): Promise<Response> {
   const cfg = readConfig();
   if (!cfg) {
+    // Name which variable is missing. The names are public — they are in
+    // .env.example — and without them "not configured" gives whoever set the
+    // deployment up nothing to act on but a list of three things to re-check.
+    const missing = (['GITHUB_REPO', 'GITHUB_TOKEN'] as const).filter((n) => !process.env[n]);
     return Response.json(
       {
         ok: false,
         reason: 'unconfigured',
-        message: 'Signups are not configured on this deployment.',
+        message: `Signups are not configured on this deployment (missing: ${missing.join(', ') || 'nothing — check the values are not empty'}).`,
       },
       { status: 503 },
     );

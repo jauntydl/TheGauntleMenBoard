@@ -74,7 +74,12 @@ describe('POST /api/join', () => {
     vi.stubEnv('GITHUB_REPO', '');
     const res = await post({ eaId: 'Somebody' });
     expect(res.status).toBe(503);
-    expect((await res.json()).reason).toBe('unconfigured');
+    const body = await res.json();
+    expect(body.reason).toBe('unconfigured');
+    // Names the missing variable: "not configured" alone leaves whoever set
+    // the deployment up with three things to re-check and no way to tell which.
+    expect(body.message).toContain('GITHUB_TOKEN');
+    expect(body.message).toContain('GITHUB_REPO');
   });
 
   it('rejects a malformed EA ID before it reaches the network', async () => {
