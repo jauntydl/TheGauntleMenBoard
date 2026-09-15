@@ -6,7 +6,8 @@
     "region": "USA",
     "mainMode": "gauntlet",
     "personaId": "1005168992921",
-    "nucleusId": "1010503392921"
+    "nucleusId": "1010503392921",
+    "source": "community"
   },
   {
     "eaId": "esangol",
@@ -15,14 +16,16 @@
     "region": "USA",
     "mainMode": "both",
     "personaId": "849359174",
-    "nucleusId": "2798144562"
+    "nucleusId": "2798144562",
+    "source": "community"
   },
   {
     "eaId": "Vanzz_GG",
     "displayName": "vye",
     "platform": "steam",
     "region": "AMERICAAAAA",
-    "mainMode": "unknown"
+    "mainMode": "unknown",
+    "source": "community"
   },
   {
     "eaId": "Excited_Pianist",
@@ -31,7 +34,8 @@
     "region": "USA (West Coast)",
     "mainMode": "gauntlet",
     "personaId": "1649413940",
-    "nucleusId": "2281781231"
+    "nucleusId": "2281781231",
+    "source": "community"
   },
   {
     "eaId": "ZD4NIM4L",
@@ -40,14 +44,16 @@
     "region": "East FL",
     "mainMode": "gauntlet",
     "personaId": "1822424886",
-    "nucleusId": "2372421924"
+    "nucleusId": "2372421924",
+    "source": "community"
   },
   {
     "eaId": "Heelix",
     "displayName": "Heelix",
     "platform": "steam / xbox",
     "region": "America",
-    "mainMode": "gauntlet"
+    "mainMode": "gauntlet",
+    "source": "community"
   },
   {
     "eaId": "TheTwitchGirl",
@@ -56,7 +62,8 @@
     "region": "USA",
     "mainMode": "unknown",
     "personaId": "1008053108594",
-    "nucleusId": "1016784308594"
+    "nucleusId": "1016784308594",
+    "source": "community"
   },
   {
     "eaId": "Bourn3A",
@@ -65,7 +72,8 @@
     "region": "NA East",
     "mainMode": "gauntlet",
     "personaId": "1031199418",
-    "nucleusId": "1000441939968"
+    "nucleusId": "1000441939968",
+    "source": "community"
   },
   {
     "eaId": "kricked",
@@ -74,7 +82,8 @@
     "region": "west",
     "mainMode": "gauntlet",
     "personaId": "948226941",
-    "nucleusId": "2266847011"
+    "nucleusId": "2266847011",
+    "source": "community"
   },
   {
     "eaId": "Nickybzbz",
@@ -83,7 +92,8 @@
     "region": "Canada East",
     "mainMode": "gauntlet",
     "personaId": "1108512995",
-    "nucleusId": "1000663560266"
+    "nucleusId": "1000663560266",
+    "source": "community"
   },
   {
     "eaId": "JonPM1",
@@ -92,7 +102,8 @@
     "region": "NA-East",
     "mainMode": "both",
     "personaId": "303184906",
-    "nucleusId": "2302564474"
+    "nucleusId": "2302564474",
+    "source": "community"
   },
   {
     "eaId": "SidewalkEnf0rcer",
@@ -101,7 +112,8 @@
     "region": "NA East",
     "mainMode": "gauntlet",
     "personaId": "847584811",
-    "nucleusId": "2832289777"
+    "nucleusId": "2832289777",
+    "source": "community"
   },
   {
     "eaId": "Chance-luck",
@@ -110,7 +122,8 @@
     "region": "NA Weat",
     "mainMode": "both",
     "personaId": "1010362797225",
-    "nucleusId": "1022316597225"
+    "nucleusId": "1022316597225",
+    "source": "community"
   },
   {
     "eaId": "kathemkh9",
@@ -119,7 +132,8 @@
     "region": "NA West",
     "mainMode": "both",
     "personaId": "1847634115",
-    "nucleusId": "1004751459612"
+    "nucleusId": "1004751459612",
+    "source": "community"
   },
   {
     "eaId": "pkidarkpki",
@@ -128,7 +142,8 @@
     "region": "US East",
     "mainMode": "both",
     "personaId": "849687045",
-    "nucleusId": "2250375376"
+    "nucleusId": "2250375376",
+    "source": "community"
   },
   {
     "eaId": "IHerkyI",
@@ -137,7 +152,8 @@
     "region": "Central",
     "mainMode": "gauntlet",
     "personaId": "392998272",
-    "nucleusId": "2312058996"
+    "nucleusId": "2312058996",
+    "source": "community"
   },
   {
     "eaId": "CHASEXRYAN",
@@ -146,6 +162,817 @@
     "region": "NA West",
     "mainMode": "both",
     "personaId": "1804120209",
-    "nucleusId": "1003924093498"
+    "nucleusId": "1003924093498",
+    "source": "community"
+  },
+  {
+    "eaId": "Coasterfly",
+    "displayName": "Coasterfly",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "352765036",
+    "nucleusId": "2411749849",
+    "source": "imported"
+  },
+  {
+    "eaId": "Unreal413",
+    "displayName": "Unreal413",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1904348677",
+    "nucleusId": "1005724991407",
+    "source": "imported"
+  },
+  {
+    "eaId": "wyldd00d",
+    "displayName": "wyldd00d",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "367847654",
+    "nucleusId": "2294500789",
+    "source": "imported"
+  },
+  {
+    "eaId": "Monkey76083",
+    "displayName": "Monkey76083",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "790634100",
+    "nucleusId": "2300975878",
+    "source": "imported"
+  },
+  {
+    "eaId": "pizzawolf238",
+    "displayName": "pizzawolf238",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005727353237",
+    "nucleusId": "1011490553237",
+    "source": "imported"
+  },
+  {
+    "eaId": "L4gent_Secret",
+    "displayName": "L4gent_Secret",
+    "platform": "ea",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1005241784643",
+    "nucleusId": "1010680984643",
+    "source": "imported"
+  },
+  {
+    "eaId": "I_Baldwin_l",
+    "displayName": "I_Baldwin_l",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1009270176730",
+    "nucleusId": "1019476776730",
+    "source": "imported"
+  },
+  {
+    "eaId": "Cit1es",
+    "displayName": "Cit1es",
+    "platform": "xbox",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "852503721",
+    "nucleusId": "2277398072",
+    "source": "imported"
+  },
+  {
+    "eaId": "PIRRS3D",
+    "displayName": "PIRRS3D",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "261757812",
+    "nucleusId": "2340099191",
+    "source": "imported"
+  },
+  {
+    "eaId": "Str8UpBeastDGAF",
+    "displayName": "Str8UpBeastDGAF",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005471290022",
+    "nucleusId": "1010631490022",
+    "source": "imported"
+  },
+  {
+    "eaId": "Burstfluffy",
+    "displayName": "Burstfluffy",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1003892221426",
+    "nucleusId": "1007542821426",
+    "source": "imported"
+  },
+  {
+    "eaId": "sfw421",
+    "displayName": "sfw421",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "364159530",
+    "nucleusId": "2291534264",
+    "source": "imported"
+  },
+  {
+    "eaId": "ArtzieBF",
+    "displayName": "ArtzieBF",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1008308066316",
+    "nucleusId": "1017703066316",
+    "source": "imported"
+  },
+  {
+    "eaId": "MhT0k3n",
+    "displayName": "MhT0k3n",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005883538659",
+    "nucleusId": "1012116938659",
+    "source": "imported"
+  },
+  {
+    "eaId": "ronr",
+    "displayName": "ronr",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "175042353",
+    "nucleusId": "2264507099",
+    "source": "imported"
+  },
+  {
+    "eaId": "aslyums",
+    "displayName": "aslyums",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1009595874660",
+    "nucleusId": "1020367874660",
+    "source": "imported"
+  },
+  {
+    "eaId": "HerbL",
+    "displayName": "HerbL",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1760538585",
+    "nucleusId": "1002924789366",
+    "source": "imported"
+  },
+  {
+    "eaId": "InvalidTurkey",
+    "displayName": "InvalidTurkey",
+    "platform": "steam",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1006026564471",
+    "nucleusId": "1012557364471",
+    "source": "imported"
+  },
+  {
+    "eaId": "DShepherd176",
+    "displayName": "DShepherd176",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005350268248",
+    "nucleusId": "1011308868248",
+    "source": "imported"
+  },
+  {
+    "eaId": "Merchant_Death_7",
+    "displayName": "Merchant_Death_7",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1007628480162",
+    "nucleusId": "1015846080162",
+    "source": "imported"
+  },
+  {
+    "eaId": "TTV_GarnetWolfe",
+    "displayName": "TTV_GarnetWolfe",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "287116819",
+    "nucleusId": "2361582514",
+    "source": "imported"
+  },
+  {
+    "eaId": "martie_pants",
+    "displayName": "martie_pants",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1003900022645",
+    "nucleusId": "1007761622645",
+    "source": "imported"
+  },
+  {
+    "eaId": "BehemothXI",
+    "displayName": "BehemothXI",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005944680653",
+    "nucleusId": "1011860280653",
+    "source": "imported"
+  },
+  {
+    "eaId": "SkimMilk19",
+    "displayName": "SkimMilk19",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "577137047",
+    "nucleusId": "2551926099",
+    "source": "imported"
+  },
+  {
+    "eaId": "Gunchain",
+    "displayName": "Gunchain",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1009683501132",
+    "nucleusId": "1020437901132",
+    "source": "imported"
+  },
+  {
+    "eaId": "mariobatley",
+    "displayName": "mariobatley",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "803642510",
+    "nucleusId": "2290945575",
+    "source": "imported"
+  },
+  {
+    "eaId": "AtomicBoggy",
+    "displayName": "AtomicBoggy",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005820824777",
+    "nucleusId": "1011671824777",
+    "source": "imported"
+  },
+  {
+    "eaId": "MeowMix",
+    "displayName": "MeowMix",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1052993489",
+    "nucleusId": "1000492366086",
+    "source": "imported"
+  },
+  {
+    "eaId": "EnriqueTheKid",
+    "displayName": "EnriqueTheKid",
+    "platform": "ea",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1859745788",
+    "nucleusId": "1000455143763",
+    "source": "imported"
+  },
+  {
+    "eaId": "Reven",
+    "displayName": "Reven",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1005453121392",
+    "nucleusId": "1010744521392",
+    "source": "imported"
+  },
+  {
+    "eaId": "Medrilan",
+    "displayName": "Medrilan",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1001179808",
+    "nucleusId": "1000333768762",
+    "source": "imported"
+  },
+  {
+    "eaId": "TheOnlineSniper",
+    "displayName": "TheOnlineSniper",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "390494205",
+    "nucleusId": "2276811353",
+    "source": "imported"
+  },
+  {
+    "eaId": "Shmike",
+    "displayName": "Shmike",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "258132369",
+    "nucleusId": "2310406166",
+    "source": "imported"
+  },
+  {
+    "eaId": "kinglio",
+    "displayName": "kinglio",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1011860345955",
+    "nucleusId": "1026115745955",
+    "source": "imported"
+  },
+  {
+    "eaId": "pscreen86",
+    "displayName": "pscreen86",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1752119880",
+    "nucleusId": "2381580389",
+    "source": "imported"
+  },
+  {
+    "eaId": "Horrorphex",
+    "displayName": "Horrorphex",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1003839671582",
+    "nucleusId": "1007537071582",
+    "source": "imported"
+  },
+  {
+    "eaId": "Hyperioz",
+    "displayName": "Hyperioz",
+    "platform": "ps",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1008042013000",
+    "nucleusId": "1016976013000",
+    "source": "imported"
+  },
+  {
+    "eaId": "DaddyDemocracy",
+    "displayName": "DaddyDemocracy",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "895198611",
+    "nucleusId": "1000099782978",
+    "source": "imported"
+  },
+  {
+    "eaId": "WhalersAPA",
+    "displayName": "WhalersAPA",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "851253172",
+    "nucleusId": "2405071841",
+    "source": "imported"
+  },
+  {
+    "eaId": "DarkestWord17",
+    "displayName": "DarkestWord17",
+    "platform": "steam",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1005589280158",
+    "nucleusId": "1010139380158",
+    "source": "imported"
+  },
+  {
+    "eaId": "CKAMMEPCAHT",
+    "displayName": "CKAMMEPCAHT",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1010954061080",
+    "nucleusId": "1024004061080",
+    "source": "imported"
+  },
+  {
+    "eaId": "ShaydeFPS",
+    "displayName": "ShaydeFPS",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1003935629472",
+    "nucleusId": "1007770829472",
+    "source": "imported"
+  },
+  {
+    "eaId": "CyclonicNinja",
+    "displayName": "CyclonicNinja",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "914578411",
+    "nucleusId": "2330878325",
+    "source": "imported"
+  },
+  {
+    "eaId": "Lipidologist",
+    "displayName": "Lipidologist",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1444966679",
+    "nucleusId": "2258487707",
+    "source": "imported"
+  },
+  {
+    "eaId": "AISIKL",
+    "displayName": "AISIKL",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "335462407",
+    "nucleusId": "2400203613",
+    "source": "imported"
+  },
+  {
+    "eaId": "LT__Fletch",
+    "displayName": "LT__Fletch",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1008236583952",
+    "nucleusId": "1016898983952",
+    "source": "imported"
+  },
+  {
+    "eaId": "ShinyGengarr",
+    "displayName": "ShinyGengarr",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1825023862",
+    "nucleusId": "1004493298456",
+    "source": "imported"
+  },
+  {
+    "eaId": "Alizayuh",
+    "displayName": "Alizayuh",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1688114366",
+    "nucleusId": "2383480823",
+    "source": "imported"
+  },
+  {
+    "eaId": "Relevant_Meme69",
+    "displayName": "Relevant_Meme69",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1006205351144",
+    "nucleusId": "1012709951144",
+    "source": "imported"
+  },
+  {
+    "eaId": "Z3R0wing",
+    "displayName": "Z3R0wing",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "229913898",
+    "nucleusId": "2250422560",
+    "source": "imported"
+  },
+  {
+    "eaId": "oSandman",
+    "displayName": "oSandman",
+    "platform": "ea",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1068791939",
+    "nucleusId": "1000548921225",
+    "source": "imported"
+  },
+  {
+    "eaId": "DaBoogiemanSJ",
+    "displayName": "DaBoogiemanSJ",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "251041213",
+    "nucleusId": "2331415734",
+    "source": "imported"
+  },
+  {
+    "eaId": "smaddy",
+    "displayName": "smaddy",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "174302274",
+    "nucleusId": "2263586517",
+    "source": "imported"
+  },
+  {
+    "eaId": "BroSig1855",
+    "displayName": "BroSig1855",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1829725080",
+    "nucleusId": "1004576631044",
+    "source": "imported"
+  },
+  {
+    "eaId": "xSweatyKarmax",
+    "displayName": "xSweatyKarmax",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "442773650",
+    "nucleusId": "2453310500",
+    "source": "imported"
+  },
+  {
+    "eaId": "ThiccMonkeh",
+    "displayName": "ThiccMonkeh",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1686535999",
+    "nucleusId": "1000241193869",
+    "source": "imported"
+  },
+  {
+    "eaId": "vvarhead1777",
+    "displayName": "vvarhead1777",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1711845788",
+    "nucleusId": "2766273693",
+    "source": "imported"
+  },
+  {
+    "eaId": "rudolpharum",
+    "displayName": "rudolpharum",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1286362293",
+    "nucleusId": "1001358921178",
+    "source": "imported"
+  },
+  {
+    "eaId": "BananaBoat581",
+    "displayName": "BananaBoat581",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1749527317",
+    "nucleusId": "1003410165640",
+    "source": "imported"
+  },
+  {
+    "eaId": "BashK1ng",
+    "displayName": "BashK1ng",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1799452604",
+    "nucleusId": "1003840418878",
+    "source": "imported"
+  },
+  {
+    "eaId": "fobia_571",
+    "displayName": "fobia_571",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "352534007",
+    "nucleusId": "2317387964",
+    "source": "imported"
+  },
+  {
+    "eaId": "MorsOrtu",
+    "displayName": "MorsOrtu",
+    "platform": "steam",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1006701602658",
+    "nucleusId": "1014532602658",
+    "source": "imported"
+  },
+  {
+    "eaId": "lmafo7",
+    "displayName": "lmafo7",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1009728500513",
+    "nucleusId": "1020379300513",
+    "source": "imported"
+  },
+  {
+    "eaId": "UniqueCure",
+    "displayName": "UniqueCure",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "978961087",
+    "nucleusId": "2833754488",
+    "source": "imported"
+  },
+  {
+    "eaId": "xCMirandax",
+    "displayName": "xCMirandax",
+    "platform": "ps",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "1009995226558",
+    "nucleusId": "1022117426558",
+    "source": "imported"
+  },
+  {
+    "eaId": "thedead2468",
+    "displayName": "thedead2468",
+    "platform": "ps",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "879178447",
+    "nucleusId": "2852805856",
+    "source": "imported"
+  },
+  {
+    "eaId": "Doorsexx",
+    "displayName": "Doorsexx",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1460465536",
+    "nucleusId": "1000082733941",
+    "source": "imported"
+  },
+  {
+    "eaId": "mk3_beaST",
+    "displayName": "mk3_beaST",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1007308230737",
+    "nucleusId": "1015179630737",
+    "source": "imported"
+  },
+  {
+    "eaId": "jpigg4032",
+    "displayName": "jpigg4032",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "260914439",
+    "nucleusId": "2300643172",
+    "source": "imported"
+  },
+  {
+    "eaId": "hrsaputra",
+    "displayName": "hrsaputra",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1140408658",
+    "nucleusId": "1000784997099",
+    "source": "imported"
+  },
+  {
+    "eaId": "RedDevil51",
+    "displayName": "RedDevil51",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "457775580",
+    "nucleusId": "2485492518",
+    "source": "imported"
+  },
+  {
+    "eaId": "COLTREN456",
+    "displayName": "COLTREN456",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "854107737",
+    "nucleusId": "2557143119",
+    "source": "imported"
+  },
+  {
+    "eaId": "Meecheel",
+    "displayName": "Meecheel",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1826741275",
+    "nucleusId": "1004632467399",
+    "source": "imported"
+  },
+  {
+    "eaId": "jomoorigotto",
+    "displayName": "jomoorigotto",
+    "platform": "xbox",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "378862628",
+    "nucleusId": "2293739454",
+    "source": "imported"
+  },
+  {
+    "eaId": "kdnOps",
+    "displayName": "kdnOps",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1003793517413",
+    "nucleusId": "1007774717413",
+    "source": "imported"
+  },
+  {
+    "eaId": "DarkQc",
+    "displayName": "DarkQc",
+    "platform": "steam",
+    "region": "CA",
+    "mainMode": "unknown",
+    "personaId": "174973945",
+    "nucleusId": "2252217207",
+    "source": "imported"
+  },
+  {
+    "eaId": "Abunai",
+    "displayName": "Abunai",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1004269076634",
+    "nucleusId": "1008581076634",
+    "source": "imported"
+  },
+  {
+    "eaId": "RECON-RAT",
+    "displayName": "RECON-RAT",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "247816579",
+    "nucleusId": "2250573644",
+    "source": "imported"
+  },
+  {
+    "eaId": "pterodactyl",
+    "displayName": "pterodactyl",
+    "platform": "steam",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "1003603068095",
+    "nucleusId": "1006626468095",
+    "source": "imported"
+  },
+  {
+    "eaId": "ManuGalarza",
+    "displayName": "ManuGalarza",
+    "platform": "steam",
+    "region": "MX",
+    "mainMode": "unknown",
+    "personaId": "1004456976048",
+    "nucleusId": "1009023376048",
+    "source": "imported"
+  },
+  {
+    "eaId": "KittyValkyrie",
+    "displayName": "KittyValkyrie",
+    "platform": "ea",
+    "region": "US",
+    "mainMode": "unknown",
+    "personaId": "886090184",
+    "nucleusId": "1000085941504",
+    "source": "imported"
   }
 ]

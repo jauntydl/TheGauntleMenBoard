@@ -55,6 +55,33 @@
       "region": "west",
       "mainMode": "gauntlet",
       "rank": null
+    },
+    {
+      "matches": 2,
+      "wins": 0,
+      "losses": 2,
+      "kills": 28,
+      "headshots": 6,
+      "deaths": 8,
+      "damage": 5001,
+      "assists": 11,
+      "revives": 6,
+      "timeSec": 2748,
+      "winPct": 0,
+      "kd": 3.5,
+      "killsPerMatch": 14,
+      "kpm": 0.61,
+      "dpm": 109.19,
+      "revivesPerHour": 7.86,
+      "sniperPct": null,
+      "autoPct": null,
+      "jetPct": 0,
+      "eaId": "L4gent_Secret",
+      "displayName": "L4gent_Secret",
+      "platform": "ea",
+      "region": "CA",
+      "mainMode": "unknown",
+      "rank": null
     }
   ]
 }

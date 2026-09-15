@@ -10,8 +10,10 @@ describe('constants', () => {
   it('targets the gametools API', () => {
     expect(API_BASE).toBe('https://api.gametools.network');
   });
-  it('batches at the documented maximum', () => {
-    expect(BATCH_SIZE).toBe(128);
+  it('batches well under the documented maximum, which raw=true cannot reach', () => {
+    // 96 players in one raw call 504s; 32 truncates. Measured ceiling is 16.
+    expect(BATCH_SIZE).toBe(12);
+    expect(BATCH_SIZE).toBeLessThan(16);
   });
 });
 
@@ -109,9 +111,9 @@ describe('fetchBulk', () => {
     expect(JSON.parse(init.body)).toEqual([player]);
   });
 
-  it('splits into batches of 128', async () => {
+  it('splits into batches of BATCH_SIZE', async () => {
     const fetchImpl = vi.fn().mockImplementation(() => Promise.resolve(json({ playerStats: [] })));
-    const many = Array.from({ length: 300 }, () => player);
+    const many = Array.from({ length: BATCH_SIZE * 3 }, () => player);
     await fetchBulk(many, { fetchImpl, sleep: noSleep });
     expect(fetchImpl).toHaveBeenCalledTimes(3);
   });

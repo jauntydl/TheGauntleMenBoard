@@ -137,6 +137,21 @@ describe('buildBoard', () => {
     expect(board.unresolved).toEqual([]);
   });
 
+  it('keeps imported players off the not-listed page', () => {
+    // A stranger pulled from an external leaderboard will never read advice
+    // about their privacy settings; listing them buries the members who will.
+    const stranger: RosterEntry = {
+      eaId: 'stranger', displayName: 'Stranger', platform: 'pc', region: 'US',
+      mainMode: 'unknown', source: 'imported',
+    };
+    const member: RosterEntry = {
+      eaId: 'member', displayName: 'Member', platform: 'pc', region: 'US',
+      mainMode: 'gauntlet', source: 'community',
+    };
+    const board = buildBoard([stranger, member], [], 'Season4');
+    expect(board.unresolved.map((u) => u.eaId)).toEqual(['member']);
+  });
+
   it('always includes the current season, even with no data', () => {
     const board = buildBoard([], [], 'Season4');
     expect(board.seasons.Season4).toEqual([]);

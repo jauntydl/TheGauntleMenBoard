@@ -139,6 +139,9 @@ export function buildBoard(
   }
 
   const unresolved: UnresolvedEntry[] = roster.flatMap((r): UnresolvedEntry[] => {
+    // Imported players cannot be reached and will never fix their privacy, so
+    // listing them only drowns out the members who can.
+    if (r.source === 'imported') return [];
     if (!r.personaId || !r.nucleusId) {
       return [{ eaId: r.eaId, displayName: r.displayName, reason: 'not_found' }];
     }

@@ -3,8 +3,17 @@ import { readPlayerIds } from './extract';
 
 export const API_BASE = 'https://api.gametools.network';
 
-/** The API documents a hard maximum of 128 players per bulk call. */
-export const BATCH_SIZE = 128;
+/**
+ * Players per bulk call.
+ *
+ * The API documents a maximum of 128, but that ceiling is unreachable with
+ * raw=true: each player's fact table is ~2.9MB, so 96 players timed out the
+ * gateway with a 504 and 32 returned a truncated stream. Measured: 16 players
+ * = 47MB in 11s (the practical limit), 32 = failure. 12 leaves margin, and a
+ * smaller batch also limits the blast radius — one failed batch fails the
+ * whole build.
+ */
+export const BATCH_SIZE = 12;
 
 /**
  * `player_id` is the persona ID; `user_id` is the nucleus ID. They are different
