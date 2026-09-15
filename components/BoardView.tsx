@@ -18,7 +18,7 @@ export function BoardView({ board }: { board: BoardFile }) {
   const provisional = board.provisional[season] ?? [];
 
   return (
-    <Container maxWidth="lg" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
+    <Container maxWidth="xl" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
       <Box
         component="header"
         sx={{

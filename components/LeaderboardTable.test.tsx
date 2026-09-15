@@ -1,7 +1,7 @@
 // components/LeaderboardTable.test.tsx
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import { LeaderboardTable, fmtPct, fmtNum, fmtHours, playstyle } from './LeaderboardTable';
+import { LeaderboardTable, fmtPct, fmtNum, fmtHours, fmtInt, playstyle } from './LeaderboardTable';
 import type { BoardRow } from '@/lib/types';
 
 const row = (over: Partial<BoardRow>): BoardRow => {
@@ -24,6 +24,11 @@ describe('formatters', () => {
     expect(fmtPct(null)).toBe('—');
     expect(fmtNum(null, 2)).toBe('—');
   });
+  it('separates thousands so long counts stay readable', () => {
+    expect(fmtInt(10000)).toBe('10,000');
+    expect(fmtInt(999)).toBe('999');
+  });
+
   it('formats hours', () => {
     expect(fmtHours(3600)).toBe('1.0h');
   });
@@ -125,43 +130,53 @@ describe('LeaderboardTable', () => {
     expect(container.querySelector('.MuiDataGrid-footerContainer')).toBeNull();
   });
 
-  it('hides secondary columns at phone width', () => {
+  const withViewport = (matchWidths: string[], run: () => void) => {
     const original = window.matchMedia;
-    // Narrow viewport: report a match for the component's own breakpoint query.
     Object.defineProperty(window, 'matchMedia', {
-      writable: true,
-      configurable: true,
+      writable: true, configurable: true,
       value: (query: string) => ({
-        matches: query.includes('max-width:600px') || query.includes('max-width: 600px'),
-        media: query,
-        onchange: null,
-        addEventListener: () => {},
-        removeEventListener: () => {},
-        addListener: () => {},
-        removeListener: () => {},
-        dispatchEvent: () => false,
+        matches: matchWidths.some((w) => query.includes(w)),
+        media: query, onchange: null,
+        addEventListener: () => {}, removeEventListener: () => {},
+        addListener: () => {}, removeListener: () => {}, dispatchEvent: () => false,
       }),
     });
-
-    try {
-      render(<LeaderboardTable rows={[row({ displayName: 'Phone' })]} />);
-      // The core ranking columns survive...
-      expect(screen.getByText('Win %')).toBeInTheDocument();
-      expect(screen.getByText('K/D')).toBeInTheDocument();
-      // ...and the secondary ones are gone entirely, not merely visually hidden.
-      expect(screen.queryByText('DPM')).not.toBeInTheDocument();
-      expect(screen.queryByText('KPM')).not.toBeInTheDocument();
-      expect(screen.queryByText('Style')).not.toBeInTheDocument();
-      expect(screen.getByText('Rating')).toBeInTheDocument();
-      expect(screen.queryByText('Kills')).not.toBeInTheDocument();
-      expect(screen.queryByText('K/match')).not.toBeInTheDocument();
-      expect(screen.queryByText('HS')).not.toBeInTheDocument();
-      expect(screen.queryByText('Rev/h')).not.toBeInTheDocument();
-      expect(screen.queryByText('Time')).not.toBeInTheDocument();
-    } finally {
-      Object.defineProperty(window, 'matchMedia', {
-        writable: true, configurable: true, value: original,
-      });
+    try { run(); } finally {
+      Object.defineProperty(window, 'matchMedia', { writable: true, configurable: true, value: original });
     }
+  };
+
+  it('shows only rank, player, rating and win rate on a phone', () => {
+    // A 400px phone has roughly 368px usable. These four total 324px; adding
+    // K/D would push it past that and bring back the horizontal scroll.
+    withViewport(['max-width:600px', 'max-width:1280px'], () => {
+      render(<LeaderboardTable rows={[row({ displayName: 'Phone' })]} />);
+      expect(screen.getByText('Rating')).toBeInTheDocument();
+      expect(screen.getByText('Win %')).toBeInTheDocument();
+      for (const hidden of ['M', 'W–L', 'Style', 'K/D', 'Kills', 'HS', 'K/match', 'KPM', 'DPM', 'Rev/h', 'Time']) {
+        expect(screen.queryByText(hidden)).not.toBeInTheDocument();
+      }
+    });
+  });
+
+  it('adds playstyle and combat rates on a tablet, but not the wide-screen detail', () => {
+    withViewport(['max-width:1280px'], () => {
+      render(<LeaderboardTable rows={[row({ displayName: 'Tablet' })]} />);
+      for (const shown of ['Rating', 'Win %', 'M', 'W–L', 'Style', 'K/D', 'K/match']) {
+        expect(screen.getByText(shown)).toBeInTheDocument();
+      }
+      for (const hidden of ['Kills', 'HS', 'KPM', 'DPM', 'Rev/h', 'Time']) {
+        expect(screen.queryByText(hidden)).not.toBeInTheDocument();
+      }
+    });
+  });
+
+  it('shows every column on a wide screen', () => {
+    withViewport([], () => {
+      render(<LeaderboardTable rows={[row({ displayName: 'Desktop' })]} />);
+      for (const shown of ['Rating', 'Win %', 'Style', 'Kills', 'HS', 'K/D', 'K/match', 'KPM', 'DPM', 'Rev/h', 'Time']) {
+        expect(screen.getByText(shown)).toBeInTheDocument();
+      }
+    });
   });
 });

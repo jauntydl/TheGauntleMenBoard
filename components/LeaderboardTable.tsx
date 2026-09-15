@@ -21,6 +21,14 @@ export const fmtNum = (v: number | null, digits = 2): string => (v === null ? DA
 export const fmtHours = (sec: number): string => `${(sec / 3600).toFixed(1)}h`;
 
 /**
+ * Thousands separators for counts: 10,000 reads faster than 10000 down a
+ * column. The locale is pinned rather than left to the runtime — the server
+ * and the browser can disagree on it, and that is a hydration mismatch.
+ */
+const INT = new Intl.NumberFormat('en-US');
+export const fmtInt = (v: number): string => INT.format(v);
+
+/**
  * lib/ranking.ts documents "nulls sort last regardless of direction" for the
  * server-side standings comparator. DataGrid's own default numeric comparator
  * doesn't know that rule — its default puts nulls first on an ascending sort
@@ -46,6 +54,13 @@ const nullsLastComparator =
  * with one — 45% is genuinely precision-heavy. Automatics are high volume, so
  * it takes 65% before that reads as a commitment rather than a default.
  */
+const COLUMN_ALIGN: Record<string, 'left' | 'right' | 'center'> = {
+  displayName: 'left',
+  sniperPct: 'left',
+  kills: 'right',
+  headshots: 'right',
+};
+
 const SNIPER_FLOOR = 45;
 const AUTO_FLOOR = 65;
 
@@ -81,17 +96,23 @@ export function LeaderboardTable({
   // noSsr: true avoids a hydration mismatch — without it the server always
   // renders the desktop (non-matching) layout and the client immediately
   // re-renders narrow, producing a visible flash and a markup mismatch.
+  // Three tiers, because two were not enough: the full board is ~1330px of
+  // columns, which overflows a 1280px laptop even at full container width.
+  // Rather than let it scroll sideways, progressively drop the columns a
+  // reader is least likely to be scanning for.
   const isNarrow = useMediaQuery('(max-width:600px)', { noSsr: true });
+  const isMedium = useMediaQuery('(max-width:1280px)', { noSsr: true });
 
-  // Static column definitions: the renderers below close over nothing that
-  // varies per render (each gets its row from DataGrid's own render props),
-  // so an empty dependency array is correct — this never needs to rebuild.
-  const columns = React.useMemo<GridColDef<BoardRow>[]>(
-    () => [
+  // Depends on isNarrow: a phone has roughly 368px of usable width, so the
+  // handful of columns it does show have to be narrower too, not just fewer.
+  const columns = React.useMemo<GridColDef<BoardRow>[]>(() => {
+    // Annotated before the map: without it the array literal loses its
+    // type and every renderCell parameter falls back to any.
+    const base: GridColDef<BoardRow>[] = [
       {
         field: 'rank',
         headerName: '#',
-        width: 68,
+        width: isNarrow ? 44 : 68,
         // The one place this board raises its voice. Gauntlet is an
         // elimination mode, so position is the story — the numeral is lit
         // like a panel readout, brightest at the top and falling away.
@@ -127,7 +148,7 @@ export function LeaderboardTable({
         field: 'displayName',
         headerName: 'Player',
         flex: 1,
-        minWidth: 140,
+        minWidth: isNarrow ? 104 : 140,
         renderCell: (p) => (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.75 }}>
             <Box
@@ -161,7 +182,7 @@ export function LeaderboardTable({
       {
         field: 'rating',
         headerName: 'Rating',
-        width: 92,
+        width: isNarrow ? 92 : 124,
         description:
           'Overall rating out of 100: win rate 40%, objectives 15%, K/D 15%, kills per match 12%, damage per minute 10%, revives per hour 8% — each scored against the rest of the ranked field.',
         renderCell: (p) =>
@@ -178,20 +199,20 @@ export function LeaderboardTable({
       {
         field: 'record',
         headerName: 'W–L',
-        width: 90,
+        width: 84,
         valueGetter: (_v, r) => `${r.wins}–${r.losses}`,
       },
       {
         field: 'winPct',
         headerName: 'Win %',
-        width: 90,
+        width: 84,
         renderCell: (p) => fmtPct(p.row.winPct),
         getSortComparator: nullsLastComparator,
       },
       {
         field: 'sniperPct',
         headerName: 'Style',
-        width: 150,
+        width: 132,
         description:
           'Playstyle by weapon mix. Deadeye = precision-heavy, Bullet Hose = automatics-heavy, Flex = both (auto/sniper).',
         renderCell: (p) => {
@@ -210,12 +231,18 @@ export function LeaderboardTable({
         },
         getSortComparator: nullsLastComparator,
       },
-      { field: 'kills', headerName: 'Kills', width: 80 },
+      {
+        field: 'kills',
+        headerName: 'Kills',
+        width: 88,
+        renderCell: (p) => fmtInt(p.row.kills),
+      },
       {
         field: 'headshots',
         headerName: 'HS',
-        width: 80,
+        width: 88,
         description: 'Headshot kills',
+        renderCell: (p) => fmtInt(p.row.headshots),
       },
       {
         field: 'kd',
@@ -227,7 +254,7 @@ export function LeaderboardTable({
       {
         field: 'killsPerMatch',
         headerName: 'K/match',
-        width: 90,
+        width: 84,
         description: 'Kills per match',
         renderCell: (p) => fmtNum(p.row.killsPerMatch, 1),
         getSortComparator: nullsLastComparator,
@@ -244,22 +271,28 @@ export function LeaderboardTable({
       {
         field: 'dpm',
         headerName: 'DPM',
-        width: 90,
+        width: 84,
         renderCell: (p) => fmtNum(p.row.dpm, 0),
         getSortComparator: nullsLastComparator,
       },
       {
         field: 'revivesPerHour',
         headerName: 'Rev/h',
-        width: 90,
+        width: 84,
         description: 'Revives per hour played',
         renderCell: (p) => fmtNum(p.row.revivesPerHour, 1),
         getSortComparator: nullsLastComparator,
       },
-      { field: 'timeSec', headerName: 'Time', width: 90, renderCell: (p) => fmtHours(p.row.timeSec) },
-    ],
-    [],
-  );
+      { field: 'timeSec', headerName: 'Time', width: 84, renderCell: (p) => fmtHours(p.row.timeSec) },
+    ];
+
+    // Alignment applied in one place rather than on fifteen definitions.
+    return base.map((c) => ({
+      align: COLUMN_ALIGN[c.field] ?? 'center',
+      headerAlign: COLUMN_ALIGN[c.field] ?? 'center',
+      ...c,
+    }));
+  }, [isNarrow]);
 
   // Actually remove secondary columns from DataGrid's own column set on
   // narrow viewports, rather than hiding their cells with CSS — DataGrid
@@ -267,16 +300,24 @@ export function LeaderboardTable({
   // leaves the column's track (and horizontal scroll space) behind.
   const columnVisibility = React.useMemo(
     () => ({
+      // A phone keeps only rank, player, rating and win rate — 310px of the
+      // ~368px available. Match count and record go; the rating already
+      // encodes them and the floor guarantees a meaningful sample.
+      matches: !isNarrow,
+      record: !isNarrow,
+      // From a tablet up: how they play and their headline combat rates.
       sniperPct: !isNarrow,
-      kills: !isNarrow,
-      headshots: !isNarrow,
+      kd: !isNarrow,
       killsPerMatch: !isNarrow,
-      kpm: !isNarrow,
-      dpm: !isNarrow,
-      revivesPerHour: !isNarrow,
-      timeSec: !isNarrow,
+      // Only on a wide screen: the supporting detail.
+      kills: !isMedium,
+      headshots: !isMedium,
+      kpm: !isMedium,
+      dpm: !isMedium,
+      revivesPerHour: !isMedium,
+      timeSec: !isMedium,
     }),
-    [isNarrow],
+    [isNarrow, isMedium],
   );
 
   if (rows.length === 0) {
