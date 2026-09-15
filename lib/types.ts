@@ -52,7 +52,12 @@ export type Metrics = {
   dpm: number | null;
   /** Per hour, not per minute: revives are rare enough that a per-minute rate
    *  reads as 0.0x for everyone. */
+  /** Objective plays per match: armed + defended + destroyed + disarmed.
+   *  Not a column — it feeds the rating, which is what Gauntlet scores on. */
+  objPerMatch: number | null;
   revivesPerHour: number | null;
+  /** Overall rating, 0-100, percentile-weighted against the ranked field. */
+  rating: number | null;
   /**
    * Share of weapon kills taken with snipers and DMRs. null when the weapon
    * fields cannot be trusted for that season — see computeMetrics.

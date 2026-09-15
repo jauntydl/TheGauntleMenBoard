@@ -1,4 +1,5 @@
 import type { BoardRow } from './types';
+import { rateAll } from './rating';
 
 /**
  * Players below this many matches are shown as Provisional, not ranked.
@@ -17,8 +18,13 @@ const desc = (a: number | null, b: number | null): number => {
   return b - a;
 };
 
+/**
+ * Order by overall rating, falling back to win rate then volume. Rating is
+ * the headline because win rate alone ignores how a player contributed to
+ * the wins — but win rate still breaks ties, since it is the mode's goal.
+ */
 const byStanding = (a: BoardRow, b: BoardRow): number =>
-  desc(a.winPct, b.winPct) || desc(a.matches, b.matches) || desc(a.kd, b.kd);
+  desc(a.rating, b.rating) || desc(a.winPct, b.winPct) || desc(a.matches, b.matches) || desc(a.kd, b.kd);
 
 /**
  * Split rows into the ranked board and the provisional section, sorting both
@@ -29,14 +35,25 @@ export function rankPlayers(rows: BoardRow[]): { ranked: BoardRow[]; provisional
   const provisional: BoardRow[] = [];
 
   for (const r of rows) {
-    (r.matches >= MIN_MATCHES ? eligible : provisional).push({ ...r, rank: null });
+    if (r.matches >= MIN_MATCHES) {
+      eligible.push({ ...r, rank: null });
+    } else {
+      // Rating is a percentile against the ranked field. Provisional players
+      // are not in that field, so any rating they carry — including one left
+      // over from a previous pass — is meaningless and must be cleared.
+      provisional.push({ ...r, rank: null, rating: null });
+    }
   }
 
-  eligible.sort(byStanding);
+  // Rate against the ranked field only: a percentile is meaningless against a
+  // population you were excluded from, so provisional players keep rating null
+  // and are ordered on win rate alone.
+  const rated = rateAll(eligible);
+  rated.sort(byStanding);
   provisional.sort(byStanding);
 
   return {
-    ranked: eligible.map((r, i) => ({ ...r, rank: i + 1 })),
+    ranked: rated.map((r, i) => ({ ...r, rank: i + 1 })),
     provisional,
   };
 }

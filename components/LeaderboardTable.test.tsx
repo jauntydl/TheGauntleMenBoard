@@ -9,7 +9,7 @@ const row = (over: Partial<BoardRow>): BoardRow => {
     eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
     matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
     assists: 0, revives: 0, timeSec: 3600,
-    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, sniperPct: 20, autoPct: 75, jetPct: 0, rank: 1,
+    winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, sniperPct: 20, autoPct: 75, jetPct: 0, rank: 1,
     ...over,
   };
   // eaId is the roster key and is unique in production; keep fixtures unique too.
@@ -96,14 +96,16 @@ describe('LeaderboardTable', () => {
     expect(screen.getByText(/no players/i)).toBeInTheDocument();
   });
 
-  it('renders the default sort order — Win % descending — regardless of input order', () => {
-    // Deliberately out of Win %  order: low, high, mid.
+  it('renders the default sort order — Rating descending — regardless of input order', () => {
+    // Deliberately out of Rating order: low, high, mid. Win % is set opposite
+    // to Rating so a regression to the old win-rate sort would fail loudly
+    // rather than coincidentally producing the same order.
     render(
       <LeaderboardTable
         rows={[
-          row({ eaId: 'low', displayName: 'Low', winPct: 20 }),
-          row({ eaId: 'high', displayName: 'High', winPct: 90 }),
-          row({ eaId: 'mid', displayName: 'Mid', winPct: 55 }),
+          row({ eaId: 'low', displayName: 'Low', rating: 20, winPct: 90 }),
+          row({ eaId: 'high', displayName: 'High', rating: 90, winPct: 20 }),
+          row({ eaId: 'mid', displayName: 'Mid', rating: 55, winPct: 55 }),
         ]}
       />,
     );
@@ -150,6 +152,7 @@ describe('LeaderboardTable', () => {
       expect(screen.queryByText('DPM')).not.toBeInTheDocument();
       expect(screen.queryByText('KPM')).not.toBeInTheDocument();
       expect(screen.queryByText('Style')).not.toBeInTheDocument();
+      expect(screen.getByText('Rating')).toBeInTheDocument();
       expect(screen.queryByText('Kills')).not.toBeInTheDocument();
       expect(screen.queryByText('K/match')).not.toBeInTheDocument();
       expect(screen.queryByText('HS')).not.toBeInTheDocument();

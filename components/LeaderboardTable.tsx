@@ -166,6 +166,22 @@ export function LeaderboardTable({
         valueGetter: (_v, r) => `${r.wins}–${r.losses}`,
       },
       {
+        field: 'rating',
+        headerName: 'Rating',
+        width: 92,
+        description:
+          'Overall rating out of 100: win rate 40%, objectives 15%, K/D 15%, kills per match 12%, damage per minute 10%, revives per hour 8% — each scored against the rest of the ranked field.',
+        renderCell: (p) =>
+          p.row.rating === null ? (
+            <Box component="span" sx={{ color: 'text.secondary' }}>{DASH}</Box>
+          ) : (
+            <Box component="span" className="tnum" sx={{ fontWeight: 600, color: 'primary.main' }}>
+              {p.row.rating.toFixed(1)}
+            </Box>
+          ),
+        getSortComparator: nullsLastComparator,
+      },
+      {
         field: 'winPct',
         headerName: 'Win %',
         width: 90,
@@ -285,7 +301,7 @@ export function LeaderboardTable({
       // a single page holds every row up to that threshold, and DataGrid's
       // own default page size is not guaranteed to stay 100 forever.
       initialState={{
-        sorting: { sortModel: [{ field: 'winPct', sort: 'desc' }] },
+        sorting: { sortModel: [{ field: 'rating', sort: 'desc' }] },
         pagination: { paginationModel: { pageSize: FOOTER_ROW_THRESHOLD } },
       }}
       sx={{

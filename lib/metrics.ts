@@ -47,6 +47,14 @@ export function computeMetrics(slice: StatSlice): Metrics {
   const minutes = timeSec / 60;
   const hours = timeSec / 3600;
 
+  // Objective plays. Gauntlet eliminates squads on objective points, so this
+  // feeds the rating even though it is not shown as its own column.
+  const objActions =
+    num(slice, 'obj_armed_gm_gntgauntlet') +
+    num(slice, 'obj_defended_gm_gntgauntlet') +
+    num(slice, 'obj_destroyed_gm_gntgauntlet') +
+    num(slice, 'obj_disarmed_gm_gntgauntlet');
+
   // Playstyle, as a share of weapon kills rather than of all kills: melee,
   // grenades, gadgets and vehicles account for the rest, so weapon classes
   // reliably total only 85-93% of a player's kills.
@@ -89,7 +97,10 @@ export function computeMetrics(slice: StatSlice): Metrics {
     killsPerMatch: matches > 0 ? kills / matches : null,
     kpm: minutes > 0 ? kills / minutes : null,
     dpm: minutes > 0 ? damage / minutes : null,
+    objPerMatch: matches > 0 ? objActions / matches : null,
     revivesPerHour: hours > 0 ? revives / hours : null,
+    // Filled in by rateAll once the whole field is known.
+    rating: null,
     sniperPct: weaponMixTrusted ? (precisionKills / weaponKills) * 100 : null,
     autoPct: weaponMixTrusted ? (autoKills / weaponKills) * 100 : null,
     jetPct: timeSec > 0 ? (jetSec / timeSec) * 100 : 0,

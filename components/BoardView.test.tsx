@@ -9,7 +9,7 @@ const row = (over: Partial<BoardRow>): BoardRow => ({
   eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA West', mainMode: 'gauntlet',
   matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
   assists: 0, revives: 0, timeSec: 3600,
-  winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, sniperPct: 20, autoPct: 75, jetPct: 0, rank: 1,
+  winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, sniperPct: 20, autoPct: 75, jetPct: 0, rank: 1,
   ...over,
 });
 
@@ -52,7 +52,7 @@ describe('BoardView', () => {
     render(<BoardView board={board} />);
     // The rule has to be visible where the ranking is, not only inside the
     // Provisional section, which a reader may never scroll to.
-    expect(screen.getByText(/ranked by win rate/i)).toBeInTheDocument();
+    expect(screen.getByText(/ranked by overall rating/i)).toBeInTheDocument();
     expect(screen.getByText(new RegExp(`minimum ${MIN_MATCHES} matches`, 'i'))).toBeInTheDocument();
   });
 

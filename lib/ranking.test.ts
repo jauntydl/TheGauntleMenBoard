@@ -7,7 +7,7 @@ const row = (over: Partial<BoardRow>): BoardRow => ({
   eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA', mainMode: 'gauntlet',
   matches: 50, wins: 25, losses: 25, kills: 100, headshots: 25, deaths: 50, damage: 1000,
   assists: 0, revives: 0, timeSec: 6000,
-  winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, revivesPerHour: 3, sniperPct: 20, autoPct: 75, jetPct: 0, rank: null,
+  winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, sniperPct: 20, autoPct: 75, jetPct: 0, rank: null,
   ...over,
 });
 
@@ -44,13 +44,37 @@ describe('rankPlayers', () => {
     expect(provisional[0].rank).toBeNull();
   });
 
-  it('breaks win-percent ties by matches, then K/D', () => {
+  it('orders the ranked board by rating, not win rate alone', () => {
+    // Identical win rates, so the order has to come from the other weighted
+    // metrics — here K/D. Under the old win-rate-only rule these three were
+    // interchangeable and fell back to match count.
     const { ranked } = rankPlayers([
-      row({ eaId: 'fewer', winPct: 50, matches: 40, kd: 3 }),
-      row({ eaId: 'more', winPct: 50, matches: 80, kd: 1 }),
-      row({ eaId: 'tiebreak', winPct: 50, matches: 40, kd: 5 }),
+      row({ eaId: 'middling', winPct: 50, matches: 40, kd: 3 }),
+      row({ eaId: 'weakest', winPct: 50, matches: 80, kd: 1 }),
+      row({ eaId: 'strongest', winPct: 50, matches: 40, kd: 5 }),
     ]);
-    expect(ranked.map((r) => r.eaId)).toEqual(['more', 'tiebreak', 'fewer']);
+    expect(ranked.map((r) => r.eaId)).toEqual(['strongest', 'middling', 'weakest']);
+    expect(ranked[0].rating).toBeGreaterThan(ranked[2].rating!);
+  });
+
+  it('lets win rate outweigh a better K/D, since winning is the goal', () => {
+    // Win rate carries 40% of the rating and K/D 15%, so a clearly better win
+    // rate must beat a clearly better K/D.
+    const { ranked } = rankPlayers([
+      row({ eaId: 'fragger', winPct: 40, kd: 9 }),
+      row({ eaId: 'winner', winPct: 90, kd: 1 }),
+    ]);
+    expect(ranked[0].eaId).toBe('winner');
+  });
+
+  it('orders provisional players by win rate, as they have no rating', () => {
+    // Rating is a percentile against the ranked field, which they are not in.
+    const { provisional } = rankPlayers([
+      row({ eaId: 'low', winPct: 40, matches: 5 }),
+      row({ eaId: 'high', winPct: 80, matches: 5 }),
+    ]);
+    expect(provisional.map((r) => r.eaId)).toEqual(['high', 'low']);
+    expect(provisional[0].rating).toBeNull();
   });
 
   it('sorts null win percent last', () => {
