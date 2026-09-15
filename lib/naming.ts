@@ -14,6 +14,13 @@
  * ID (or contains it) once punctuation and case are stripped is the same
  * identity, and is the one people see.
  *
+ * EA lists Steam and Xbox personas but never a PlayStation one — verified
+ * against every member of this roster, 19 of whom play on PlayStation and
+ * none of whom return a ps persona. So `platform` here means "the platform
+ * this name came from", never "the platform they play on": a PlayStation
+ * player is indistinguishable from a PC one, which is why the board shows no
+ * platform beside the name.
+ *
  * A persona that looks nothing like the EA ID is a different identity on a
  * platform they may not even play Battlefield on — SPETZNAZ_HALO also owns
  * "Walmart" on Steam and "Hawkster0828" on Xbox. Guessing between those would

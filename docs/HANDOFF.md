@@ -108,6 +108,13 @@ matches exactly, so it's probably just modesty — but you'd know.
 
 ## Hard-won API facts
 
+- **EA exposes Steam and Xbox personas, never PlayStation.** `/bf6/player/?nucleus_id=`
+  lists one persona per linked platform, and across all 108 members not one
+  `ps*` entry comes back — including the 19 who say PlayStation in their
+  intros. A platform tag on the board therefore labelled every PlayStation
+  player "EA", so it was removed. If EA ever starts returning them, the data
+  is already cached as `inGamePlatform` on each roster entry.
+
 Full detail in the spec. The ones that cost real time to discover:
 
 - **Gauntlet is `GraniteGauntlet0`.** Season 4's "Gauntlet: Fighter Sweep"

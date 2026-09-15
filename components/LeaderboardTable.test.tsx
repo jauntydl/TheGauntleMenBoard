@@ -120,15 +120,6 @@ describe('LeaderboardTable', () => {
     expect(screen.getByLabelText('TTVLezWin on EA · Lez in Discord')).toBeInTheDocument();
   });
 
-  it('tags which platform the name comes from', () => {
-    render(<LeaderboardTable rows={[row({ eaId: 'a', inGameName: 'A', inGamePlatform: 'steam' })]} />);
-    expect(screen.getByText('Steam')).toBeInTheDocument();
-  });
-
-  it('tags an EA account too, rather than leaving the column ragged', () => {
-    render(<LeaderboardTable rows={[row({ eaId: 'b', inGamePlatform: 'ea' })]} />);
-    expect(screen.getByText('EA')).toBeInTheDocument();
-  });
 
   it('falls back to the EA ID when no persona was resolved', () => {
     render(<LeaderboardTable rows={[row({ eaId: 'CyclonicNinja', displayName: 'CyclonicNinja' })]} />);

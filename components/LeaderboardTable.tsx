@@ -8,7 +8,6 @@ import Typography from '@mui/material/Typography';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import type { BoardRow } from '@/lib/types';
 import { JET_BADGE_THRESHOLD } from '@/lib/metrics';
-import { PlatformTag } from './PlatformTag';
 import type { StandoutTrait } from '@/lib/rating';
 
 const DASH = '—';
@@ -236,7 +235,6 @@ export function LeaderboardTable({
           return (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.6, minWidth: 0, height: '100%' }}>
               {also.length > 0 ? <Tooltip title={also.join(' · ')}>{name}</Tooltip> : name}
-              <PlatformTag platform={p.row.inGamePlatform} />
             </Box>
           );
         },
