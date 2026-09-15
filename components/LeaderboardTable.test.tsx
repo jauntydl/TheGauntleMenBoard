@@ -13,8 +13,10 @@ const row = (over: Partial<BoardRow>): BoardRow => {
     winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, standouts: [], sniperPct: 20, autoPct: 75, sniperKills: 20, autoKills: 75, sniperPerMatch: 1, autoPerMatch: 3.75, jetPct: 0, rank: 1,
     ...over,
   };
-  // eaId is the roster key and is unique in production; keep fixtures unique too.
-  return over.eaId ? base : { ...base, eaId: base.displayName };
+  // eaId is the roster key, is unique in production, and is what the Player
+  // column shows. Keep the two names in step unless a test sets both.
+  if (over.eaId && over.displayName) return base;
+  return over.eaId ? { ...base, displayName: base.eaId } : { ...base, eaId: base.displayName };
 };
 
 describe('formatters', () => {
@@ -106,6 +108,17 @@ describe('LeaderboardTable', () => {
     expect(screen.queryByLabelText(/flown in jets/)).not.toBeInTheDocument();
   });
 
+  it('shows the in-game id, not the name someone introduced themselves by', () => {
+    // Thirteen members posted a Discord handle that is not their EA ID. The
+    // board has to match the in-game scoreboard, or you cannot tell who you
+    // just played against.
+    render(<LeaderboardTable rows={[row({ eaId: 'SPETZNAZ_HALO', displayName: 'Conqueror' })]} />);
+    expect(screen.getByText('SPETZNAZ_HALO')).toBeInTheDocument();
+    expect(screen.queryByText('Conqueror')).not.toBeInTheDocument();
+    // The Discord handle survives in the tooltip rather than being dropped.
+    expect(screen.getByLabelText('Conqueror in Discord')).toBeInTheDocument();
+  });
+
   it('renders an em dash for null rate stats', () => {
     render(<LeaderboardTable rows={[row({ displayName: 'Empty', kd: null, kpm: null })]} />);
     // kd and kpm are null in this fixture, and the default row earns no
@@ -162,9 +175,9 @@ describe('LeaderboardTable', () => {
     render(
       <LeaderboardTable
         rows={[
-          row({ eaId: 'low', displayName: 'Low', rating: 20, winPct: 90 }),
-          row({ eaId: 'high', displayName: 'High', rating: 90, winPct: 20 }),
-          row({ eaId: 'mid', displayName: 'Mid', rating: 55, winPct: 55 }),
+          row({ eaId: 'Low', rating: 20, winPct: 90 }),
+          row({ eaId: 'High', rating: 90, winPct: 20 }),
+          row({ eaId: 'Mid', rating: 55, winPct: 55 }),
         ]}
       />,
     );

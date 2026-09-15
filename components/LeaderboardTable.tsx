@@ -51,7 +51,7 @@ const nullsLastComparator =
  * counts line up on their last digit ranged right.
  */
 const COLUMN_ALIGN: Record<string, 'left' | 'right' | 'center'> = {
-  displayName: 'left',
+  eaId: 'left',
   sniperPct: 'left',
   kills: 'right',
   headshots: 'right',
@@ -196,18 +196,27 @@ export function LeaderboardTable({
         getSortComparator: nullsLastComparator,
       },
       {
-        field: 'displayName',
+        field: 'eaId',
         headerName: 'Player',
         flex: 1,
         minWidth: isNarrow ? 104 : 140,
-        renderCell: (p) => (
-          <Box
-            component="span"
-            sx={{ fontWeight: 500, letterSpacing: '0.01em', color: 'text.primary' }}
-          >
-            {p.row.displayName}
-          </Box>
-        ),
+        description: 'In-game name. Hover a row to see the name they go by in Discord, where it differs.',
+        renderCell: (p) => {
+          // The EA ID, because that is the name on the scoreboard in game —
+          // the one you can match to the person you just played against.
+          // Thirteen members introduced themselves under a different Discord
+          // handle, which survives in the tooltip rather than being lost.
+          const alias = p.row.displayName !== p.row.eaId ? p.row.displayName : null;
+          const name = (
+            <Box
+              component="span"
+              sx={{ fontWeight: 500, letterSpacing: '0.01em', color: 'text.primary' }}
+            >
+              {p.row.eaId}
+            </Box>
+          );
+          return alias ? <Tooltip title={`${alias} in Discord`}>{name}</Tooltip> : name;
+        },
       },
       {
         field: 'rating',

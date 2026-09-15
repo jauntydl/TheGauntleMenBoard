@@ -24,7 +24,7 @@ const body = Archivo({
 });
 
 export const metadata: Metadata = {
-  title: 'GauntleMen League',
+  title: 'The GauntleMen League',
   description: 'Battlefield 6 Gauntlet standings',
 };
 

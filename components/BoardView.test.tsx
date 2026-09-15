@@ -6,20 +6,22 @@ import type { BoardFile, BoardRow } from '@/lib/types';
 import { MIN_MATCHES } from '@/lib/ranking';
 
 const row = (over: Partial<BoardRow>): BoardRow => ({
-  eaId: 'x', displayName: 'X', platform: 'pc', region: 'NA West', mainMode: 'gauntlet',
+  eaId: 'x', platform: 'pc', region: 'NA West', mainMode: 'gauntlet',
   matches: 20, wins: 10, losses: 10, kills: 100, headshots: 25, deaths: 50, damage: 1000,
   assists: 0, revives: 0, timeSec: 3600,
   winPct: 50, kd: 2, killsPerMatch: 5, kpm: 1, dpm: 10, objPerMatch: 1.5, revivesPerHour: 3, rating: 50, standouts: [], sniperPct: 20, autoPct: 75, sniperKills: 20, autoKills: 75, sniperPerMatch: 1, autoPerMatch: 3.75, jetPct: 0, rank: 1,
   ...over,
+  // The Player column shows the in-game id, so fixtures are named by it.
+  displayName: over.displayName ?? over.eaId ?? 'X',
 });
 
 const board: BoardFile = {
   meta: { currentSeason: 'Season4', seasons: ['Season3', 'Season4'], builtAt: '2026-09-12T00:00:00.000Z' },
   seasons: {
-    Season4: [row({ eaId: 'now', displayName: 'Current' })],
-    Season3: [row({ eaId: 'old', displayName: 'Archived' })],
+    Season4: [row({ eaId: 'Current' })],
+    Season3: [row({ eaId: 'Archived' })],
   },
-  provisional: { Season4: [row({ eaId: 'rk', displayName: 'Rookie', matches: 3, rank: null })], Season3: [] },
+  provisional: { Season4: [row({ eaId: 'Rookie', matches: 3, rank: null })], Season3: [] },
   unresolved: [],
 };
 
