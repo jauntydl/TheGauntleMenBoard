@@ -1,0 +1,124 @@
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Typography from '@mui/material/Typography';
+import { RATING_WEIGHTS, type RatedMetric } from '@/lib/rating';
+import { MIN_MATCHES } from '@/lib/ranking';
+
+/**
+ * Read from RATING_WEIGHTS rather than repeating the numbers in prose, so the
+ * page cannot quietly disagree with the code after someone retunes a weight.
+ */
+const REASONS: Record<RatedMetric, { label: string; why: string }> = {
+  winPct: { label: 'Win rate', why: 'Last squad standing is the whole point of the mode.' },
+  objPerMatch: {
+    label: 'Objectives per match',
+    why: 'Gauntlet knocks squads out on objective points, not kills.',
+  },
+  kd: { label: 'Kills / deaths', why: 'Staying alive matters when dying ends your squad’s round.' },
+  killsPerMatch: {
+    label: 'Kills per match',
+    why: 'What you contributed per game, so playing more cannot inflate it.',
+  },
+  dpm: { label: 'Damage per minute', why: 'Damage that sets up a teammate’s kill still counts.' },
+  revivesPerHour: {
+    label: 'Revives per hour',
+    why: 'Picking people up keeps a squad in the bracket.',
+  },
+};
+
+export function RatingExplainer() {
+  const rows = (Object.keys(RATING_WEIGHTS) as RatedMetric[]).sort(
+    (a, b) => RATING_WEIGHTS[b] - RATING_WEIGHTS[a],
+  );
+
+  return (
+    <Container maxWidth="sm" sx={{ py: { xs: 2, sm: 4 }, px: { xs: 2, sm: 3 } }}>
+      <Typography variant="h4" component="h1" gutterBottom>
+        How the rating works
+      </Typography>
+
+      <Typography sx={{ mb: 2 }}>
+        Every ranked player gets a score out of 100. It blends six things, because
+        winning alone does not say whether you carried your squad or were carried
+        by it.
+      </Typography>
+
+      <Table size="small" sx={{ mb: 3 }}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Counts for</TableCell>
+            <TableCell>What</TableCell>
+            <TableCell>Why</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((m) => (
+            <TableRow key={m}>
+              <TableCell className="tnum" sx={{ whiteSpace: 'nowrap', color: 'primary.main' }}>
+                {Math.round(RATING_WEIGHTS[m] * 100)}%
+              </TableCell>
+              <TableCell sx={{ whiteSpace: 'nowrap' }}>{REASONS[m].label}</TableCell>
+              <TableCell sx={{ color: 'text.secondary' }}>{REASONS[m].why}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+
+      <Typography variant="h6" component="h2" gutterBottom>
+        You are scored against the field, not against a target
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        For each of the six, we work out where you sit among everyone else ranked
+        this season. Top of the field on a stat is worth 100, bottom is worth 0,
+        middle is 50. Those six positions are then blended using the weights above.
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        Two consequences worth knowing. A 3.0 K/D and 420 damage per minute cannot
+        be added together directly, and any formula that tried would need arbitrary
+        numbers invented to make them comparable — comparing positions avoids that
+        entirely. But it also means <strong>your rating can move when other people
+        play</strong>, even on a day you do not. You are ranked against the field,
+        so the field shifting moves you.
+      </Typography>
+
+      <Typography variant="h6" component="h2" gutterBottom>
+        You need {MIN_MATCHES} matches
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        Below that you appear under Provisional with no rating. A short run of good
+        luck should not outrank someone with several hundred matches, and comparing
+        you against a field you are not in would not mean anything.
+      </Typography>
+
+      <Typography variant="h6" component="h2" gutterBottom>
+        What is deliberately not in it
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        <strong>Headshot rate</strong> mostly measures which gun you hold. Snipers
+        and DMRs are headshot-or-nothing, so a sniper main posts a high rate by
+        playing normally. It is shown as the Style column instead, where it belongs.
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        <strong>Total kills and total score</strong> reward whoever plays the most
+        hours. Every part of the rating is a rate for that reason.
+      </Typography>
+      <Typography sx={{ mb: 2 }}>
+        <strong>Finishing position</strong> would be the best input there is — in a
+        knockout mode, placing second every time beats alternating first and last.
+        The game does report placement figures, but they do not add up: one player
+        shows more top-ten finishes than matches played. Rather than rank everyone
+        on numbers that cannot be explained, they are left out until they can be.
+      </Typography>
+
+      <Box sx={{ mt: 4 }}>
+        <Link href="/">← Back to the board</Link>
+      </Box>
+    </Container>
+  );
+}

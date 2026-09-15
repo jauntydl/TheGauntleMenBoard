@@ -56,6 +56,14 @@ describe('BoardView', () => {
     expect(screen.getByText(new RegExp(`minimum ${MIN_MATCHES} matches`, 'i'))).toBeInTheDocument();
   });
 
+  it('links to the rating explanation', () => {
+    render(<BoardView board={board} />);
+    // A column tooltip is invisible on a phone, which is where most people
+    // open this — the explanation needs a reachable page.
+    expect(screen.getAllByRole('link', { name: /how (the rating works|that works)/i })[0])
+      .toHaveAttribute('href', '/rating');
+  });
+
   it('links to the not-listed page', () => {
     render(<BoardView board={board} />);
     expect(screen.getByRole('link', { name: /not listed/i })).toHaveAttribute('href', '/not-listed');

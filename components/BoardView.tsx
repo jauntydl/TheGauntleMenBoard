@@ -79,7 +79,8 @@ export function BoardView({ board }: { board: BoardFile }) {
       <Typography variant="body2" sx={{ color: 'text.secondary', mb: 1 }}>
         Ranked by overall rating, minimum {MIN_MATCHES} matches this season. Rating
         blends win rate, objectives, K/D, kills, damage and revives, each scored
-        against the rest of the field. Fewer matches and you appear under Provisional.
+        against the rest of the field — <Link href="/rating">how that works</Link>.
+        Fewer matches and you appear under Provisional.
       </Typography>
 
       <LeaderboardTable rows={ranked} />
@@ -96,7 +97,8 @@ export function BoardView({ board }: { board: BoardFile }) {
         </Box>
       )}
 
-      <Box sx={{ mt: 4 }}>
+      <Box sx={{ mt: 4, display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+        <Link href="/rating">How the rating works</Link>
         <Link href="/not-listed">Not listed? Here&apos;s why</Link>
       </Box>
     </Container>
