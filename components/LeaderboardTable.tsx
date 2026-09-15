@@ -94,6 +94,7 @@ const TRAIT_BADGES: Record<StandoutTrait, { icon: React.ReactNode; detail: (r: B
   winPct: { icon: '🏆', detail: (r) => `win rate — ${r.winPct?.toFixed(1)}%` },
   kd: { icon: '🛡️', detail: (r) => `K/D — ${r.kd?.toFixed(2)}` },
   killsPerMatch: { icon: '💀', detail: (r) => `kills — ${r.killsPerMatch?.toFixed(1)} per match` },
+  spm: { icon: '⭐', detail: (r) => `score — ${fmtInt(Math.round(r.spm ?? 0))} per minute` },
   revivesPerHour: {
     icon: <MedicCross />,
     detail: (r) => `revives — ${r.revivesPerHour?.toFixed(1)} per hour`,
@@ -354,6 +355,14 @@ export function LeaderboardTable({
         getSortComparator: nullsLastComparator,
       },
       {
+        field: 'spm',
+        headerName: 'SPM',
+        width: 84,
+        description: 'Score per minute',
+        renderCell: (p) => fmtNum(p.row.spm, 0),
+        getSortComparator: nullsLastComparator,
+      },
+      {
         field: 'revivesPerHour',
         headerName: 'Rev/h',
         width: 84,
@@ -392,6 +401,7 @@ export function LeaderboardTable({
       headshots: !isMedium,
       kpm: !isMedium,
       dpm: !isMedium,
+      spm: !isMedium,
       revivesPerHour: !isMedium,
       timeSec: !isMedium,
     }),

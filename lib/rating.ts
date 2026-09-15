@@ -3,17 +3,26 @@ import type { BoardRow } from './types';
 /**
  * How much each metric contributes to the overall rating.
  *
- * Winning is half the rating because it is the actual goal; the three ways a
- * player contributes to it — staying alive, killing, and picking teammates
- * back up — carry equal weight, and damage is a tenth of any of them because
- * it is already counted once inside the kills it sets up.
+ * Winning is half the rating because it is the actual goal. The other half
+ * splits across the ways a player earns it. Three carry equal weight: staying
+ * alive (K/D), killing at a rate a long match cannot inflate (kills per
+ * minute), and score per minute, which is the only counter that picks up the
+ * objective play, spotting and support work no other field here sees.
+ * Reviving is just under them. Damage stays a token weight because it is
+ * already counted once inside the kills it sets up.
+ *
+ * Kills per minute rather than kills per match: every other rate in the
+ * rating is per unit of time, and a Gauntlet match has no fixed length, so
+ * per-match rewards whoever survives into long rounds — which win rate
+ * already measures. Kills per match keeps its badge; see STANDOUT_TRAITS.
  */
 export const RATING_WEIGHTS = {
   winPct: 0.5,
-  kd: 0.15,
-  killsPerMatch: 0.15,
-  revivesPerHour: 0.15,
-  dpm: 0.05,
+  kd: 0.12,
+  kpm: 0.12,
+  spm: 0.12,
+  revivesPerHour: 0.1,
+  dpm: 0.04,
 } as const;
 
 export type RatedMetric = keyof typeof RATING_WEIGHTS;
@@ -21,17 +30,23 @@ export type RatedMetric = keyof typeof RATING_WEIGHTS;
 /**
  * Traits that can earn a badge.
  *
- * The first four are rated metrics — damage and objectives feed the rating but
- * earn no badge, so nobody is decorated for something the board does not show
- * them. The last two are weapon kills per match, which say nothing about how
- * good a player is but a lot about how they play. Kills rather than share,
- * because a share only says what someone carried; per match rather than a
- * season total, because a total mostly says who played the most.
+ * Every one of these is a column on the board, so nobody is decorated for
+ * something they cannot go and look up — damage and objectives feed the
+ * rating but earn no badge for that reason. The set is not the rated set:
+ * kills per match keeps its badge although the rating scores kills per minute
+ * instead, because both are on the board and "most kills in a round" is what
+ * people actually recognise in each other.
+ *
+ * The last two are weapon kills per match, which say nothing about how good a
+ * player is but a lot about how they play. Kills rather than share, because a
+ * share only says what someone carried; per match rather than a season total,
+ * because a total mostly says who played the most.
  */
 export const STANDOUT_TRAITS = [
   'winPct',
   'kd',
   'killsPerMatch',
+  'spm',
   'revivesPerHour',
   'sniperPerMatch',
   'autoPerMatch',

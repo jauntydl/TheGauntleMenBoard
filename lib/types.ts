@@ -55,6 +55,9 @@ export type Metrics = {
   damage: number;
   assists: number;
   revives: number;
+  /** Season score in Gauntlet. From scorein_gm_gntgauntlet — see computeMetrics
+   *  for why score_total and scorein_gm_all cannot be used. */
+  score: number;
   timeSec: number;
   /** null when the denominator is zero; the UI renders these as an em dash. */
   winPct: number | null;
@@ -63,6 +66,9 @@ export type Metrics = {
   killsPerMatch: number | null;
   kpm: number | null;
   dpm: number | null;
+  /** Score per minute. Null when the per-mode score counter is absent, which
+   *  is every season before Season 3. */
+  spm: number | null;
   /** Per hour, not per minute: revives are rare enough that a per-minute rate
    *  reads as 0.0x for everyone. */
   /** Objective plays per match: armed + defended + destroyed + disarmed.

@@ -20,6 +20,7 @@ export const rawSample: RawResponse = {
             { name: 'losses_gm_gntgauntlet', value: 21, fields: dim('GraniteGauntlet0', 'Season4') },
             { name: 'deaths_gm_gntgauntlet', value: 406, fields: dim('GraniteGauntlet0', 'Season4') },
             { name: 'tp_gm_gntgauntlet', value: 54973, fields: dim('GraniteGauntlet0', 'Season4') },
+            { name: 'scorein_gm_gntgauntlet', value: 700000, fields: dim('GraniteGauntlet0', 'Season4') },
             { name: 'Kills_Total', value: 1162, fields: dim('GraniteGauntlet0', 'Season4') },
             { name: 'Dmg_Dealt_Total', value: 385901, fields: dim('GraniteGauntlet0', 'Season4') },
             { name: 'Assist_Total', value: 278, fields: dim('GraniteGauntlet0', 'Season4') },

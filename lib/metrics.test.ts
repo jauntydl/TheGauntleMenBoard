@@ -33,6 +33,19 @@ const chaseSlice: StatSlice = {
   revives_gm_gntgauntlet: 115,
 };
 
+// Real Season 4 Gauntlet data for EA ID "CHASEXRYAN", read 2026-09-15 — a
+// later snapshot than chaseSlice. This is the slice the score field was
+// verified against: Seasons 1-4 sum to exactly the lifetime figure.
+const scoreSlice: StatSlice = {
+  matches_gm_gntgauntlet: 53,
+  wins_gm_gntgauntlet: 40,
+  losses_gm_gntgauntlet: 13,
+  deaths_gm_gntgauntlet: 375,
+  tp_gm_gntgauntlet: 76182,
+  kills_gm_gntgauntlet: 1026,
+  scorein_gm_gntgauntlet: 979385,
+};
+
 describe('computeMetrics', () => {
   it('computes rate stats for a jet-heavy player', () => {
     const m = computeMetrics(darkSlice);
@@ -158,6 +171,38 @@ describe('computeMetrics', () => {
 
   it('returns null kills per match when there are no matches', () => {
     expect(computeMetrics({ kills_gm_gntgauntlet: 9 }).killsPerMatch).toBeNull();
+  });
+
+  it('rates score per minute from the mode counter', () => {
+    // 979,385 score over 76,182s (1269.7 min).
+    const m = computeMetrics(scoreSlice);
+    expect(m.score).toBe(979385);
+    expect(m.spm).toBeCloseTo(979385 / (76182 / 60), 6);
+  });
+
+  it('reads score from the mode counter, not the rollups beside it', () => {
+    // Constructed. In a real Gauntlet slice these four agree, which is exactly
+    // what makes the unsuffixed names look safe. They do not agree everywhere:
+    // a GraniteSquad Season 4 slice carries scorein_gm_all = 913,285 against a
+    // true score_total of 135,440. Only the suffixed field names the mode.
+    const m = computeMetrics({
+      ...scoreSlice,
+      score_total: 5_000_000,
+      scorein_gm_all: 6_000_000,
+      scorein_gm_granite: 7_000_000,
+      scorein_gm_official: 8_000_000,
+    });
+    expect(m.score).toBe(979385);
+    expect(m.spm).toBeCloseTo(979385 / (76182 / 60), 6);
+  });
+
+  it('reports no score per minute when the counter is absent', () => {
+    // Per-mode score starts at Season 3, like every other mode counter. A
+    // fabricated zero would sit that player at the bottom of the SPM
+    // percentile; a null is dropped and the other weights renormalise.
+    const m = computeMetrics(chaseSlice);
+    expect(m.score).toBe(0);
+    expect(m.spm).toBeNull();
   });
 
   it('reports the weapon mix as a share of weapon kills', () => {

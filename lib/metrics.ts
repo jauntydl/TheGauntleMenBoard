@@ -41,6 +41,14 @@ export function computeMetrics(slice: StatSlice): Metrics {
   const revives = num(slice, 'revives_gm_gntgauntlet');
   const timeSec = num(slice, 'tp_gm_gntgauntlet');
 
+  // Score carries the same rollup hazard as Kills_Total, and the same fix:
+  // only the mode-suffixed field is safe. Verified against the lifetime
+  // total — this player's Seasons 1-4 sum to exactly the global
+  // scorein_gm_gntgauntlet of 11,371,030. The alternatives do not survive
+  // the same check: one GraniteSquad slice reads scorein_gm_all = 913,285
+  // against a true score_total of 135,440 for that mode.
+  const score = num(slice, 'scorein_gm_gntgauntlet');
+
   // Parent category only — it already contains fa18f / f14tomcat / su57.
   const jetSec = num(slice, 'tp_veh_air_jets');
 
@@ -91,12 +99,18 @@ export function computeMetrics(slice: StatSlice): Metrics {
     damage,
     assists,
     revives,
+    score,
     timeSec,
     winPct: matches > 0 ? (wins / matches) * 100 : null,
     kd,
     killsPerMatch: matches > 0 ? kills / matches : null,
     kpm: minutes > 0 ? kills / minutes : null,
     dpm: minutes > 0 ? damage / minutes : null,
+    // Null rather than 0 when the counter is absent. Per-mode score starts at
+    // Season 3 like every other mode counter, and a fabricated zero would sit
+    // that player at the bottom of the SPM percentile; a null is dropped and
+    // the remaining rating weights renormalise instead.
+    spm: minutes > 0 && score > 0 ? score / minutes : null,
     objPerMatch: matches > 0 ? objActions / matches : null,
     revivesPerHour: hours > 0 ? revives / hours : null,
     // Both filled in by rateAll once the whole field is known.
