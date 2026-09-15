@@ -974,5 +974,15 @@
     "personaId": "886090184",
     "nucleusId": "1000085941504",
     "source": "imported"
+  },
+  {
+    "eaId": "VanzzGG",
+    "displayName": "VanzzGG",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1005150439412",
+    "nucleusId": "1010108639412",
+    "source": "selfserve"
   }
 ]
