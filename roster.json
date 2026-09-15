@@ -1310,5 +1310,17 @@
     "source": "selfserve",
     "inGameName": "HoRR1DDD",
     "inGamePlatform": "ea"
+  },
+  {
+    "eaId": "TcbR00K",
+    "displayName": "TcbR00K",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1798091517",
+    "nucleusId": "2308609249",
+    "source": "selfserve",
+    "inGameName": "TCB R00K",
+    "inGamePlatform": "xboxone"
   }
 ]
