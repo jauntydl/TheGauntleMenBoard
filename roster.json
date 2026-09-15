@@ -1322,5 +1322,17 @@
     "source": "selfserve",
     "inGameName": "TCB R00K",
     "inGamePlatform": "xboxone"
+  },
+  {
+    "eaId": "Ericchen09",
+    "displayName": "Ericchen09",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1005485697277",
+    "nucleusId": "1010835897277",
+    "source": "selfserve",
+    "inGameName": "Ericchen0912",
+    "inGamePlatform": "xboxone"
   }
 ]
