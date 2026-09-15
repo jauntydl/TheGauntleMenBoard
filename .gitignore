@@ -3,3 +3,8 @@ node_modules/
 .superpowers/
 .next/
 tsconfig.tsbuildinfo
+
+# Local secrets. .env.example documents the shape; the real one never ships.
+.env
+.env.local
+.env*.local

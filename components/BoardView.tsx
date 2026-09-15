@@ -98,6 +98,7 @@ export function BoardView({ board }: { board: BoardFile }) {
       )}
 
       <Box sx={{ mt: 4, display: 'flex', gap: 3, flexWrap: 'wrap' }}>
+        <Link href="/join">Add yourself to the board</Link>
         <Link href="/rating">How the rating works</Link>
         <Link href="/not-listed">Not listed? Here&apos;s why</Link>
       </Box>

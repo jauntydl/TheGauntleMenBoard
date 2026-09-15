@@ -43,7 +43,21 @@ It currently renders real members:
 ### 1. Deploy to Vercel
 The code is on GitHub; nothing is deployed yet. Import the repo at
 [vercel.com/new](https://vercel.com/new) and accept the detected Next.js
-defaults — no env vars, no secrets, nothing to configure.
+defaults.
+
+**Then set two environment variables**, or self-serve signups stay switched
+off (`POST /api/join` answers 503 "not configured"; everything else works):
+
+| Variable | Value |
+|---|---|
+| `GITHUB_REPO` | `owner/repo` — the repo this deploys from |
+| `GITHUB_TOKEN` | a fine-grained PAT, **this repo only**, Repository permissions → Contents: Read and write, nothing else |
+
+Create the token at
+[github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens).
+`.env.example` has the same list for local development. Keep the scope
+narrow: a signup commits to `main`, so anything wider than Contents on one
+repo hands a public form more reach than it needs.
 
 **Check this first:** GitHub → Settings → Actions → General → Workflow
 permissions must be **Read and write**. The daily job commits refreshed data
@@ -158,6 +172,18 @@ unofficial. Daily cadence only. Consider
   leaves `data/` untouched when nothing changed, so a quiet day produces no commit
   and no redeploy. Season keys are naturally sorted (`Season2` before `Season10`)
   because `JSON.stringify` comparison is key-order sensitive.
+- **Self-serve signup writes by committing.** `/join` → `POST /api/join` →
+  `lib/join.ts`. The route resolves the EA ID, fetches that one player's
+  stats, merges the row into `data/board.json`, re-ranks every season through
+  the same `rankPlayers` the build uses, and commits roster + board + season
+  files as **one** commit via `lib/github.ts`. Vercel redeploys on the push,
+  so the player is live in about a minute. There is still no database: git is
+  the store, and a bad signup is a revert.
+- **The join route re-reads from GitHub, never from its own bundle.**
+  `lib/data.ts` holds a build-time snapshot; two signups a minute apart would
+  both write on top of it and the second would erase the first. It also means
+  a signup can race the daily build — hence `RefMovedError`, three attempts,
+  and `force: false` on the ref update. Never force-push that ref.
 - **`vitest.setup.ts` polyfills are load-bearing.** MUI X DataGrid virtualises
   rows; jsdom reports every element as 0×0 and has no `ResizeObserver` or
   `matchMedia`. Remove them and every table test fails to find elements.

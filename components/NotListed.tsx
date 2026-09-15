@@ -18,6 +18,12 @@ export function NotListed({ entries }: { entries: UnresolvedEntry[] }) {
       </Typography>
 
       <Typography sx={{ mb: 2 }}>
+        If you have never been added, you can{' '}
+        <Link href="/join">add yourself in about a minute</Link>. If you are on the
+        roster but show no stats, read on.
+      </Typography>
+
+      <Typography sx={{ mb: 2 }}>
         Battlefield 6 only shares your stats if you allow it. If your in-game privacy
         is not set to <strong>Everyone</strong>, nothing can read your Gauntlet stats —
         not this board, not any tracker.

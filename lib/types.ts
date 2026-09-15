@@ -18,13 +18,15 @@ export type RosterEntry = {
   mainMode: MainMode;
   /**
    * Where this member came from. 'community' means they posted in
-   * #introductions and can be reached; 'imported' means they were pulled from
-   * an external leaderboard and have no idea this board exists. Only community
-   * members appear on the "Why am I not listed?" page — telling a stranger to
-   * change their privacy settings is advice they will never read, and it
-   * buries the members who can act on it. Absent means community.
+   * #introductions and can be reached; 'selfserve' means they added
+   * themselves through /join, so they are reachable by definition;
+   * 'imported' means they were pulled from an external leaderboard and have
+   * no idea this board exists. Only reachable members appear on the "Why am I
+   * not listed?" page — telling a stranger to change their privacy settings is
+   * advice they will never read, and it buries the members who can act on it.
+   * Absent means community.
    */
-  source?: 'community' | 'imported';
+  source?: 'community' | 'selfserve' | 'imported';
   /** Cached by the build. The only fields the build may write back. */
   personaId?: string;
   nucleusId?: string;
