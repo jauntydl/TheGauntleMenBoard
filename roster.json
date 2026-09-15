@@ -1334,5 +1334,15 @@
     "source": "selfserve",
     "inGameName": "Ericchen0912",
     "inGamePlatform": "xboxone"
+  },
+  {
+    "eaId": "Kathemkh7",
+    "displayName": "Kathemkh7",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1009200745791",
+    "nucleusId": "1019170945791",
+    "source": "selfserve"
   }
 ]
