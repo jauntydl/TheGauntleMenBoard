@@ -1004,5 +1004,15 @@
     "personaId": "1005543577746",
     "nucleusId": "1011276177746",
     "source": "selfserve"
+  },
+  {
+    "eaId": "ZIKU333",
+    "displayName": "ZIKU333",
+    "platform": "pc",
+    "region": "unknown",
+    "mainMode": "gauntlet",
+    "personaId": "1006610954557",
+    "nucleusId": "1014090554557",
+    "source": "selfserve"
   }
 ]
